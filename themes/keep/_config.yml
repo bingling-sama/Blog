@@ -6,7 +6,7 @@ base_info:
   author: bingling_sama
   url: https://blog.booling.cn/
   # Logo image (You can use local image, image external link or don’t fill)
-  logo_img:
+  logo_img: https://cdn.jsdelivr.net/gh/bingling-sama/Resources@latest/img/favicon.ico
 
 # ---------------------------------------------------------------------------------------
 # Theme style settings
@@ -38,8 +38,8 @@ style:
   # First screen
   first_screen:
     enable: true
-    background_img: /images/bg.svg # You can use local image or image external link
-    description: Keep writing and Keep loving.
+    background_img: https://source.unsplash.com/random/1280x640 # You can use local image or image external link
+    description: Love coding, also love her.
 
   # Scroll style settings
   scroll:
