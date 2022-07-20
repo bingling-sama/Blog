@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "source/_posts/frontend/Use Vue Component In Hexo Theme.md",
+            "file": "source/_posts/frontend/hexo-vue.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "source/_posts/frontend/Use Vue Component In Hexo Theme.md",
+                "file": "source/_posts/frontend/hexo-vue.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,7 +89,7 @@
   },
   "active": "2113a38308078440",
   "lastOpenFiles": [
-    "source/_posts/frontend/Use Vue Component In Hexo Theme.md",
+    "source/_posts/frontend/hexo-vue.md",
     "source/_posts/Amierux/1.md",
     "source/_posts/未命名.md"
   ]
