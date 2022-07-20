@@ -54,14 +54,14 @@ style:
 social_contact:
   enable: true
   links:
-    github: # your GitHub URL
+    github: https://github.com/bingling-sama/ # your GitHub URL
     weixin: # your WeChat QR-Code URL
     qq: # your QQ QR-Code URL
     weibo: # your WeiBo URL
     zhihu: # your ZhiHu URL
     twitter: # your twitter URL
     facebook: # your facebook URL
-    email: # your email
+    email: bingling_sama@qq.com # your email
 
 # ---------------------------------------------------------------------------------------
 # Navigation menu
@@ -102,9 +102,9 @@ post:
   # Author label
   author_label:
     enable: true
-    auto: true # if true, show Lv1, Lv2, Lv3... , If false, show custom label
+    auto: false # if true, show Lv1, Lv2, Lv3... , If false, show custom label
     # label array item can be one or more
-    custom_label_list: ["Trainee", "Engineer", "Architect", "CTO", "BOSS"]
+    custom_label_list: ["Booling✨"]
 
 # ---------------------------------------------------------------------------------------
 # Code copy
@@ -213,7 +213,7 @@ pjax:
 # Footer settings
 # ---------------------------------------------------------------------------------------
 footer:
-  since: 2021 # the starting year of your website, Can be null
+  since: 2020 # the starting year of your website, Can be null
   icp: # ICP record number of your website, Can be null
   upyun: # url
 
