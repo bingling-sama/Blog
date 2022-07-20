@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "source/_posts/frontend/hexo-vue.md",
+            "file": "source/_posts/learnvue/day-01.md",
             "mode": "source",
             "source": false
           }
@@ -53,7 +53,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c06753838c56aacd",
@@ -69,7 +70,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "source/_posts/frontend/hexo-vue.md",
+                "file": "source/_posts/learnvue/day-01.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +90,7 @@
   },
   "active": "2113a38308078440",
   "lastOpenFiles": [
+    "source/_posts/learnvue/day-01.md",
     "source/_posts/frontend/hexo-vue.md",
     "source/_posts/Amierux/1.md",
     "source/_posts/未命名.md"
