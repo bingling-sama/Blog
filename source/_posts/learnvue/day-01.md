@@ -1,7 +1,8 @@
 ---
+categories: [Development]
 tags: [Vue, FrontEnd, HTML, JavaScript, CSS]
-title: Vue.js 学习笔记 Day-01   
-date: 2022-07-20 21:57:53   
+title: Vue.js 学习笔记 Day-01
+date: 2022-07-21 21:52:42
 ---
 
 # Vue.js 学习笔记 Day-01
