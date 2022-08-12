@@ -20,3 +20,8 @@ gpupdate /force /wait:0 # 刷新注册表
 ## 自动添加
 
 可以在本站 [此处](https://blog.booling.cn/files/xiaohe.ps1) 下载 `.ps1` 脚本，运行即可。
+
+
+## 使用
+
+添加完毕后即可在 `Windows 设置/时间和语言/语言和区域/微软拼音输入法/常规` 中选择 `小鹤双拼` 使用。
