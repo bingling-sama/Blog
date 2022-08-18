@@ -2,7 +2,7 @@
 tags: [Life]
 categories: [Life]
 date: 2022-08-12 10:08:51
-title: 小鹤
+title: Windows 下添加小鹤双拼
 ---
 # Windows 下添加小鹤双拼
 
@@ -25,3 +25,4 @@ gpupdate /force /wait:0 # 刷新注册表
 ## 使用
 
 添加完毕后即可在 `Windows 设置/时间和语言/语言和区域/微软拼音输入法/常规` 中选择 `小鹤双拼` 使用。
+

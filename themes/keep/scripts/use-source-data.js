@@ -21,6 +21,11 @@ hexo.on('generateBefore', function () {
         hexo.theme.config.links = (data.links || data.link);
       }
 
+      // fav phrases file handle
+      if (data.phrases || data.phrase) {
+        hexo.theme.config.phrases = (data.phrases || data.phrase);
+      }
+
     }
   }
 });
