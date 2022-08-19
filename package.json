@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/bingling-sama/Blog.git",
-  "author": "bingling-sama <bingling_sama@qq.com>",
+  "authors": [
+    {
+      "name": "bingling_sama",
+      "email": "bingling_sama@qq.com",
+      "url": "https://www.booling.cn/"
+    }
+  ],
   "license": "MIT",
   "scripts": {
     "build": "hexo generate",
