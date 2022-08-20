@@ -5,17 +5,24 @@
     "es6": true,
     "node": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "plugins": [
+    "prettier"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly",
     "hexo": true,
     "KEEP": true
   },
-  "parserOptions": {
-    "ecmaVersion": 2018
-  },
   "rules": {
+    "prettier/prettier": "error",
     "indent": [
       "error",
       "tab"
