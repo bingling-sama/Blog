@@ -22,5 +22,8 @@
       "url": "https://www.booling.cn"
     }
   ],
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "dependencies": {
+    "eslint": "^8.22.0"
+  }
 }

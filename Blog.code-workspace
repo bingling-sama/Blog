@@ -15,6 +15,10 @@
     "files.exclude": {
       "**/node_modules/": true,
       "**/public/": true
-    }
+    },
+    "eslint.alwaysShowStatus": true,
+    "eslint.format.enable": true,
+    "eslint.packageManager": "yarn",
+    "eslint.run": "onSave"
   }
 }
