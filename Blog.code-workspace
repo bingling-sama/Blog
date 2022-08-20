@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "name": "Blog",
+      "path": "."
+    },
+    {
+      "name": "Theme",
+      "path": "./themes/keep"
+    }
+  ],
+  "settings": {
+    "files.autoSave": "afterDelay",
+    "editor.tabSize": 2,
+    "files.exclude": {
+      "**/node_modules/": true,
+      "**/public/": true
+    }
+  }
+}
