@@ -1,84 +1,59 @@
-$archive-year-font-size = 1.8rem;
-$archive-year-count-font-size = 1.2rem;
-$article-title-font-size = 1.2rem;
-$article-date-font-size = 1rem;
+$archive-year-font-size = 1.8rem
+$archive-year-count-font-size = 1.2rem
+$article-title-font-size = 1.2rem
+$article-date-font-size = 1rem
 
-.archive-list-container {
+.archive-list-container
+  .archive-item
+    margin-bottom $component-spacing-value
 
-  .archive-item {
-    margin-bottom: $component-spacing-value;
+    &:last-child
+      margin-bottom 0
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+    .archive-item-header
+      margin-bottom 10px
 
-    .archive-item-header {
-      margin-bottom: 10px;
+      .archive-year
+        font-size $archive-year-font-size
 
-      .archive-year {
-        font-size: $archive-year-font-size;
+        +keep-tablet()
+          font-size: $archive-year-font-size - 0.2rem
 
-        +keep-tablet() {
-          font-size: $archive-year-font-size - 0.2rem;
-        }
+        color var(--second-text-color)
+        font-weight 600
+        margin-right 6px
 
-        color: var(--second-text-color);
-        font-weight: 600;
-        margin-right: 6px;
-      }
+      .archive-year-post-count
+        font-size $archive-year-count-font-size
+        font-weight 500
+        color var(--second-text-color)
 
+        +keep-tablet()
+          font-size: $archive-year-count-font-size * 0.9
 
-      .archive-year-post-count {
-        font-size: $archive-year-count-font-size;
-        font-weight: 500;
-        color: var(--second-text-color);
+    .article-list
+      padding-left 10px
 
-        +keep-tablet() {
-          font-size: $archive-year-count-font-size * 0.9;
-        }
-      }
+      +keep-tablet()
+        padding-left 0
 
-    }
+      .article-item
+        font-size 1rem
+        margin-top 18px
 
+        +keep-tablet()
+          margin-top 16px
 
-    .article-list {
+        +keep-mobile()
+          margin-top 14px
 
-      padding-left: 10px;
+        &:hover
+          a.article-title, .article-date
+            color var(--primary-color)
 
-      +keep-tablet() {
-        padding-left: 0;
-      }
+        a.article-title
+          color var(--default-text-color)
 
-      .article-item {
-        font-size: 1rem;
-        margin-top: 18px;
-
-        +keep-tablet() {
-          margin-top: 16px;
-        }
-
-        +keep-mobile() {
-          margin-top: 14px;
-        }
-
-        &:hover {
-          a.article-title, .article-date {
-            color: var(--primary-color);
-          }
-        }
-
-
-        a.article-title {
-          color: var(--default-text-color);
-        }
-
-        .article-date {
-          font-size: $article-date-font-size;
-          float: right;
-        }
-      }
-    }
-  }
-}
-
-
+        .article-date
+          font-size $article-date-font-size
+          float right

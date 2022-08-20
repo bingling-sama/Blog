@@ -1,73 +1,51 @@
-.post-toc-wrap {
-  width: 100%;
-  font-size: 0.92rem;
-  box-sizing: border-box;
+.post-toc-wrap
+  width 100%
+  font-size 0.92rem
+  box-sizing border-box
 
-  .post-toc {
+  .post-toc
+    ol
+      list-style none
+      margin 0
+      padding 0 2px 12px 10px
+      text-align left
 
-    ol {
-      list-style: none;
-      margin: 0;
-      padding: 0 2px 12px 10px;
-      text-align: left;
+      &:last-child
+        padding-bottom 0
 
-      &:last-child {
-        padding-bottom: 0;
-      }
+      > ol
+        padding-left 0
 
-      > ol {
-        padding-left: 0;
-      }
+      a
+        transition-property all
+        transition()
 
-      a {
-        transition-property: all;
-        transition();
-      }
-    }
+    .nav-item
+      line-height 1.8
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
 
+    .nav
+      .nav-child
+        display hexo-config('toc.expand_all') ? block : none
 
-    .nav-item {
-      line-height: 1.8;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+      .active > .nav-child
+        display block
 
+      .active-current > .nav-child
+        display block
 
-    .nav {
-      .nav-child {
-        display: hexo-config('toc.expand_all') ? block : none;
-      }
+        > .nav-item
+          display block
 
-      .active > .nav-child {
-        display: block;
-      }
+      .nav-number, .nav-text
+        color var(--default-text-color)
 
-      .active-current > .nav-child {
-        display: block;
+      .active > a
+        .nav-number, .nav-text
+          color var(--primary-color)
 
-        > .nav-item {
-          display: block;
-        }
-      }
-
-
-      .nav-number, .nav-text {
-        color: var(--default-text-color);
-      }
-
-      .active > a {
-        .nav-number, .nav-text {
-          color: var(--primary-color);
-        }
-      }
-
-      .active-current > a {
-        .nav-number, .nav-text {
-          color: var(--primary-color);
-        }
-      }
-    }
-  }
-}
-
+      .active-current > a
+        .nav-number, .nav-text
+          color var(--primary-color)

@@ -1,213 +1,157 @@
-$friend-link-item-height = 82px;
-$friend-link-item-height-tablet = 68px;
-$friend-link-item-interval = 16px;
-$friend-link-item-border-radius = 6px;
+$friend-link-item-height = 82px
+$friend-link-item-height-tablet = 68px
+$friend-link-item-interval = 16px
+$friend-link-item-border-radius = 6px
+$fav-phrases-item-height = 150px
+$fav-phrases-item-height-tablet = 68px
+$fav-phrases-item-interval = 16px
+$fav-phrases-item-border-radius = 6px
 
-$fav-phrases-item-height = 150px;
-$fav-phrases-item-height-tablet = 68px;
-$fav-phrases-item-interval = 16px;
-$fav-phrases-item-border-radius = 6px;
+.page-template-container
+  keep-container(false, 0, 0, 30px, 30px)
 
-.page-template-container {
+  .page-template-content
+    color var(--default-text-color)
 
-  keep-container(false, 0, 0, 30px, 30px);
+    h1, h2, h3, h4, h5, h6
+      &:first-child
+        margin-top 0
 
-  .page-template-content {
-    color: var(--default-text-color);
+  if (hexo-config('menu.Links'))
+    .friends-link-container
+      .friends-link-list
+        position relative
 
-    h1, h2, h3, h4, h5, h6 {
+        .friends-link-item
+          box-sizing border-box
+          position relative
+          float left
+          width 50%
+          cursor pointer
+          height $friend-link-item-height
+          padding-bottom $friend-link-item-interval
 
-      &:first-child {
-        margin-top: 0;
-      }
+          +keep-tablet()
+            height $friend-link-item-height-tablet
 
-    }
-  }
+          &:nth-child(odd)
+            padding-right: $friend-link-item-interval * 0.5
 
+          &:nth-child(even)
+            padding-left: $friend-link-item-interval * 0.5
 
-  if (hexo-config('menu.Links')) {
-    .friends-link-container {
+          .content
+            position relative
+            width 100%
+            height 100%
+            box-shadow 1px 1px 2px var(--shadow-color)
+            border-radius $friend-link-item-border-radius
+            padding-left: $friend-link-item-height - $friend-link-item-interval
+            box-sizing border-box
 
-      .friends-link-list {
-        position: relative;
+            +keep-tablet()
+              padding-left: $friend-link-item-height-tablet - $friend-link-item-interval
 
-        .friends-link-item {
-          box-sizing: border-box;
-          position: relative;
-          float: left;
-          width: 50%;
-          cursor: pointer;
-          height: $friend-link-item-height;
-          padding-bottom: $friend-link-item-interval;
+            &:hover
+              box-shadow 1px 1px 6px var(--shadow-color)
 
-          +keep-tablet() {
-            height: $friend-link-item-height-tablet;
-          }
+              .info .name
+                color var(--primary-color)
 
-          &:nth-child(odd) {
-            padding-right: $friend-link-item-interval * 0.5;
-          }
+            .radius
+              border-top-left-radius $friend-link-item-border-radius
+              border-bottom-left-radius $friend-link-item-border-radius
 
-          &:nth-child(even) {
-            padding-left: $friend-link-item-interval * 0.5;
-          }
+            .avatar
+              position absolute
+              top 0
+              left 0
+              width: $friend-link-item-height - $friend-link-item-interval
+              height 100%
+              display flex
+              justify-content center
+              align-items center
+              font-size 2rem
+              background var(--second-background-color)
+              color var(--second-text-color)
 
-          .content {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            box-shadow: 1px 1px 2px var(--shadow-color);
-            border-radius: $friend-link-item-border-radius;
-            padding-left: $friend-link-item-height - $friend-link-item-interval;
-            box-sizing: border-box;
+              +keep-tablet()
+                width: $friend-link-item-height-tablet - $friend-link-item-interval
 
+              img
+                box-sizing border-box
+                position relative
+                width 100%
+                height 100%
 
-            +keep-tablet() {
-              padding-left: $friend-link-item-height-tablet - $friend-link-item-interval;
-            }
+            .info
+              position relative
+              width 100%
+              height 100%
+              box-sizing border-box
+              padding 10px
+              display flex
+              flex-direction column
+              align-items center
+              justify-items flex-start
 
-            &:hover {
-              box-shadow: 1px 1px 6px var(--shadow-color);
+              +keep-tablet()
+                padding 6px
 
-              .info .name {
-                color: var(--primary-color);
-              }
-            }
+              .name
+                width 100%
+                height 60%
+                font-size 1.28rem
+                color var(--second-text-color)
 
-            .radius {
-              border-top-left-radius: $friend-link-item-border-radius;
-              border-bottom-left-radius: $friend-link-item-border-radius;
-            }
+                +keep-tablet()
+                  font-size 1.08rem
 
-            .avatar {
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: $friend-link-item-height  - $friend-link-item-interval;
-              height: 100%;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              font-size: 2rem;
-              background: var(--second-background-color);
-              color: var(--second-text-color);
+              .description
+                width 100%
+                height 40%
+                font-size 1rem
+                color var(--third-text-color)
 
+                +keep-tablet()
+                  font-size 0.98rem
 
-              +keep-tablet() {
-                width: $friend-link-item-height-tablet  - $friend-link-item-interval;
-              }
+              .ellipsis
+                overflow hidden
+                text-overflow ellipsis
+                white-space nowrap
 
-              img {
-                box-sizing: border-box;
-                position: relative;
-                width: 100%;
-                height: 100%;
-              }
-            }
+  if (hexo-config('menu.Phrases'))
+    .fav-phrases-container
+      .fav-phrases-list
+        position relative
 
+        .fav-phrases-item
+          box-sizing border-box
+          position relative
+          width 100%
+          height $fav-phrases-item-height
+          padding-bottom $fav-phrases-item-interval
 
-            .info {
-              position: relative;
-              width: 100%;
-              height: 100%;
-              box-sizing: border-box;
-              padding: 10px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-items: flex-start;
+          .content
+            position relative
+            width 100%
+            height 100%
+            box-sizing border-box
+            padding 20px
+            display flex
+            flex-direction column
+            align-items center
+            justify-content space-between
+            box-shadow 1px 1px 2px var(--shadow-color)
+            border-radius $fav-phrases-item-border-radius
+            font-size 1.25rem
 
-              +keep-tablet() {
-                padding: 6px;
-              }
+            &:hover
+              box-shadow 1px 1px 6px var(--shadow-color)
 
-              .name {
-                width: 100%;
-                height: 60%;
-                font-size: 1.28rem;
-                color: var(--second-text-color);
+            .phrase
+              align-self flex-start
 
-                +keep-tablet() {
-                  font-size: 1.08rem;
-                }
-              }
-
-              .description {
-                width: 100%;
-                height: 40%;
-                font-size: 1rem;
-                color: var(--third-text-color);
-
-
-                +keep-tablet() {
-                  font-size: 0.98rem;
-                }
-              }
-
-              .ellipsis {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-              }
-
-            }
-          }
-
-        }
-
-      }
-
-    }
-
-  }
-
-  if (hexo-config('menu.Phrases')) {
-    .fav-phrases-container {
-
-      .fav-phrases-list {
-        position: relative;
-
-        .fav-phrases-item {
-          box-sizing: border-box;
-          position: relative;
-          width: 100%;
-          height: $fav-phrases-item-height;
-          padding-bottom: $fav-phrases-item-interval;
-
-
-          .content {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 1px 1px 2px var(--shadow-color);
-            border-radius: $fav-phrases-item-border-radius;
-            font-size: 1.25rem;
-
-            &:hover {
-              box-shadow: 1px 1px 6px var(--shadow-color);
-            }
-
-            .phrase {
-              align-self: flex-start;
-            }
-
-            .author {
-              align-self: flex-end;
-            }
-
-          }
-
-        }
-
-      }
-
-    }
-  }
-
-}
+            .author
+              align-self flex-end

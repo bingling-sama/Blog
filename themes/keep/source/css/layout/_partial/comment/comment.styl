@@ -1,39 +1,29 @@
-if (hexo-config('comment.enable') == true && hexo-config('comment.use') != "") {
-  if (hexo-config('comment.use') == "valine") {
-    @require "./valine.styl";
+if (hexo-config('comment.enable') == true && hexo-config('comment.use') != '')
+  if (hexo-config('comment.use') == 'valine')
+    @require './valine.styl'
+  else if (hexo-config('comment.use') == 'gitalk')
+    @require './gitalk.styl'
+  else if (hexo-config('comment.use') == 'twikoo')
+    @require './twikoo.styl'
 
-  } else if (hexo-config('comment.use') == "gitalk") {
-    @require "./gitalk.styl";
+.comments-container
+  display inline-block
+  margin-top $component-spacing-value
+  width 100%
 
-  } else if (hexo-config('comment.use') == "twikoo") {
-    @require "./twikoo.styl";
-  }
-}
+  #comment-anchor
+    width 100%
+    height 10px
 
-.comments-container {
-  display: inline-block;
-  margin-top: $component-spacing-value;
-  width: 100%;
+  .comment-area-title
+    width 100%
+    margin 10px 0
+    font-size 1.38rem
+    color var(--default-text-color)
 
-  #comment-anchor {
-    width: 100%;
-    height: 10px;
-  }
+    i
+      color var(--default-text-color)
 
-  .comment-area-title {
-    width: 100%;
-    margin: 10px 0;
-    font-size: 1.38rem;
-    color: var(--default-text-color);
-
-    i {
-      color: var(--default-text-color);
-    }
-
-    +keep-tablet() {
-      margin: 5px 0;
-      font-size: 1.2rem;
-    }
-  }
-
-}
+    +keep-tablet()
+      margin 5px 0
+      font-size 1.2rem
