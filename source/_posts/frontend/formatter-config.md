@@ -60,6 +60,22 @@ yarn add prettier eslint-plugin-prettier eslint-config-prettier
   "extends": [
     "plugin:prettier/recommended"
   ],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off"
+  },
+  "prettier/prettier": [
+    "error",
+    {},
+    {
+      "fileInfoOptions": {
+        "usePrettierrc": true,
+        "withNodeModules": true
+      }
+    }
+  ]
 ...
 ```
 
