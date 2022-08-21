@@ -13,7 +13,7 @@ base_info:
 # ---------------------------------------------------------------------------------------
 style:
   # Theme primary color
-  primary_color: "#0066CC"
+  primary_color: '#0066CC'
 
   # Avatar (You can use local image or image external link)
   avatar: https://cdn.jsdelivr.net/gh/bingling-sama/Resources@latest/img/favicon.ico
@@ -104,7 +104,7 @@ post:
     enable: true
     auto: false # if true, show Lv1, Lv2, Lv3... , If false, show custom label
     # label array item can be one or more
-    custom_label_list: ["Booling✨"]
+    custom_label_list: ['Booling✨']
 
 # ---------------------------------------------------------------------------------------
 # Code copy

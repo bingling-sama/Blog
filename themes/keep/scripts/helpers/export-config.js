@@ -9,12 +9,11 @@ const yaml = require('js-yaml')
  * Export theme config to js
  */
 hexo.extend.helper.register('export_config', function () {
-
-	let {config, theme} = this
+	let { config, theme } = this
 
 	// ------------------------ export language to js ------------------------
 	const languageDir = path.join(__dirname, '../../languages')
-	let file = fs.readdirSync(languageDir).find(v => v === `${config.language}.yml`)
+	let file = fs.readdirSync(languageDir).find((v) => v === `${config.language}.yml`)
 	file = languageDir + '/' + (file ? file : 'en.yml')
 	let languageContent = fs.readFileSync(file, 'utf8')
 	try {
@@ -23,7 +22,6 @@ hexo.extend.helper.register('export_config', function () {
 		console.log(e)
 	}
 	// -----------------------------------------------------------------------
-
 
 	let hexo_config = {
 		hostname: url.parse(config.url).hostname || config.url,
@@ -43,7 +41,7 @@ hexo.extend.helper.register('export_config', function () {
 		side_tools: theme.side_tools,
 		pjax: theme.pjax,
 		lazyload: theme.lazyload,
-		version: theme.version,
+		version: theme.version
 	}
 
 	return `<script id="hexo-configurations">

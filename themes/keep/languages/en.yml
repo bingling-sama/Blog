@@ -6,7 +6,7 @@ next_posts: Next posts
 page: Page %d
 recent_posts: Recent Posts
 share: Share
-powered_by: "Powered by %s"
+powered_by: 'Powered by %s'
 theme: Theme
 rss_feed: RSS Feed
 category: Category
@@ -35,12 +35,12 @@ copyright:
   link: Post link
   create_time: Create time
   license_title: Copyright Notice
-  license_content: "All articles in this blog are licensed under %s unless stating additionally."
+  license_content: 'All articles in this blog are licensed under %s unless stating additionally.'
 ago:
-  second: "%s seconds ago"
-  minute: "%s minutes ago"
-  hour: "%s hours ago"
-  day: "%s days ago"
-  week: "%s weeks ago"
-  month: "%s months ago"
-  year: "%s years ago"
+  second: '%s seconds ago'
+  minute: '%s minutes ago'
+  hour: '%s hours ago'
+  day: '%s days ago'
+  week: '%s weeks ago'
+  month: '%s months ago'
+  year: '%s years ago'

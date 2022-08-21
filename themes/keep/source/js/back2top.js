@@ -1,7 +1,5 @@
 KEEP.initBack2Top = () => {
-
 	KEEP.utils = {
-
 		...KEEP.utils,
 
 		back2BottomButton_dom: document.querySelector('.tool-scroll-to-bottom'),
@@ -44,10 +42,9 @@ KEEP.initBack2Top = () => {
 			this.back2BottomButton_dom.addEventListener('click', () => {
 				this.back2Bottom()
 			})
-		},
+		}
 	}
 
 	KEEP.utils.initBack2Top()
 	KEEP.utils.initBack2Bottom()
-
 }

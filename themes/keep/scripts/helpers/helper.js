@@ -11,24 +11,24 @@ hexo.extend.helper.register('isInHomePaging', function (pagePath, route) {
 })
 
 hexo.extend.helper.register('createNewArchivePosts', function (posts) {
-	const postList = [], postYearList = []
-	posts.forEach(post => postYearList.push(post.date.year()))
-	Array.from(new Set(postYearList)).forEach(year => {
+	const postList = [],
+		postYearList = []
+	posts.forEach((post) => postYearList.push(post.date.year()))
+	Array.from(new Set(postYearList)).forEach((year) => {
 		postList.push({
 			year: year,
 			postList: []
 		})
 	})
 	postList.sort((a, b) => b.year - a.year)
-	postList.forEach(item => {
-		posts.forEach(post => item.year === post.date.year() && item.postList.push(post))
+	postList.forEach((item) => {
+		posts.forEach((post) => item.year === post.date.year() && item.postList.push(post))
 	})
-	postList.forEach(item => item.postList.sort((a, b) => b.date.unix() - a.date.unix()))
+	postList.forEach((item) => item.postList.sort((a, b) => b.date.unix() - a.date.unix()))
 	return postList
 })
 
 hexo.extend.helper.register('getAuthorLabel', function (postCount, isAuto, labelList) {
-
 	let level = Math.floor(Math.log2(postCount))
 	level = level < 2 ? 1 : level - 1
 
@@ -37,7 +37,6 @@ hexo.extend.helper.register('getAuthorLabel', function (postCount, isAuto, label
 	} else {
 		return `Lv${level}`
 	}
-
 })
 
 hexo.extend.helper.register('getPostUrl', function (rootUrl, path) {

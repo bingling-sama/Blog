@@ -6,7 +6,7 @@ next_posts: 下一篇
 page: 第 %d 页
 recent_posts: 最新文章
 share: 分享
-powered_by: "由 %s 驱动"
+powered_by: '由 %s 驱动'
 theme: 主题
 rss_feed: RSS Feed
 category: 分类
@@ -35,12 +35,12 @@ copyright:
   link: 本文链接
   create_time: 创建时间
   license_title: 版权声明
-  license_content: "本博客所有文章除特别声明外，均采用 %s 许可协议。转载请注明出处！"
+  license_content: '本博客所有文章除特别声明外，均采用 %s 许可协议。转载请注明出处！'
 ago:
-  second: "%s 秒前"
-  minute: "%s 分钟前"
-  hour: "%s 小时前"
-  day: "%s 天前"
-  week: "%s 周前"
-  month: "%s 个月前"
-  year: "%s 年前"
+  second: '%s 秒前'
+  minute: '%s 分钟前'
+  hour: '%s 小时前'
+  day: '%s 天前'
+  week: '%s 周前'
+  month: '%s 个月前'
+  year: '%s 年前'

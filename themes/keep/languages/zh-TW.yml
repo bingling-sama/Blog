@@ -6,7 +6,7 @@ next_posts: 下一篇
 page: 第 %d 頁
 recent_posts: 之前的文章
 share: 分享
-powered_by: "%s 框架"
+powered_by: '%s 框架'
 theme: 主題
 rss_feed: RSS 訂閱
 category: 分類
@@ -35,12 +35,12 @@ copyright:
   link: 永久連結
   create_time: 撰寫時間
   license_title: 版權宣告
-  license_content: "這個網站所有文章均使用 %s 授權。"
+  license_content: '這個網站所有文章均使用 %s 授權。'
 ago:
-  second: "%s 秒前"
-  minute: "%s 分鐘前"
-  hour: "%s 小時前"
-  day: "%s 天前"
-  week: "%s 周前"
-  month: "%s 個月前"
-  year: "%s 年前"
+  second: '%s 秒前'
+  minute: '%s 分鐘前'
+  hour: '%s 小時前'
+  day: '%s 天前'
+  week: '%s 周前'
+  month: '%s 個月前'
+  year: '%s 年前'

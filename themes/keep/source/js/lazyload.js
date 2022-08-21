@@ -5,15 +5,14 @@ KEEP.initLazyLoad = () => {
 
 	function lazyload(imgs) {
 		now = Date.now()
-		needLoad = Array.from(imgs).some(i => i.hasAttribute('lazyload'))
+		needLoad = Array.from(imgs).some((i) => i.hasAttribute('lazyload'))
 
 		const h = window.innerHeight
 		const s = document.documentElement.scrollTop || document.body.scrollTop
 
-		imgs.forEach(img => {
+		imgs.forEach((img) => {
 			if (img.hasAttribute('lazyload') && !img.hasAttribute('loading')) {
-
-				if ((h + s) > img.offsetTop) {
+				if (h + s > img.offsetTop) {
 					img.setAttribute('loading', true)
 					const loadImageTimeout = setTimeout(() => {
 						const temp = new Image()

@@ -1,5 +1,5 @@
+/* eslint-disable prettier/prettier */
 KEEP.initLocalSearch = () => {
-
 	// Search DB path
 	let searchPath = KEEP.hexo_config.path
 	if (!searchPath) {
@@ -31,7 +31,7 @@ KEEP.initLocalSearch = () => {
 			word = word.toLowerCase()
 		}
 		while ((position = text.indexOf(word, startPosition)) > -1) {
-			index.push({position, word})
+			index.push({ position, word })
 			startPosition = position + wordLen
 		}
 		return index
@@ -40,7 +40,7 @@ KEEP.initLocalSearch = () => {
 	// Merge hits into slices
 	const mergeIntoSlice = (start, end, index, searchText) => {
 		let item = index[index.length - 1]
-		let {position, word} = item
+		let { position, word } = item
 		let hits = []
 		let searchTextCountInSlice = 0
 		while (position + word.length <= end && index.length !== 0) {
@@ -78,7 +78,7 @@ KEEP.initLocalSearch = () => {
 	const highlightKeyword = (text, slice) => {
 		let result = ''
 		let prevEnd = slice.start
-		slice.hits.forEach(hit => {
+		slice.hits.forEach((hit) => {
 			result += text.substring(prevEnd, hit.position)
 			let end = hit.position + hit.length
 			result += `<b class="search-keyword">${text.substring(hit.position, end)}</b>`
@@ -98,22 +98,22 @@ KEEP.initLocalSearch = () => {
 		let resultItems = []
 		if (searchText.length > 0) {
 			// Perform local searching
-			datas.forEach(({title, content, url}) => {
+			datas.forEach(({ title, content, url }) => {
 				let titleInLowerCase = title.toLowerCase()
 				let contentInLowerCase = content.toLowerCase()
 				let indexOfTitle = []
 				let indexOfContent = []
 				let searchTextCount = 0
-				keywords.forEach(keyword => {
+				keywords.forEach((keyword) => {
 					indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false))
 					indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false))
 				})
 
 				// Show search results
 				if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-					let hitCount = indexOfTitle.length + indexOfContent.length;
+					let hitCount = indexOfTitle.length + indexOfContent.length
 					// Sort index by position of keyword
-					[indexOfTitle, indexOfContent].forEach(index => {
+					;[indexOfTitle, indexOfContent].forEach((index) => {
 						index.sort((itemLeft, itemRight) => {
 							if (itemRight.position !== itemLeft.position) {
 								return itemRight.position - itemLeft.position
@@ -132,7 +132,7 @@ KEEP.initLocalSearch = () => {
 					let slicesOfContent = []
 					while (indexOfContent.length !== 0) {
 						let item = indexOfContent[indexOfContent.length - 1]
-						let {position, word} = item
+						let { position, word } = item
 						// Cut out 100 characters
 						let start = position - 20
 						let end = position + 80
@@ -161,7 +161,12 @@ KEEP.initLocalSearch = () => {
 					})
 
 					// Select top N slices in content
-					let upperBound = parseInt(KEEP.theme_config.local_search.top_n_per_article ? KEEP.theme_config.local_search.top_n_per_article : 1, 10)
+					let upperBound = parseInt(
+						KEEP.theme_config.local_search.top_n_per_article
+							? KEEP.theme_config.local_search.top_n_per_article
+							: 1,
+						10
+					)
 					if (upperBound >= 0) {
 						slicesOfContent = slicesOfContent.slice(0, upperBound)
 					}
@@ -169,13 +174,19 @@ KEEP.initLocalSearch = () => {
 					let resultItem = ''
 
 					if (slicesOfTitle.length !== 0) {
-						resultItem += `<li><a href="${url}" class="search-result-title">${highlightKeyword(title, slicesOfTitle[0])}</a>`
+						resultItem += `<li><a href="${url}" class="search-result-title">${highlightKeyword(
+							title,
+							slicesOfTitle[0]
+						)}</a>`
 					} else {
 						resultItem += `<li><a href="${url}" class="search-result-title">${title}</a>`
 					}
 
-					slicesOfContent.forEach(slice => {
-						resultItem += `<a href="${url}"><p class="search-result">${highlightKeyword(content, slice)}...</p></a>`
+					slicesOfContent.forEach((slice) => {
+						resultItem += `<a href="${url}"><p class="search-result">${highlightKeyword(
+							content,
+							slice
+						)}...</p></a>`
 					})
 
 					resultItem += '</li>'
@@ -202,7 +213,7 @@ KEEP.initLocalSearch = () => {
 				return resultRight.id - resultLeft.id
 			})
 			let searchResultList = '<ul class="search-result-list">'
-			resultItems.forEach(result => {
+			resultItems.forEach((result) => {
 				searchResultList += result.item
 			})
 			searchResultList += '</ul>'
@@ -213,24 +224,30 @@ KEEP.initLocalSearch = () => {
 
 	const fetchData = () => {
 		fetch(KEEP.hexo_config.root + searchPath)
-			.then(response => response.text())
-			.then(res => {
+			.then((response) => response.text())
+			.then((res) => {
 				// Get the contents from search data
 				isfetched = true
-				datas = isXml ? [...new DOMParser().parseFromString(res, 'text/xml').querySelectorAll('entry')].map(element => {
-					return {
-						title: element.querySelector('title').textContent,
-						content: element.querySelector('content').textContent,
-						url: element.querySelector('url').textContent
-					}
-				}) : JSON.parse(res)
+				datas = isXml
+					? [...new DOMParser().parseFromString(res, 'text/xml').querySelectorAll('entry')].map(
+						(element) => {
+							return {
+								title: element.querySelector('title').textContent,
+								content: element.querySelector('content').textContent,
+								url: element.querySelector('url').textContent
+							}
+						}
+					  )
+					: JSON.parse(res)
 				// Only match articles with not empty titles
-				datas = datas.filter(data => data.title).map(data => {
-					data.title = data.title.trim()
-					data.content = data.content ? data.content.trim().replace(/<[^>]+>/g, '') : ''
-					data.url = decodeURIComponent(data.url).replace(/\/{2,}/g, '/')
-					return data
-				})
+				datas = datas
+					.filter((data) => data.title)
+					.map((data) => {
+						data.title = data.title.trim()
+						data.content = data.content ? data.content.trim().replace(/<[^>]+>/g, '') : ''
+						data.url = decodeURIComponent(data.url).replace(/\/{2,}/g, '/')
+						return data
+					})
 				// Remove loading animation
 				const noResultDom = document.querySelector('#no-result')
 				noResultDom && (noResultDom.innerHTML = '<i class="fas fa-search fa-5x"></i>')
@@ -246,7 +263,7 @@ KEEP.initLocalSearch = () => {
 	}
 
 	// Handle and trigger popup window
-	document.querySelectorAll('.search-popup-trigger').forEach(element => {
+	document.querySelectorAll('.search-popup-trigger').forEach((element) => {
 		element.addEventListener('click', () => {
 			document.body.style.overflow = 'hidden'
 			document.querySelector('.search-pop-overlay').classList.add('active')
@@ -261,7 +278,7 @@ KEEP.initLocalSearch = () => {
 		document.querySelector('.search-pop-overlay').classList.remove('active')
 	}
 
-	document.querySelector('.search-pop-overlay').addEventListener('click', event => {
+	document.querySelector('.search-pop-overlay').addEventListener('click', (event) => {
 		if (event.target === document.querySelector('.search-pop-overlay')) {
 			onPopupClose()
 		}
@@ -273,10 +290,9 @@ KEEP.initLocalSearch = () => {
 	})
 	document.querySelector('.popup-btn-close').addEventListener('click', onPopupClose)
 	window.addEventListener('pjax:success', onPopupClose)
-	window.addEventListener('keyup', event => {
+	window.addEventListener('keyup', (event) => {
 		if (event.key === 'Escape') {
 			onPopupClose()
 		}
 	})
-
 }

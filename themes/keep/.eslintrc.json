@@ -1,43 +1,26 @@
 {
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "es6": true,
-    "node": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 2018
-  },
-  "plugins": [
-    "prettier"
-  ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly",
-    "hexo": true,
-    "KEEP": true
-  },
-  "rules": {
-    "prettier/prettier": "error",
-    "indent": [
-      "error",
-      "tab"
-    ],
-    "linebreak-style": [
-      "error",
-      "windows"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "never"
-    ]
-  }
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"es6": true,
+		"node": true
+	},
+	"extends": ["plugin:prettier/recommended"],
+	"parserOptions": {
+		"ecmaVersion": 2018
+	},
+	"plugins": ["prettier"],
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly",
+		"hexo": true,
+		"KEEP": true
+	},
+	"rules": {
+		"prettier/prettier": "error",
+		"indent": ["error", "tab"],
+		"linebreak-style": ["error", "windows"],
+		"quotes": ["error", "single"],
+		"semi": ["error", "never"]
+	}
 }

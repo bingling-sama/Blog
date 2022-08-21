@@ -1,7 +1,5 @@
 KEEP.initUtils = () => {
-
 	KEEP.utils = {
-
 		html_root_dom: document.querySelector('html'),
 		pageContainer_dom: document.querySelector('.page-container'),
 		pageTop_dom: document.querySelector('.page-main-content-top'),
@@ -25,10 +23,10 @@ KEEP.initUtils = () => {
 			const scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight
 			const clientHeight = window.innerHeight || document.documentElement.clientHeight
 
-			const percent = Math.round(scrollTop / (scrollHeight - clientHeight) * 100)
+			const percent = Math.round((scrollTop / (scrollHeight - clientHeight)) * 100)
 
 			if (this.isHasScrollProgressBar) {
-				const ProgressPercent = (scrollTop / (scrollHeight - clientHeight) * 100).toFixed(3)
+				const ProgressPercent = ((scrollTop / (scrollHeight - clientHeight)) * 100).toFixed(3)
 				this.scrollProgressBar_dom.style.visibility = percent === 0 ? 'hidden' : 'visible'
 				this.scrollProgressBar_dom.style.width = `${ProgressPercent}%`
 			}
@@ -37,7 +35,6 @@ KEEP.initUtils = () => {
 				const percent_dom = this.back2TopButton_dom.querySelector('.percent')
 				if (percent === 0 || percent === undefined) {
 					this.back2TopButton_dom.classList.remove('show')
-
 				} else {
 					this.back2TopButton_dom.classList.add('show')
 					percent_dom.innerHTML = percent.toFixed(0)
@@ -125,7 +122,10 @@ KEEP.initUtils = () => {
 
 			let isExpand = false
 
-			if (KEEP.theme_config.style.first_screen.enable === true && window.location.pathname === '/') {
+			if (
+				KEEP.theme_config.style.first_screen.enable === true &&
+				window.location.pathname === '/'
+			) {
 				headerMaxWidth = parseInt(defaultMaxWidth) * 1.2 + 'px'
 			}
 
@@ -159,8 +159,6 @@ KEEP.initUtils = () => {
 				isExpand = !isExpand
 				setPageWidth(isExpand)
 			})
-
-
 		},
 
 		// go comment anchor
@@ -171,7 +169,6 @@ KEEP.initUtils = () => {
 					document.querySelector('#comment-anchor').scrollIntoView()
 				})
 			}
-
 		},
 
 		// get dom element height
@@ -217,15 +214,16 @@ KEEP.initUtils = () => {
 
 			const imageViewerDom = document.querySelector('.image-viewer-container')
 			const targetImg = document.querySelector('.image-viewer-container img')
-			imageViewerDom && imageViewerDom.addEventListener('click', () => {
-				isBigImage = false
-				showHandle(imageViewerDom, isBigImage)
-			})
+			imageViewerDom &&
+				imageViewerDom.addEventListener('click', () => {
+					isBigImage = false
+					showHandle(imageViewerDom, isBigImage)
+				})
 
 			const imgDoms = document.querySelectorAll('.markdown-body img')
 
 			if (imgDoms.length) {
-				imgDoms.forEach(img => {
+				imgDoms.forEach((img) => {
 					img.addEventListener('click', () => {
 						isBigImage = true
 						showHandle(imageViewerDom, isBigImage)
@@ -249,28 +247,22 @@ KEEP.initUtils = () => {
 			const __M = Math.floor(timestamp / (60 * 60 * 24 * 30))
 			const __W = Math.floor(timestamp / (60 * 60 * 24) / 7)
 			const __d = Math.floor(timestamp / (60 * 60 * 24))
-			const __h = Math.floor(timestamp / (60 * 60) % 24)
-			const __m = Math.floor(timestamp / 60 % 60)
+			const __h = Math.floor((timestamp / (60 * 60)) % 24)
+			const __m = Math.floor((timestamp / 60) % 60)
 			const __s = Math.floor(timestamp % 60)
 
 			if (__Y > 0) {
 				return this.setHowLongAgoLanguage(__Y, l.year)
-
 			} else if (__M > 0) {
 				return this.setHowLongAgoLanguage(__M, l.month)
-
 			} else if (__W > 0) {
 				return this.setHowLongAgoLanguage(__W, l.week)
-
 			} else if (__d > 0) {
 				return this.setHowLongAgoLanguage(__d, l.day)
-
 			} else if (__h > 0) {
 				return this.setHowLongAgoLanguage(__h, l.hour)
-
 			} else if (__m > 0) {
 				return this.setHowLongAgoLanguage(__m, l.minute)
-
 			} else if (__s > 0) {
 				return this.setHowLongAgoLanguage(__s, l.second)
 			}
@@ -278,11 +270,12 @@ KEEP.initUtils = () => {
 
 		setHowLongAgoInHome() {
 			const post = document.querySelectorAll('.home-article-meta-info .home-article-date')
-			post && post.forEach(v => {
-				const nowDate = Date.now()
-				const postDate = new Date(v.dataset.date.split(' GMT')[0]).getTime()
-				v.innerHTML = this.getHowLongAgo(Math.floor((nowDate - postDate) / 1000))
-			})
+			post &&
+				post.forEach((v) => {
+					const nowDate = Date.now()
+					const postDate = new Date(v.dataset.date.split(' GMT')[0]).getTime()
+					v.innerHTML = this.getHowLongAgo(Math.floor((nowDate - postDate) / 1000))
+				})
 		},
 
 		// loading progress bar start
@@ -325,7 +318,6 @@ KEEP.initUtils = () => {
 					this.pjaxProgressBar_dom.style.width = '0'
 					clearTimeout(temp_1), clearTimeout(temp_2)
 				}, 200)
-
 			}, 200)
 		}
 	}
@@ -356,5 +348,4 @@ KEEP.initUtils = () => {
 
 	// set how long age in home article block
 	KEEP.utils.setHowLongAgoInHome()
-
 }

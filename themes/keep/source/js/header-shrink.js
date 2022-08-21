@@ -17,17 +17,18 @@ KEEP.initHeaderShrink = () => {
 				this.isHeaderShrink = false
 				document.body.classList.remove('header-shrink')
 			}
-
 		},
 
 		toggleHeaderDrawerShow() {
 			const domList = [document.querySelector('.window-mask'), document.querySelector('.menu-bar')]
 
 			if (KEEP.theme_config.pjax.enable === true) {
-				domList.push(...document.querySelectorAll('.header-drawer .drawer-menu-list .drawer-menu-item'))
+				domList.push(
+					...document.querySelectorAll('.header-drawer .drawer-menu-list .drawer-menu-item')
+				)
 			}
 
-			domList.forEach(v => {
+			domList.forEach((v) => {
 				v.addEventListener('click', () => {
 					document.body.classList.toggle('header-drawer-show')
 				})
