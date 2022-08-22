@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable */
 KEEP.initLocalSearch = () => {
 	// Search DB path
 	let searchPath = KEEP.hexo_config.path
@@ -230,13 +230,13 @@ KEEP.initLocalSearch = () => {
 				isfetched = true
 				datas = isXml
 					? [...new DOMParser().parseFromString(res, 'text/xml').querySelectorAll('entry')].map(
-						(element) => {
-							return {
-								title: element.querySelector('title').textContent,
-								content: element.querySelector('content').textContent,
-								url: element.querySelector('url').textContent
+							(element) => {
+								return {
+									title: element.querySelector('title').textContent,
+									content: element.querySelector('content').textContent,
+									url: element.querySelector('url').textContent
+								}
 							}
-						}
 					  )
 					: JSON.parse(res)
 				// Only match articles with not empty titles

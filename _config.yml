@@ -17,17 +17,28 @@ feed:
 # ----------------All Fuck Up----------------
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
+title: Booling✨
+subtitle: bingling_sama's blog
+description: bingling_sama's personal blog.
+keywords: 
+  - bingling_sama
+  - Booling✨
+  - bingling
+  - 前端
+  - Java
+  - Kotlin
+  - Python
+  - JavaScript
+  - TypeScript
+  - 情感
+  - 生活
+author: bingling_sama
+language: zh
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: http://blog.booling.cn/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
