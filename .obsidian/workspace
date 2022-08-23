@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "source/_posts/frontend/formatter-config.md",
+            "file": "source/about/index.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "source/_posts/frontend/formatter-config.md",
+                "file": "source/about/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,8 +89,8 @@
   },
   "active": "1feca24506d48e3e",
   "lastOpenFiles": [
-    "themes/keep/node_modules/picomatch/CHANGELOG.md",
     "source/_posts/frontend/formatter-config.md",
+    "themes/keep/node_modules/picomatch/CHANGELOG.md",
     "source/_posts/frontend/_hexo-vue.md",
     "source/_posts/life/xiaohe.md",
     "().md",

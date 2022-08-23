@@ -13,12 +13,12 @@ date: 2022-03-13 12:41:21
 
 ### 语言列表 **Language List**
 
-- Java
-- Kotlin
-- Python
-- TypeScript
-- JavaScript
-- C/C++
+| 前端 | 后端 |
+|-------|-------|
+| Vue | Java |
+| HTML | Kotlin |
+| JavaScript/TypeScript | Python |
+| CSS | Rust |
 
 ### 游戏列表 **Game List**
 
@@ -27,6 +27,7 @@ date: 2022-03-13 12:41:21
 - 人类一败涂地
 - Hollow Knight
 - Hacknet
+- Midnight Protocol
 
 ### 联系方式 **Contact Details**
 
