@@ -14,7 +14,7 @@ date: 2022-03-13 12:41:21
 ### 语言列表 **Language List**
 
 | 前端 | 后端 |
-|-------|-------|
+|:-------:|:-------:|
 | Vue | Java |
 | HTML | Kotlin |
 | JavaScript/TypeScript | Python |
