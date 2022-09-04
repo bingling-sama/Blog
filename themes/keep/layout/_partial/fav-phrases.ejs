@@ -1,20 +1,20 @@
 <div class="fav-phrases-container">
-	<ul class="fav-phrases-list">
-		<% for (const p of theme.phrases) { %>
-			<li class="fav-phrases-item">
-				<div class="content">
-					<div class="phrase">
-						<%= p.content %>
-					</div>
-					<div class="author">
-						<% if (p.author) { %>
-							—— <%= p.author %>
-								<% } else {%>
-									—— Unknown
-									<% } %>
-					</div>
-				</div>
-			</li>
-			<% } %>
-	</ul>
+  <ul class="fav-phrases-list">
+    <% for (const p of theme.phrases) { %>
+    <li class="fav-phrases-item">
+      <div class="content">
+        <div class="phrase">
+          <%= p.content %>
+        </div>
+        <div class="author">
+          <% if (p.author) { %>
+          —— <%= p.author %>
+          <% } else {%>
+          —— Unknown
+          <% } %>
+        </div>
+      </div>
+    </li>
+    <% } %>
+  </ul>
 </div>
