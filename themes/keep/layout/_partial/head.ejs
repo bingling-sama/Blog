@@ -6,8 +6,9 @@
 	<meta name="author" content="<%= theme.base_info.author || config.author || 'Keep Team' %>">
 	<% let title=page.title; if (is_archive()) { title=__('archive'); if (is_month()) { title +=': ' + page.year + '/' +
 		page.month; } else if (is_year()) { title +=': ' + page.year; } } else if (is_category()) { title=__('category')
-		+ ': ' + page.category; } else if (is_tag()) { title=__('tag') + ': ' + page.tag; } else { title=__(page.title); }
-		%>
+		+ ': ' + page.category; } else if (is_tag()) { title=__('tag') + ': ' + page.tag; } else if
+		(theme.menu.hasOwnProperty('Phrases') && theme.menu.Phrases && theme.phrases) { title=__('phrases') } else {
+		title=__(page.title); } %>
 		<title>
 			<% if (title) { %>
 				<%= title %> |

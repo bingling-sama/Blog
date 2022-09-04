@@ -23,12 +23,12 @@ $media-max-width = 780px // media query max width (tablet)
 $media-max-width-mobile = 500px // media query max width (mobile)
 
 keep-tablet()
-  @media (max-width $media-max-width)
-    {block}
+	@media (max-width $media-max-width)
+		{block}
 
 keep-mobile()
-  @media (max-width $media-max-width-mobile)
-    {block}
+	@media (max-width $media-max-width-mobile)
+		{block}
 
 // ========================================================================================
 // z-index
@@ -101,38 +101,38 @@ $default-font-weight = 400
 // light/dark mode color
 // ========================================================================
 root-color(mode)
-  --background-color: mode == 'light' ? $background-color : $dark-background-color
-  --second-background-color: mode == 'light' ? $second-background-color : $dark-second-background-color
-  --primary-color: mode == 'light' ? $primary-color : $dark-primary-color
-  --first-text-color: mode == 'light' ? $first-text-color : $dark-first-text-color
-  --second-text-color: mode == 'light' ? $second-text-color : $dark-second-text-color
-  --third-text-color: mode == 'light' ? $third-text-color : $dark-third-text-color
-  --fourth-text-color: mode == 'light' ? $fourth-text-color : $dark-fourth-text-color
-  --default-text-color: mode == 'light' ? $default-text-color : $dark-default-text-color
-  --border-color: mode == 'light' ? $border-color : $dark-border-color
-  --selection-color: mode == 'light' ? $selection-color : $dark-selection-color
-  --shadow-color: mode == 'light' ? $shadow-color : $dark-shadow-color
-  --shadow-hover-color: mode == 'light' ? $shadow-hover-color : $dark-shadow-hover-color
-  --scrollbar-color: mode == 'light' ? $scrollbar-color : $dark-scrollbar-color
-  --scroll-bar-bg-color: mode == 'light' ? $scroll-bar-bg-color : $dark-scroll-bar-bg-color
-  --link-color: mode == 'light' ? $link-color : $dark-link-color
-  --copyright-info-color: mode == 'light' ? $copyright-info-color : $dark-copyright-info-color
-  --avatar-background-color: mode == 'light' ? $avatar-background-color : $dark-avatar-background-color
-  --pjax-progress-bar-color: mode == 'light' ? $pjax-progress-bar-color : $dark-pjax-progress-bar-color
+	--background-color: mode == 'light' ? $background-color : $dark-background-color
+	--second-background-color: mode == 'light' ? $second-background-color : $dark-second-background-color
+	--primary-color: mode == 'light' ? $primary-color : $dark-primary-color
+	--first-text-color: mode == 'light' ? $first-text-color : $dark-first-text-color
+	--second-text-color: mode == 'light' ? $second-text-color : $dark-second-text-color
+	--third-text-color: mode == 'light' ? $third-text-color : $dark-third-text-color
+	--fourth-text-color: mode == 'light' ? $fourth-text-color : $dark-fourth-text-color
+	--default-text-color: mode == 'light' ? $default-text-color : $dark-default-text-color
+	--border-color: mode == 'light' ? $border-color : $dark-border-color
+	--selection-color: mode == 'light' ? $selection-color : $dark-selection-color
+	--shadow-color: mode == 'light' ? $shadow-color : $dark-shadow-color
+	--shadow-hover-color: mode == 'light' ? $shadow-hover-color : $dark-shadow-hover-color
+	--scrollbar-color: mode == 'light' ? $scrollbar-color : $dark-scrollbar-color
+	--scroll-bar-bg-color: mode == 'light' ? $scroll-bar-bg-color : $dark-scroll-bar-bg-color
+	--link-color: mode == 'light' ? $link-color : $dark-link-color
+	--copyright-info-color: mode == 'light' ? $copyright-info-color : $dark-copyright-info-color
+	--avatar-background-color: mode == 'light' ? $avatar-background-color : $dark-avatar-background-color
+	--pjax-progress-bar-color: mode == 'light' ? $pjax-progress-bar-color : $dark-pjax-progress-bar-color
 
 :root
-  root-color('light')
+	root-color('light')
 
 @media (prefers-color-scheme light)
-  :root
-    root-color('light')
+	:root
+		root-color('light')
 
 @media (prefers-color-scheme dark)
-  :root
-    root-color('dark')
+	:root
+		root-color('dark')
 
 .light-mode
-  root-color('light')
+	root-color('light')
 
 .dark-mode
-  root-color('dark')
+	root-color('dark')
