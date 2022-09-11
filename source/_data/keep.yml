@@ -38,7 +38,7 @@ style:
   # First screen
   first_screen:
     enable: true
-    background_img: https://source.unsplash.com/random/1280x640 # You can use local image or image external link
+    background_img: https://www.todaybing.com/api/today/cn # (Deprecated) https://source.unsplash.com/random/1280x640 # You can use local image or image external link
     description: The stars are not afraid to appear like fireflies.
 
   # Scroll style settings
