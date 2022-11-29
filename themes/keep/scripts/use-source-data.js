@@ -25,18 +25,18 @@ hexo.on('generateBefore', function () {
 			}
 
 			// gallery image links handle
-			if (hexo.theme.config.menu.hasOwnProperty('Gallery')) {
-				https.get('https://gallery.booling.cn', (res) => {
-					res.setEncoding('utf8')
-					var data = ''
-					res.on('data', (chunk) => {
-						data += chunk
-					})
-					res.on('end', () => {
-						hexo.theme.config.gallery = JSON.parse(data)
-					})
-				})
-			}
+			// if (hexo.theme.config.menu.hasOwnProperty('Gallery')) {
+			// 	https.get('https://gallery.booling.cn', (res) => {
+			// 		res.setEncoding('utf8')
+			// 		var data = ''
+			// 		res.on('data', (chunk) => {
+			// 			data += chunk
+			// 		})
+			// 		res.on('end', () => {
+			// 			hexo.theme.config.gallery = JSON.parse(data)
+			// 		})
+			// 	})
+			// }
 		}
 	}
 })

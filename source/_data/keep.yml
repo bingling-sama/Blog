@@ -190,8 +190,14 @@ comment:
 # Dependencies: hexo-generator-feed
 # See: https://github.com/hexojs/hexo-generator-feed
 # ---------------------------------------------------------------------------------------
-rss:
-  enable: 
+feed:
+  enable: true
+  type:
+    - atom
+    - rss2
+  path:
+    - atom.xml
+    - rss2.xml
   
 # ---------------------------------------------------------------------------------------
 # Lazyload image
