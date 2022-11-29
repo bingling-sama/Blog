@@ -1,5 +1,3 @@
-const https = require('https')
-
 hexo.on('generateBefore', function () {
 	if (hexo.locals.get) {
 		const data = hexo.locals.get('data')
@@ -23,20 +21,6 @@ hexo.on('generateBefore', function () {
 			if (data.phrases || data.phrase) {
 				hexo.theme.config.phrases = data.phrases || data.phrase
 			}
-
-			// gallery image links handle
-			// if (hexo.theme.config.menu.hasOwnProperty('Gallery')) {
-			// 	https.get('https://gallery.booling.cn', (res) => {
-			// 		res.setEncoding('utf8')
-			// 		var data = ''
-			// 		res.on('data', (chunk) => {
-			// 			data += chunk
-			// 		})
-			// 		res.on('end', () => {
-			// 			hexo.theme.config.gallery = JSON.parse(data)
-			// 		})
-			// 	})
-			// }
 		}
 	}
 })

@@ -4,15 +4,11 @@
   <meta name="keywords" content="<%= page.keywords || config.keywords || 'Hexo Theme Keep' %>">
   <meta name="description" content="<%= page.description || config.description || 'Hexo Theme Keep' %>">
   <meta name="author" content="<%= theme.base_info.author || config.author || 'Keep Team' %>">
-  <% let title=page.title;
-	if (is_archive()) { title=__('archive');
-	if (is_month()) { title +=': ' + page.year + '/' + page.month; }
-	else if (is_year()) { title +=': ' + page.year; } }
-	else if (is_category()) { title=__('category') + ': ' + page.category; }
-	else if (is_tag()) { title=__('tag') + ': ' + page.tag; }
-	else if (page.title==='phrases') { title=__('phrases') }
-	else if (page.title==='gallery'){ title=__('gallery') }
-	else {title=__(page.title); } %>
+  <% let title=page.title; if (is_archive()) { title=__('archive'); if (is_month()) { title +=': ' + page.year + '/' +
+		page.month; } else if (is_year()) { title +=': ' + page.year; } } else if (is_category()) { title=__('category')
+		+ ': ' + page.category; } else if (is_tag()) { title=__('tag') + ': ' + page.tag; } else if
+		(theme.menu.hasOwnProperty('Phrases') && theme.menu.Phrases && theme.phrases) { title=__('phrases') } else {
+		title=__(page.title); } %>
   <title>
     <% if (title) { %>
     <%= title %> |

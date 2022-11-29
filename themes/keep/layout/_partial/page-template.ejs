@@ -1,8 +1,8 @@
 <div class="fade-in-down-animation">
   <div class="page-template-container">
     <% const isLoadFriendsLink=( theme.menu.hasOwnProperty('Links') && theme.menu.Links && theme.links &&
-      (page.type==='links' || page.type==='link' || page.title==='links' || page.title==='link' ) );
-			const isLoadFavPhrases=( theme.menu.hasOwnProperty('Phrases') && theme.menu.Phrases && theme.phrases &&
+      (page.type==='links' || page.type==='link' || page.title==='links' || page.title==='link' ) ); const
+      isLoadFavPhrases=( theme.menu.hasOwnProperty('Phrases') && theme.menu.Phrases && theme.phrases &&
       (page.type==='phrases' || page.type==='phrase' || page.title==='phrases' || page.title==='phrase' ) ); %>
     <div class="page-template-content markdown-body">
       <% if (isLoadFriendsLink || isLoadFavPhrases || page.content) { %>
