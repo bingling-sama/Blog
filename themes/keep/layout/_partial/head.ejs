@@ -7,14 +7,12 @@
 		content="<%= page.description || config.description || 'Hexo Theme Keep' %>"
 	/>
 	<meta name="author" content="<%= theme.base_info.author || config.author || 'Keep Team' %>" />
-	<% let title=page.title; if (is_archive()) { title=__('archive'); if (is_month()) { title +=': ' +
-	page.year + '/' + page.month; } else if (is_year()) { title +=': ' + page.year; } } else if
+	<% let title=page.title; if (is_archive()) { title=__('archive'); } else if (is_month()) { title
+	+=': ' + page.year + '/' + page.month; } else if (is_year()) { title +=': ' + page.year; } else if
 	(is_category()) { title=__('category') + ': ' + page.category; } else if (is_tag()) {
-	title=__('tag') + ': ' + page.tag; } else if (page.title==='phrases') { title=__('phrases'); }
-	else { title=__(page.title); } %>
+	title=__('tag') + ': ' + page.tag; } else { title=__(page.title); } %>
 	<title>
-		<% if (title) { %> <%= title %> | <% } %> <%= theme.base_info.title || config.title || 'Keep
-		Theme' %>
+		<% if (title) { %> <%= title %> | <% } %> <%= theme.base_info.title || config.title || 'Keep Theme' %>
 	</title>
 	<%- css('css/style') %> <%- favicon_tag(theme.style.favicon) %> <%-
 	__css('css/font-awesome.min.css') %> <%- export_config() %>
