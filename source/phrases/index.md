@@ -1,5 +1,6 @@
 ---
 title: phrases
+type: phrases
 ---
 
 # 私藏美句
