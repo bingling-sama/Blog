@@ -1,0 +1,133 @@
+{
+  "main": {
+    "id": "3ae7ea755dfe1be0",
+    "type": "split",
+    "children": [
+      {
+        "id": "2228c1758acb6695",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ebc9209cdbca9c9e",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            },
+            "group": "79d9c0b0c0d12137"
+          }
+        ]
+      },
+      {
+        "id": "7fdb9f01b7c1849b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3de16061e5198519",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            },
+            "group": "79d9c0b0c0d12137"
+          },
+          {
+            "id": "43a581364915a853",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.0.3"
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3cbbdb5d32699221",
+    "type": "split",
+    "children": [
+      {
+        "id": "4bb5c9eda0bcd86c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "650b4d4af6e339ec",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "6c157176602a6046",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "path:",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 187.5
+  },
+  "right": {
+    "id": "c06753838c56aacd",
+    "type": "split",
+    "children": [
+      {
+        "id": "6f1929dd4f125847",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "eab02ba2505eb924",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "43a581364915a853",
+  "lastOpenFiles": [
+    "source/_posts/littleskin/tutorial.md",
+    "source/_posts/essay/letting_go.md",
+    "source/_posts/frontend/formatter-config.md",
+    "source/about/index.md",
+    "themes/keep/node_modules/picomatch/CHANGELOG.md",
+    "source/_posts/frontend/_hexo-vue.md",
+    "source/_posts/life/xiaohe.md",
+    "().md",
+    "source/_posts/learnvue/day-01.md",
+    "source/_posts/_draft.md"
+  ]
+}
