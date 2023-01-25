@@ -11,6 +11,7 @@
     }
   ],
   "license": "MIT",
+  "packageManager": "yarn@3.3.0",
   "scripts": {
     "build": "hexo generate",
     "clean": "hexo clean",
