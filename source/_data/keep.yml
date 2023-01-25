@@ -38,7 +38,8 @@ style:
   # First screen
   first_screen:
     enable: true
-    background_img: https://www.todaybing.com/api/today/cn # (Deprecated) https://source.unsplash.com/random/1280x640 # You can use local image or image external link
+    background_img: https://api.dujin.org/bing/1920.php # (Deprecated) https://www.todaybing.com/api/today/cn # (Deprecated) https://source.unsplash.com/random/1280x640 # You can use local image or image external link
+    background_img_mobile: https://api.dujin.org/bing/m.php
     description: The stars are not afraid to appear like fireflies.
 
   # Scroll style settings
