@@ -1,2 +1,0 @@
-New-ItemProperty HKCU:\Software\Microsoft\InputMethod\Settings\CHS\ -name "UserDefinedDoublePinyinScheme0" -value "Ð¡º×Ë«Æ´*2*^*iuvdjhcwfg^xmlnpbksqszxkrltvyovt" -propertyType string
-gpupdate /force /wait:0
