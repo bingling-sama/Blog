@@ -1,3 +1,4 @@
 *.md
 pnpm-lock.yaml
 blog.code-workspace
+cache

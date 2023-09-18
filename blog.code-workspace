@@ -4,6 +4,22 @@
       "path": "../Blog"
     }
   ],
+  "settings": {
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  },
+  "extensions": {
+    "recommendations": [
+      "vue.volar",
+      "redjue.git-commit-plugin",
+      "rvest.vs-code-prettier-eslint",
+      "sysoev.language-stylus",
+      "jacano.vscode-pnpm",
+      "vue.vscode-typescript-vue-plugin",
+      "antfu.vite",
+      "misterj.vue-volar-extention-pack",
+      "silverfletcherr.vuetify-gotodocs",
+      "vuetifyjs.vuetify-vscode"
+    ]
+  }
 }

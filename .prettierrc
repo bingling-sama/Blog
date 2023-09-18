@@ -1,0 +1,17 @@
+{
+	"printWidth": 80,
+	"tabWidth": 2,
+	"useTabs": true,
+	"singleQuote": false,
+	"semi": false,
+	"trailingComma": "none",
+	"bracketSpacing": true,
+	"overrides": [
+		{
+			"files": ["blog.code-workspace"],
+			"options": {
+				"parser": "json"
+			}
+		}
+	]
+}
