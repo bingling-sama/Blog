@@ -1,10 +1,24 @@
 {
-  "scripts": {
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
-  },
-  "devDependencies": {
-    "vue": "^3.3.4"
-  }
+	"scripts": {
+		"blog:dev": "vitepress dev",
+		"blog:build": "vitepress build",
+		"blog:preview": "vitepress preview",
+		"theme:lint": "eslint --fix ./**",
+		"theme:format": "prettier --write ./**"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^6.7.0",
+		"@typescript-eslint/parser": "^6.7.0",
+		"eslint": "^8.49.0",
+		"eslint-config-prettier": "^9.0.0",
+		"eslint-plugin-prettier": "^5.0.0",
+		"eslint-plugin-vue": "^9.17.0",
+		"prettier": "^3.0.3",
+		"typescript": "^5.2.2",
+		"vue": "^3.3.4"
+	},
+	"volta": {
+		"node": "18.17.1",
+		"pnpm": "8.7.6"
+	}
 }

@@ -1,0 +1,6 @@
+*.md
+pnpm-lock.yaml
+.eslintignore
+.gitignore
+.prettierignore
+blog.code-workspace

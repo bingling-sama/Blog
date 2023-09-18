@@ -1,0 +1,9 @@
+{
+	"folders": [
+    {
+      "path": "../Blog"
+    }
+  ],
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.formatOnSave": true
+}
