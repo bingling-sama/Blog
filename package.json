@@ -16,7 +16,8 @@
 		"prettier": "^3.0.3",
 		"typescript": "^5.2.2",
 		"vitepress": "1.0.0-rc.14",
-		"vue": "^3.3.4"
+		"vue": "^3.3.4",
+		"vuetify": "^3.3.16"
 	},
 	"volta": {
 		"node": "18.17.1",
