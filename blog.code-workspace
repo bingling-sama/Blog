@@ -1,25 +1,26 @@
 {
 	"folders": [
-    {
-      "path": "../Blog"
-    }
-  ],
-  "settings": {
-  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-  "editor.formatOnSave": true,
-  },
-  "extensions": {
-    "recommendations": [
-      "vue.volar",
-      "redjue.git-commit-plugin",
-      "rvest.vs-code-prettier-eslint",
-      "sysoev.language-stylus",
-      "jacano.vscode-pnpm",
-      "vue.vscode-typescript-vue-plugin",
-      "antfu.vite",
-      "misterj.vue-volar-extention-pack",
-      "silverfletcherr.vuetify-gotodocs",
-      "vuetifyjs.vuetify-vscode"
-    ]
-  }
+		{
+			"path": "../Blog"
+		}
+	],
+	"settings": {
+		"editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+		"editor.formatOnSave": true,
+		"vue3snippets.enable-compile-vue-file-on-did-save-code": true
+	},
+	"extensions": {
+		"recommendations": [
+			"vue.volar",
+			"redjue.git-commit-plugin",
+			"rvest.vs-code-prettier-eslint",
+			"sysoev.language-stylus",
+			"jacano.vscode-pnpm",
+			"vue.vscode-typescript-vue-plugin",
+			"antfu.vite",
+			"misterj.vue-volar-extention-pack",
+			"silverfletcherr.vuetify-gotodocs",
+			"vuetifyjs.vuetify-vscode"
+		]
+	}
 }
