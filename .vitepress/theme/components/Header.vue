@@ -1,0 +1,25 @@
+<script lang="ts" setup>
+import { useData } from 'vitepress'
+
+const frontmatter = useData()
+</script>
+
+<template>
+	<v-app-bar density="compact" elevate>
+		<template #prepend>
+			<a href="/"
+				><v-avatar
+					image="https://blog.booling.cn/images/bingling.png"
+					size="40"
+				>
+				</v-avatar>
+			</a>
+		</template>
+
+		<v-app-bar-title>{{ frontmatter.title.value }}</v-app-bar-title>
+
+		<template #append> </template>
+	</v-app-bar>
+</template>
+
+<style lang="stylus" scoped></style>
