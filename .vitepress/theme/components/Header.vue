@@ -1,18 +1,14 @@
 <script lang="ts" setup>
-import { useData } from "vitepress"
+import { useData } from 'vitepress'
 
 const { site, page } = useData()
 </script>
 
 <template>
-	<v-app-bar density="compact" elevate>
+	<v-app-bar density="compact" scroll-behavior="hide" elevate>
 		<template #prepend>
 			<a href="/"
-				><v-avatar
-					image="https://blog.booling.cn/images/bingling.png"
-					size="40"
-				>
-				</v-avatar>
+				><v-avatar image="/images/avatar.webp" size="40"> </v-avatar>
 			</a>
 		</template>
 
