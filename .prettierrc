@@ -6,6 +6,7 @@
 	"semi": false,
 	"trailingComma": "none",
 	"bracketSpacing": true,
+	"plugins": ["prettier-plugin-stylus"],
 	"overrides": [
 		{
 			"files": ["blog.code-workspace"],

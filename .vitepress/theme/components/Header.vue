@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useData } from 'vitepress'
+import { useData } from "vitepress"
 
-const frontmatter = useData()
+const { site, page } = useData()
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const frontmatter = useData()
 			</a>
 		</template>
 
-		<v-app-bar-title>{{ frontmatter.title.value }}</v-app-bar-title>
+		<v-app-bar-title>{{ site.title }} | {{ page.title }}</v-app-bar-title>
 
 		<template #append> </template>
 	</v-app-bar>

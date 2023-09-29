@@ -4,7 +4,7 @@ import { createVuetify } from "vuetify"
 import { EnhanceAppContext } from "vitepress"
 import * as components from "vuetify/components"
 import * as directives from "vuetify/directives"
-import "./style.css"
+import "./style.styl"
 import "vuetify/styles"
 
 const vuetify = createVuetify({
