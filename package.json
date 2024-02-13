@@ -1,29 +1,12 @@
 {
-	"scripts": {
-		"blog:dev": "vitepress dev",
-		"blog:build": "vitepress build",
-		"blog:preview": "vitepress preview",
-		"theme:lint": "eslint --fix ./**",
-		"theme:format": "prettier --write ./**"
-	},
-	"devDependencies": {
-		"@fontsource/jetbrains-mono": "^5.0.12",
-		"@typescript-eslint/eslint-plugin": "^6.7.0",
-		"@typescript-eslint/parser": "^6.7.0",
-		"eslint": "^8.49.0",
-		"eslint-config-prettier": "^9.0.0",
-		"eslint-plugin-prettier": "^5.0.0",
-		"eslint-plugin-vue": "^9.17.0",
-		"prettier": "^3.0.3",
-		"prettier-plugin-stylus": "0.0.1-beta.9",
-		"stylus": "^0.60.0",
-		"typescript": "^5.2.2",
-		"vitepress": "1.0.0-rc.14",
-		"vue": "^3.3.4",
-		"vuetify": "^3.3.16"
-	},
-	"volta": {
-		"node": "18.17.1",
-		"pnpm": "8.8.0"
-	}
+  "name": "Blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
