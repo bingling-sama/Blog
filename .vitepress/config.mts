@@ -3,5 +3,6 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Booling",
-  description: "bingling_sama's personal blog"
+	description: "bingling_sama's personal blog",
+	outDir: "./dist"
 })
