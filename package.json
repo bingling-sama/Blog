@@ -10,7 +10,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "turbo": "^1.12.4",
     "vitepress": "1.0.0-rc.42"
