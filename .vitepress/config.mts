@@ -1,7 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { getPosts } from '../theme/serverUtils'
 
-//每页的文章数量
 const pageSize = 10
 
 export default defineConfig({
@@ -10,9 +9,15 @@ export default defineConfig({
 	cacheDir: './node_modules/vitepress_cache',
 	description: 'vitepress,blog,booling,bingling_sama',
 	ignoreDeadLinks: true,
+	head: [
+		["link", {
+			rel: "icon",
+			href: "/favicon.png"
+		}]
+	],
 	themeConfig: {
 		posts: await getPosts(pageSize),
-		website: 'https://github.com/bingling-sama/Blog', //copyright link
+		website: 'https://github.com/bingling-sama/Blog',
 		nav: [
 			{ text: 'Home', link: '/' },
 			{ text: 'Category', link: '/pages/category' },
@@ -26,7 +31,7 @@ export default defineConfig({
 		outline: {
 			label: '文章摘要'
 		},
-		socialLinks: [{ icon: 'github', link: 'https://github.com/airene/vitepress-blog-pure' }]
+		socialLinks: [{ icon: 'github', link: 'https://github.com/bingling-sama' }]
 	} as any,
 	srcExclude: ['README.md'],
 	vite: {
