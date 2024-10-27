@@ -1,7 +1,9 @@
 ---
-tags: [System]
-category: Life
 date: 2022-08-12 10:08:51
+updated: 2024-10-27 21:21:29
+category: Life
+tags:
+  - System
 title: Windows 下添加小鹤双拼
 ---
 
