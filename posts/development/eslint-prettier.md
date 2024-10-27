@@ -1,7 +1,9 @@
 ---
-tags: [FrontEnd, Vue]
-category: Development
 date: 2022-08-21 11:07:35
+updated: 2024-10-27 21:21:13
+category: Development
+tags:
+  - FrontEnd
 title: 配置 ESLint + Prettier 环境来规范代码风格
 ---
 
