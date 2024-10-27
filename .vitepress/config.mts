@@ -5,20 +5,20 @@ import { getPosts } from '../theme/serverUtils'
 const pageSize = 10
 
 export default defineConfig({
-	title: 'Vitepress blog',
+	title: 'Booling✨',
 	base: '/',
 	cacheDir: './node_modules/vitepress_cache',
-	description: 'vitepress,blog,blog-theme',
+	description: 'vitepress,blog,booling,bingling_sama',
 	ignoreDeadLinks: true,
 	themeConfig: {
 		posts: await getPosts(pageSize),
 		website: 'https://github.com/airene/vitepress-blog-pure', //copyright link
 		// 评论的仓库地址
-		comment: {
-			repo: 'airene/vitepress-blog-pure',
-			themes: 'github-light',
-			issueTerm: 'pathname'
-		},
+		// comment: {
+		// 	repo: 'airene/vitepress-blog-pure',
+		// 	themes: 'github-light',
+		// 	issueTerm: 'pathname'
+		// },
 		nav: [
 			{ text: 'Home', link: '/' },
 			{ text: 'Category', link: '/pages/category' },
@@ -37,14 +37,8 @@ export default defineConfig({
 		socialLinks: [{ icon: 'github', link: 'https://github.com/airene/vitepress-blog-pure' }]
 	} as any,
 	srcExclude: ['README.md'], // exclude the README.md , needn't to compiler
-
 	vite: {
 		//build: { minify: false }
 		server: { port: 5000 }
 	}
-	/*
-		optimizeDeps: {
-				keepNames: true
-		}
-		*/
 })
