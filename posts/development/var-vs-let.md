@@ -1,6 +1,6 @@
 ---
 date: 2024-10-27 20:48:18
-updated: 2024-10-27 21:20:56
+updated: 2024-10-27 21:25:39
 category: Development
 tags:
   - FrontEnd
@@ -8,7 +8,7 @@ title: JavaScript 中 var 与 let 的区别
 ---
 # JavaScript 中 `var` 与 `let` 的区别
 
-一直不太清楚 JavaScript 中 var 与 let 的区别，于是今天好好了解了一下，主要有以下五大区别。
+一直不太清楚 JavaScript 中 var 与 let 的区别，于是今天好好了解了一下，主要有以下三大区别。
 
 ## 作用域
 
