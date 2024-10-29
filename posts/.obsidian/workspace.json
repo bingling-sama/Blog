@@ -48,9 +48,23 @@
               "icon": "lucide-file",
               "title": "var-vs-let"
             }
+          },
+          {
+            "id": "bf904e59cf56dffc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Untitled"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -122,7 +136,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "development/var-vs-let.md",
+                "file": "Untitled.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -132,7 +146,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for var-vs-let"
+              "title": "Backlinks for Untitled"
             }
           },
           {
@@ -141,12 +155,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "development/var-vs-let.md",
+                "file": "Untitled.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from var-vs-let"
+              "title": "Outgoing links from Untitled"
             }
           },
           {
@@ -168,10 +182,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "development/var-vs-let.md"
+                "file": "Untitled.md"
               },
               "icon": "lucide-list",
-              "title": "Outline of var-vs-let"
+              "title": "Outline of Untitled"
             }
           }
         ]
@@ -192,10 +206,11 @@
       "formatto-format:Format Document": false
     }
   },
-  "active": "c613a0a6c7753a59",
+  "active": "bf904e59cf56dffc",
   "lastOpenFiles": [
-    "life/xiaohe.md",
     "development/var-vs-let.md",
+    "Untitled.md",
+    "life/xiaohe.md",
     "development/eslint-prettier.md",
     "life",
     "development"
