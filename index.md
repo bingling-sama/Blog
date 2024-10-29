@@ -3,7 +3,6 @@ page: true
 title: Home
 aside: false
 ---
-
 <script setup>
 import Page from "./theme/components/Page.vue";
 import { useData } from "vitepress";

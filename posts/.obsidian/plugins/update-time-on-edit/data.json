@@ -8,9 +8,9 @@
   "ignoreCreatedFolder": [],
   "enableExperimentalHash": false,
   "fileHashMap": {
-    "life/xiaohe.md": "6b01110075eed765d42a2e9f77a3b1eb59ad522a2f4804a88a861e190857c440",
-    "development/eslint-prettier.md": "e52529d9b46b4ad0d3f47406473fe6a61f8b2e032196ea69c95a3572de14ede5",
-    "development/var-vs-let.md": "0dfdd21cefeacbcefbc82e5e663faa0ffe0824e23940bfefef9f5d0c5a998edf",
+    "life/xiaohe.md": "65ac3cb673e0864503d90f2654f6e824cc29870b12346098ffad35f34f603fdc",
+    "development/eslint-prettier.md": "90cf92680b99f7a047e7d004ee974366ac01d1388a5451e62f4bb72e1ab34c27",
+    "development/var-vs-let.md": "c6c7f82367d25c93dbc55247b9f6e1d4d5d25b05d9f9e74e9bf4025e65380f5e",
     "Untitled.md": "7d7c750b9da3d4b6fb782250bb545b1e424d368b659d814237a56021f808528a"
   }
 }
