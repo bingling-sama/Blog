@@ -76,6 +76,7 @@ defineProps({
     font-size: 0.9375rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+		line-clamp: 3;
     -webkit-line-clamp: 3;
     overflow: hidden;
     color: var(--vp-c-text-2);
@@ -124,6 +125,7 @@ defineProps({
         font-weight: 400;
         display: -webkit-box;
         -webkit-box-orient: vertical;
+				line-clamp: 2;
         -webkit-line-clamp: 2;
         overflow: hidden;
         width: 17rem;
@@ -132,6 +134,7 @@ defineProps({
         font-size: 0.9375rem;
         display: -webkit-box;
         -webkit-box-orient: vertical;
+				line-clamp: 3;
         -webkit-line-clamp: 3;
         overflow: hidden;
         margin: 0.5rem 0 1rem;
