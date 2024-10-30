@@ -1,4 +1,5 @@
 <template>
+	<div class="container">
 		<div v-for="(article, index) in posts" :key="index" class="post-list">
 				<div class="post-header">
 						<div class="post-title">
@@ -10,6 +11,7 @@
 						{{ article.frontMatter.date }} <span v-for="item in article.frontMatter.tags"><a :href="withBase(`/pages/tags.html?tag=${item}`)"> {{ item }}</a></span>
 				</div>
 		</div>
+	</div>
 
 		<div class="pagination">
 				<a
@@ -52,9 +54,7 @@ defineProps({
 
 <style scoped>
 .container {
-	height: 100%;
-	display: flex;
-	justify-content: space-between;
+	min-height: 70vh;
 }
 
 .post-list {
