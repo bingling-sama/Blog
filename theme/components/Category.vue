@@ -1,16 +1,21 @@
 <template>
-    <div v-for="(posts, key) in data">
-        <div class="category">
-            {{ key }}
-        </div>
-        <a :href="withBase(article.regularPath)" v-for="(article, index) in posts" :key="index" class="posts">
-            <div class="post-container">
-                <div class="post-dot"></div>
-                {{ article.frontMatter.title }}
-            </div>
-            <div class="date">{{ article.frontMatter.date }}</div>
-        </a>
+  <div v-for="(posts, key) in data">
+    <div class="category">
+      {{ key }}
     </div>
+    <a
+      v-for="(article, index) in posts"
+      :key="index"
+      :href="withBase(article.regularPath)"
+      class="posts"
+    >
+      <div class="post-container">
+        <div class="post-dot" />
+        {{ article.frontMatter.title }}
+      </div>
+      <div class="date">{{ article.frontMatter.date }}</div>
+    </a>
+  </div>
 </template>
 <script lang="ts" setup>
 import { useData, withBase } from 'vitepress'

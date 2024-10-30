@@ -25,7 +25,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div ref="utterancesRef"></div>
+  <div ref="utterancesRef" />
 </template>
 
 <style>
