@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "life/xiaohe.md",
+                "file": "development/var-vs-let.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "xiaohe"
+              "title": "var-vs-let"
             }
           },
           {
@@ -179,9 +179,9 @@
   },
   "active": "7ab22d8428239c71",
   "lastOpenFiles": [
+    "development/eslint-prettier.md",
     "development/var-vs-let.md",
     "life/xiaohe.md",
-    "development/eslint-prettier.md",
     "Untitled.md",
     "life",
     "development"

@@ -15,15 +15,18 @@ export default defineConfig({
 			href: "/favicon.png"
 		}]
 	],
+	rewrites: {
+		'pages/:page.md': ':page.md'
+	},
 	themeConfig: {
 		posts: await getPosts(pageSize),
 		website: 'https://github.com/bingling-sama/Blog',
 		nav: [
 			{ text: 'Home', link: '/' },
-			{ text: 'Category', link: '/pages/category' },
-			{ text: 'Archives', link: '/pages/archives' },
-			{ text: 'Tags', link: '/pages/tags' },
-			{ text: 'About', link: '/pages/about' }
+			{ text: 'Category', link: '/category' },
+			{ text: 'Archives', link: '/archives' },
+			{ text: 'Tags', link: '/tags' },
+			{ text: 'About', link: '/about' }
 		],
 		search: {
 			provider: 'local',
@@ -34,6 +37,11 @@ export default defineConfig({
 		socialLinks: [{ icon: 'github', link: 'https://github.com/bingling-sama' }]
 	} as any,
 	srcExclude: ['README.md'],
+	lastUpdated: true,
+	cleanUrls: true,
+	sitemap: {
+		hostname: 'https://blog.booling.cn'
+	},
 	vite: {
 		server: { port: 5000 }
 	}

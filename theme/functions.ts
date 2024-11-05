@@ -10,7 +10,7 @@ export type Post = {
 }
 
 export function initTags(post: Post[]) {
-	const data: any = {}
+	const data = {} as Map<string, Post[]>
 	for (let index = 0; index < post.length; index++) {
 		const element = post[index]
 		const tags = element.frontMatter.tags
@@ -46,7 +46,7 @@ export function initCategory(post: Post[]) {
 }
 
 export function useYearSort(post: Post[]) {
-	const data = []
+	const data = [] as Array<Post[]>
 	let year = '0'
 	let num = -1
 	for (let index = 0; index < post.length; index++) {
