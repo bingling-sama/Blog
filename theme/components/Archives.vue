@@ -1,7 +1,7 @@
 <template>
   <div v-for="yearList in data">
     <div class="year">
-      {{ yearList[0].date.split('-')[0] }}
+      {{ yearList[0].date.split("-")[0] }}
     </div>
     <a
       v-for="(post, index) in yearList"
@@ -19,21 +19,21 @@
 </template>
 
 <script lang="ts" setup>
-import { withBase } from 'vitepress'
-import { computed } from 'vue'
-import { useYearSort } from '../scripts/functions'
+import { withBase } from "vitepress"
+import { computed } from "vue"
+import { useYearSort } from "../scripts/functions"
 
 // @ts-expect-error
-import { data as posts } from '../scripts/posts.data'
+import { data as posts } from "../scripts/posts.data"
 
 const data = computed(() => useYearSort(posts))
 </script>
 
 <style scoped>
 .year {
-    padding: 14px 0 8px 0;
-    font-size: 1.25rem;
-    font-weight: 500;
-    font-family: var(--date-font-family),serif;
+  padding: 14px 0 8px 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  font-family: var(--date-font-family), serif;
 }
 </style>

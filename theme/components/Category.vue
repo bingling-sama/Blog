@@ -18,21 +18,21 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { withBase } from 'vitepress'
-import { computed } from 'vue'
-import { initCategory } from '../scripts/functions'
+import { withBase } from "vitepress"
+import { computed } from "vue"
+import { initCategory } from "../scripts/functions"
 
 //@ts-expect-error
-import {data as posts} from "../scripts/posts.data"
+import { data as posts } from "../scripts/posts.data"
 
 const data = computed(() => initCategory(posts))
 </script>
 
 <style scoped>
 .category {
-    padding: 14px 0 8px 0;
-    font-size: 1.25rem;
-    font-weight: 500;
-    font-family: var(--date-font-family),serif;
+  padding: 14px 0 8px 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  font-family: var(--date-font-family), serif;
 }
 </style>
