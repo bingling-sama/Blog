@@ -1,60 +1,50 @@
 <template>
 	<div class="container">
-		<div v-for="(article, index) in posts" :key="index" class="post-list">
-				<div class="post-header">
-						<div class="post-title">
-								<a :href="withBase(article.regularPath)"> {{ article.frontMatter.title }}</a>
-						</div>
+		<div v-for="(post, index) in pages[pageCurrent-1]" :key="index" class="post-list">
+			<div class="post-header">
+				<div class="post-title">
+					<a :href="withBase(post.url)"> {{ post.title }}</a>
 				</div>
-				<p class="describe" v-html="article.frontMatter.description"></p>
+			</div>
+				<p class="describe" v-html="post.description"></p>
 				<div class='post-info'>
-						{{ article.frontMatter.date }} <span v-for="item in article.frontMatter.tags"><a :href="withBase(`/pages/tags.html?tag=${item}`)"> {{ item }}</a></span>
+						{{ post.date }} <span v-for="item in post.tags"><a :href="withBase(`/pages/tags.html?tag=${item}`)"> {{ item }}</a></span>
 				</div>
 		</div>
 	</div>
 
-		<div class="pagination">
-				<a
-						class="link"
-						:class="{ active: pageCurrent === i }"
-						v-for="i in pagesNum"
-						:key="i"
-						:href="withBase(i === 1 ? '/index.html' : `/page_${i}.html`)"
-				>{{ i }}</a>
-		</div>
+	<div class="pagination">
+		<span
+			class="link"
+			:class="{ active: pageCurrent === i }"
+			v-for="i in pages.length"
+			:key="i"
+			@onClick="() => {pageCurrent = i}"
+		>{{ i }}</span>
+	</div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
+import { Post } from "../functions";
 import { withBase } from 'vitepress'
-import { PropType } from 'vue'
-interface Article {
-    regularPath: string
-    frontMatter: {
-        title: string
-        description: string
-        date: string
-        tags: string[]
-    }
-}
-defineProps({
-    posts: {
-        type: Array as PropType<Article[]>,
-        required: true
-    },
-    pageCurrent: {
-        type: Number as PropType<number>,
-        required: true
-    },
-    pagesNum: {
-        type: Number as PropType<number>,
-        required: true
-    }
-})
+// @ts-expect-error
+import {data as posts} from "../scripts/posts.data"
+
+const pages: Post[][] = posts.length > 10 
+  ? posts.reduce((acc, post, index) => {
+      if (index % 10 === 0) acc.push([]);
+      acc[acc.length - 1].push(post);
+      return acc;
+    }, [] as Post[][])
+  : [posts];
+const pageCurrent = ref(1)
+
 </script>
 
 <style scoped>
 .container {
-	min-height: 70vh;
+	min-height: 60vh;
 }
 
 .post-list {
@@ -89,6 +79,7 @@ defineProps({
     justify-content: center;
 }
 .link {
+	cursor: pointer;
     display: inline-block;
     width: 24px;
     text-align: center;

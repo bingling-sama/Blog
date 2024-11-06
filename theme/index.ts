@@ -1,6 +1,6 @@
 import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
-import NewLayout from './components/NewLayout.vue'
+import MyLayout from './components/MyLayout.vue'
 import Archives from './components/Archives.vue'
 import Category from './components/Category.vue'
 import Tags from './components/Tags.vue'
@@ -11,7 +11,7 @@ import './custom.css'
 
 export default {
 	...DefaultTheme,
-	Layout: NewLayout,
+	Layout: MyLayout,
 	enhanceApp({ app }) {
 		// register global component
 		app.component('Tags', Tags)

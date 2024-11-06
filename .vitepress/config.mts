@@ -1,11 +1,9 @@
 import { defineConfig } from 'vitepress'
-import { getPosts } from '../theme/serverUtils'
-
-const pageSize = 10
 
 export default defineConfig({
 	title: 'Booling✨',
 	base: '/',
+	srcDir: 'blog',
 	cacheDir: './node_modules/vitepress_cache',
 	description: 'vitepress,blog,booling,bingling_sama',
 	ignoreDeadLinks: true,
@@ -19,7 +17,6 @@ export default defineConfig({
 		'pages/:page.md': ':page.md'
 	},
 	themeConfig: {
-		posts: await getPosts(pageSize),
 		website: 'https://github.com/bingling-sama/Blog',
 		nav: [
 			{ text: 'Home', link: '/' },

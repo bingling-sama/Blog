@@ -1,19 +1,17 @@
 export type Post = {
-	frontMatter: {
-		date: string
-		title: string
-		category: string
-		tags: string[]
-		description: string
-	}
-	regularPath: string
+	date: string
+	title: string
+	category: string
+	tags: string[]
+	description: string
+	url: string
 }
 
-export function initTags(post: Post[]) {
+export function initTags(post: Post[]): Map<string, Post[]> {
 	const data = {} as Map<string, Post[]>
 	for (let index = 0; index < post.length; index++) {
 		const element = post[index]
-		const tags = element.frontMatter.tags
+		const tags = element.tags
 		if (tags) {
 			tags.forEach((item) => {
 				if (data[item]) {
@@ -28,11 +26,11 @@ export function initTags(post: Post[]) {
 	return data
 }
 
-export function initCategory(post: Post[]) {
+export function initCategory(post: Post[]): { [key: string]: Post[] } {
 	const data: any = {}
 	for (let index = 0; index < post.length; index++) {
 		const element = post[index]
-		const category = element.frontMatter.category
+		const category = element.category
 		if (category) {
 			if (data[category]) {
 				data[category].push(element)
@@ -45,14 +43,14 @@ export function initCategory(post: Post[]) {
 	return data
 }
 
-export function useYearSort(post: Post[]) {
+export function useYearSort(post: Post[]): Array<Post[]> {
 	const data = [] as Array<Post[]>
 	let year = '0'
 	let num = -1
 	for (let index = 0; index < post.length; index++) {
 		const element = post[index]
-		if (element.frontMatter.date) {
-			const y = element.frontMatter.date.split('-')[0]
+		if (element.date) {
+			const y = element.date.split('-')[0]
 			if (y === year) {
 				data[num].push(element)
 			} else {

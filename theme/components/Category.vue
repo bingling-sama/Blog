@@ -4,26 +4,28 @@
       {{ key }}
     </div>
     <a
-      v-for="(article, index) in posts"
+      v-for="(post, index) in posts"
       :key="index"
-      :href="withBase(article.regularPath)"
+      :href="withBase(post.url)"
       class="posts"
     >
       <div class="post-container">
         <div class="post-dot" />
-        {{ article.frontMatter.title }}
+        {{ post.title }}
       </div>
-      <div class="date">{{ article.frontMatter.date }}</div>
+      <div class="date">{{ post.date }}</div>
     </a>
   </div>
 </template>
 <script lang="ts" setup>
-import { useData, withBase } from 'vitepress'
+import { withBase } from 'vitepress'
 import { computed } from 'vue'
 import { initCategory } from '../functions'
 
-const { theme } = useData()
-const data = computed(() => initCategory(theme.value.posts))
+//@ts-expect-error
+import {data as posts} from "../scripts/posts.data"
+
+const data = computed(() => initCategory(posts))
 </script>
 
 <style scoped>

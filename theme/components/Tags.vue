@@ -6,27 +6,29 @@
     </div>
     <div class="tag-header">{{ selectTag }}</div>
     <a
-        :href="withBase(article.regularPath)"
-        v-for="(article, index) in selectTag ? data[selectTag] : []"
+        v-for="(post, index) in selectTag ? data[selectTag] : []"
+        :href="withBase(post.url)"
         :key="index"
         class="posts"
     >
         <div class="post-container">
             <div class="post-dot"></div>
-            {{ article.frontMatter.title }}
+            {{ post.title }}
         </div>
-        <div class="date">{{ article.frontMatter.date }}</div>
+        <div class="date">{{ post.date }}</div>
     </a>
 </template>
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { useData, withBase } from 'vitepress'
+import { withBase } from 'vitepress'
 import { initTags } from '../functions'
+
+// @ts-expect-error
+import { data as posts } from '../scripts/posts.data'
 
 let url = location.href.split('?')[1]
 let params = new URLSearchParams(url)
-const { theme } = useData()
-const data = computed(() => initTags(theme.value.posts))
+const data = computed(() => initTags(posts))
 let selectTag = ref(params.get('tag') ? params.get('tag') : '')
 const toggleTag = (tag: string) => {
     selectTag.value = tag
