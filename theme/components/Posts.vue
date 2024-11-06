@@ -8,7 +8,7 @@
 			</div>
 				<p class="describe" v-html="post.description"></p>
 				<div class='post-info'>
-						{{ post.date }} <span v-for="item in post.tags"><a :href="withBase(`/pages/tags.html?tag=${item}`)"> {{ item }}</a></span>
+						{{ post.date }} <span v-for="item in post.tags"><a :href="withBase(`/tags?tag=${item}`)"> {{ item }}</a></span>
 				</div>
 		</div>
 	</div>
@@ -26,7 +26,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { Post } from "../functions";
+import { Post } from "../scripts/functions";
 import { withBase } from 'vitepress'
 // @ts-expect-error
 import {data as posts} from "../scripts/posts.data"
@@ -44,7 +44,7 @@ const pageCurrent = ref(1)
 
 <style scoped>
 .container {
-	min-height: 60vh;
+	margin: 2rem 0;
 }
 
 .post-list {

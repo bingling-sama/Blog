@@ -4,7 +4,7 @@ import MyLayout from './components/MyLayout.vue'
 import Archives from './components/Archives.vue'
 import Category from './components/Category.vue'
 import Tags from './components/Tags.vue'
-import Page from './components/Page.vue'
+import Posts from './components/Posts.vue'
 import Comment from './components/Comment.vue'
 
 import './custom.css'
@@ -17,7 +17,7 @@ export default {
 		app.component('Tags', Tags)
 		app.component('Category', Category)
 		app.component('Archives', Archives)
-		app.component('Page', Page)
+		app.component('Posts', Posts)
 		app.component('Comment', Comment)
 	}
 } satisfies Theme

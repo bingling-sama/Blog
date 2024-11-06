@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { withBase } from 'vitepress'
-import { initTags } from '../functions'
+import { initTags } from '../scripts/functions'
 
 // @ts-expect-error
 import { data as posts } from '../scripts/posts.data'

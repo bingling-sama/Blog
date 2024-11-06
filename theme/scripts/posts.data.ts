@@ -1,5 +1,5 @@
 import { createContentLoader } from 'vitepress'
-import type { Post } from '../functions'
+import type { Post } from './functions'
 
 export default createContentLoader("posts/**/*.md", {
 	transform(raw): Post[] {

@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { withBase } from 'vitepress'
 import { computed } from 'vue'
-import { useYearSort } from '../functions'
+import { useYearSort } from '../scripts/functions'
 
 // @ts-expect-error
 import { data as posts } from '../scripts/posts.data'

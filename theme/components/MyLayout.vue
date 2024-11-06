@@ -11,6 +11,9 @@
           {{ item }}</a></span>
       </div>
     </template>
+		<template #home-hero-after>
+			<img :src="withBase('/hero.webp')" alt="Hero Image">
+		</template>
   </Layout>
   <Copyright />
 </template>
