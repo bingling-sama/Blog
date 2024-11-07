@@ -15,7 +15,8 @@ export default defineConfig({
 		}]
 	],
 	rewrites: {
-		'pages/:page.md': ':page.md'
+		'pages/:page.md': ':page.md',
+		'posts/:category/:post.md': 'posts/:post.md',
 	},
 	themeConfig: {
 		website: 'https://github.com/bingling-sama/Blog',
