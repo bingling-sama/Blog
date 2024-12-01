@@ -41,18 +41,30 @@ a[rel~="noreferrer"]:visited {
   color: #888;
 }
 h1 {
-  font-size: 1.5rem !important;
+  font-size: 1.75rem !important;
   font-weight: 500 !important;
   padding-top: 14px;
 }
 h2 {
-  font-size: 1.125rem !important;
+  font-size: 1.5rem !important;
   font-weight: 500 !important;
   border-bottom: 1px solid var(--vp-c-divider-light);
   border-top: none !important;
   margin: inherit !important;
 }
 h3 {
+  font-size: 1.375rem !important;
+  font-weight: 500 !important;
+}
+h4 {
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+}
+h5 {
+  font-size: 1.125rem !important;
+  font-weight: 500 !important;
+}
+h6 {
   font-size: 1rem !important;
   font-weight: 500 !important;
 }
