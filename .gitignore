@@ -4,3 +4,6 @@ cache
 .turbo
 dist
 .vercel
+drafts
+.DS_Store
+.obsidian

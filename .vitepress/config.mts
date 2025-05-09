@@ -42,6 +42,6 @@ export default defineConfig({
 		hostname: 'https://blog.booling.cn'
 	},
 	vite: {
-		server: { port: 5000 }
+		server: { port: 3000 }
 	}
 })
