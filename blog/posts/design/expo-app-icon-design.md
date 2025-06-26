@@ -1,9 +1,9 @@
 ---
 date: 2025-02-07 16:20:09
-updated: 2025-05-09 09:49:57
+updated: 2025-06-26 09:01:04
 category: Design
 tags:
-	- FrontEnd
+  - FrontEnd
   - Mobile
 title: 移动应用图标设计
 description: 设计和配置 Splash Screen 与 App Icon
@@ -117,8 +117,6 @@ Expo 提供了集中化的配置方式，统一管理图标和启动页资源。
   }
 }
 ```
-
-📷 **配图 6：Expo 中 Icon 与 Adaptive Icon 配置结构图（字段解释）**
 
 ---
 
