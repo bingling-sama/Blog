@@ -1,11 +1,11 @@
 ---
 date: 2025-04-06 00:44:14
-updated: 2025-06-26 09:01:36
+updated: 2026-04-26 16:26:02
 title: Lottie 在 Web 开发中的应用
 description: 稍微调研了一些 Lottie Web 库，这里记录一下
 tags:
   - FrontEnd
-category: 前端开发
+category: Development
 ---
 
 # Lottie 在 Web 开发中的应用

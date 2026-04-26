@@ -190,3 +190,22 @@ h6 {
   border-radius: 2px;
   color: var(--vp-c-text-1);
 }
+
+/* math rendering */
+.vp-doc .mjx-container {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.vp-doc .mjx-container[jax="CHTML"] {
+  padding: 0.15rem 0;
+}
+
+.vp-doc mjx-container {
+  max-width: 100%;
+}
+
+.vp-doc mjx-container[jax="CHTML"][display="true"] {
+  margin: 1rem 0;
+}

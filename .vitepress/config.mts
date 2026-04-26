@@ -7,6 +7,9 @@ export default defineConfig({
 	srcDir: 'blog',
 	cacheDir: './node_modules/vitepress_cache',
 	description: 'vitepress,blog,booling,bingling_sama',
+	markdown: {
+		math: true
+	},
 	ignoreDeadLinks: true,
 	head: [
 		["link", {

@@ -1,11 +1,11 @@
 ---
 date: 2025-11-24 17:17:41
-updated: 2025-11-26 19:26:50
+updated: 2026-04-26 16:26:06
 title: JavaScript 中的 OOP 与 FC
 description: 这篇分享主要让大家了解一下 js 中的 oop 与 fc，通过结合原理学习语法来提高大家的学习效率、加深大家对知识的理解。
 tags:
   - FrontEnd
-category: 前端开发
+category: Development
 ---
 
 # JavaScript 中的 OOP 与 FC
