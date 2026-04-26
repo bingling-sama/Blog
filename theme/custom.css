@@ -31,6 +31,41 @@
   font-size: 0.9375rem;
 }
 
+.about-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 0.5rem 0 1rem;
+}
+
+.about-badges img {
+  display: inline-block;
+  margin: 0;
+}
+
+.about-badges--top img {
+  height: auto;
+}
+
+.about-stats {
+  margin: 0.75rem 0 1rem;
+}
+
+.about-stats__row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.about-stats__row img {
+  display: block;
+  margin: 0;
+  max-width: 100%;
+}
+
 .content a[rel~="noreferrer"]:link,
 a[rel~="noreferrer"]:visited {
   color: var(--vp-c-brand);

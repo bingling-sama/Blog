@@ -4,74 +4,117 @@ title: About
 description: About me
 aside: false
 ---
+## Hi there, I'm bingling-sama 👋
+<div class="about-badges about-badges--top">
+  <a href="https://github.com/bingling-sama" target="_blank" rel="noreferrer">
+    <img src="https://visitor-badge.laobi.icu/badge?page_id=bingling-sama.bingling-sama" alt="Visitors" />
+  </a>
+  <a href="https://github.com/bingling-sama?tab=followers" target="_blank" rel="noreferrer">
+    <img src="https://img.shields.io/github/followers/bingling-sama.svg?style=social&label=Follow" alt="GitHub followers" />
+  </a>
+</div>
 
-## About me
+### 🎯 About Me
+- 🔭 I'm passionate about software development and building innovative solutions
+- 🌱 I'm continuously learning and exploring new technologies
+- 💡 I love sharing my knowledge and contributing to open source
+- 🚀 I enjoy tackling challenging problems and creating efficient solutions
+- 🎨 I believe in clean code and beautiful design
+- 🌐 Visit my website: [booling.cn](https://www.booling.cn/)
+
+### 💻 Tech Stack & Tools
+
+#### Languages
+<div class="about-badges">
+  <img src="https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white" alt="Rust" />
+  <img src="https://img.shields.io/badge/-Java-007396?style=flat-square&logo=java&logoColor=white" alt="Java" />
+  <img src="https://img.shields.io/badge/-Kotlin-0095D5?style=flat-square&logo=kotlin&logoColor=white" alt="Kotlin" />
+  <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" />
+  <img src="https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3" />
+</div>
+
+#### Mobile & Frontend Development
+<div class="about-badges">
+  <img src="https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/-Vue.js-4FC08D?style=flat-square&logo=vue.js&logoColor=white" alt="Vue.js" />
+  <img src="https://img.shields.io/badge/-Android-3DDC84?style=flat-square&logo=android&logoColor=white" alt="Android" />
+  <img src="https://img.shields.io/badge/-Jetpack%20Compose-4285F4?style=flat-square&logo=jetpack-compose&logoColor=white" alt="Jetpack Compose" />
+  <img src="https://img.shields.io/badge/-Stylus-333333?style=flat-square&logo=stylus&logoColor=white" alt="Stylus" />
+  <img src="https://img.shields.io/badge/-Sass-CC6699?style=flat-square&logo=sass&logoColor=white" alt="Sass" />
+</div>
+
+#### Backend Development
+<div class="about-badges">
+  <img src="https://img.shields.io/badge/-Spring%20Boot-6DB33F?style=flat-square&logo=spring-boot&logoColor=white" alt="Spring Boot" />
+  <img src="https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/-Express-000000?style=flat-square&logo=express&logoColor=white" alt="Express" />
+  <img src="https://img.shields.io/badge/-MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/-MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL" />
+</div>
+
+#### Dev Tools & Platforms
+<div class="about-badges">
+  <img src="https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white" alt="Git" />
+  <img src="https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub" />
+  <img src="https://img.shields.io/badge/-VS%20Code-007ACC?style=flat-square&logo=visual-studio-code&logoColor=white" alt="VS Code" />
+  <img src="https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker" />
+  <img src="https://img.shields.io/badge/-Linux-FCC624?style=flat-square&logo=linux&logoColor=black" alt="Linux" />
+</div>
+
+### 📊 GitHub Stats
+
+<a class="about-stats" href="https://github.com/bingling-sama" target="_blank" rel="noreferrer">
+	<p align="center">
+		<img src="https://streak-stats.booling.cn?user=bingling-sama&theme=transparent" alt="GitHub Streak" />
+  <div class="about-stats__row">
+    <img
+      src="https://stats.booling.cn/api?username=bingling-sama&show_icons=true&theme=transparent&include_all_commits=true&count_private=true"
+      alt="GitHub Stats"
+    />
+    <img
+      src="https://stats.booling.cn/api/top-langs/?username=bingling-sama&layout=donut&theme=transparent&hide=html"
+      alt="Top Languages"
+    />
+  </div>	
+	</p>
+	<p align="center">
+	  <img src="https://raw.githubusercontent.com/bingling-sama/bingling-sama/output/github-contribution-grid-snake.svg" alt="Snake animation" />
+	</p>
+</a>
+
+### ⌨️ Coding Activity
+
+<p align="center">
+	<a href="https://wakatime.com/@bingling_sama" target="_blank" rel="noreferrer">
+		<img src="https://stats.booling.cn/api/wakatime?username=bingling_sama&layout=compact" alt="WakaTime Weekly Coding Activity" />
+	</a>
+</p>
+
+### 🤝 Open Source Contributions
+
+- Active contributor to various open-source projects
+- Focus on improving documentation and adding new features
+- Passionate about helping the developer community
+
+### 📫 Connect With Me
+[![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white&link=https://github.com/bingling-sama)](https://github.com/bingling-sama)
+- 💬 Feel free to reach out for collaborations or interesting discussions
+- 🌐 Check out my repositories for more projects and contributions
+- 📧 You can contact me through GitHub
+
+### ⚡ Fun Facts
+- 🎮 I enjoy gaming in my free time
+- 📚 Always reading tech blogs and documentation
+- 🎵 Code better with music
 
 ---
+<p align="center">⭐️ From <a href="https://github.com/bingling-sama">bingling-sama</a></p>
 
-- 👋 Hi, I'm bingling_sama, an undergraduate of CCNU.
-- 🚀️ I'm currently working as a frontend developer
-- 📮️ How to reach me: [Github](https://github.com/bingling-sama) & [Email](mailto://bingling_sama@qq.com)
-- 📖 My motto: *The stars are not afraid to appear like fireflies.*
-
----
-
-### 后端
-
-<p>
-  <img src="https://img.shields.io/badge/-Go-DCDCDC?logo=Go&logoColor=00ADD8" alt="Go" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-MongoDB-47A248?logo=MongoDB&logoColor=FFF" alt="MongoDB" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-JWT-000?logo=JSON-Web-Tokens&logoColor=FFF" alt="JWT" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-JSON-000?logo=JSON&logoColor=FFF" alt="JSON" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Node.js-D3D3D3?logo=Node.js&logoColor=339933" alt="Node.js" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Python-A9A9A9?logo=Python&logoColor=3776AB" alt="Python" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Spring-6DB33F?logo=Spring&logoColor=FFF" alt="Spring" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Spring%20Boot-6DB33F?logo=Spring-Boot&logoColor=FFF" alt="Spring Boot" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-PostgreSQL-C0C0C0?logo=PostgreSQL&logoColor=4169E1" alt="PostgreSQL" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Kafka-C0C0C0?logo=Apache-Kafka&logoColor=231F20" alt="Kafka" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Gradle-D3D3D3?logo=Gradle&logoColor=02303A" alt="Gradle" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Spring%20Security-6DB33F?logo=Spring-Security&logoColor=FFF" alt="Spring Security" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Java-F78C40?logo=OpenJDK&logoColor=FFF" alt="Java" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Android-C0C0C0?logo=Android&logoColor=3DDC84" alt="Android" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Node.js-D3D3D3?logo=Node.js&logoColor=339933" alt="Node.js" style="display: inline-block;" />&nbsp;
-</p>
-
-### 前端
-
-<p>
-  <img src="https://img.shields.io/badge/-JavaScript-A9A9A9?logo=JavaScript&logoColor=F7DF1E" alt="JavaScript" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-TypeScript-C0C0C0?logo=TypeScript&logoColor=3178C6" alt="TypeScript" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Vue3-C0C0C0?logo=Vue.js&logoColor=4FC08D" alt="Vue3" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Vite-D3D3D3?logo=Vite&logoColor=646CFF" alt="Vite" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Webpack-D3D3D3?logo=Webpack&logoColor=8DD6F9" alt="Webpack" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-NPM-C0C0C0?logo=npm&logoColor=CB3837" alt="NPM" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-ESLint-C0C0C0?logo=ESLint&logoColor=4B32C3" alt="ESLint" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-HTML5-A9A9A9?logo=HTML5&logoColor=E34F26" alt="HTML5" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-CSS3-A9A9A9?logo=CSS3&logoColor=1572B6" alt="CSS3" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Tailwind%20CSS-FFF?logo=Tailwind-CSS&logoColor=06B6D4" alt="Tailwind CSS" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Ant%20Design-C0C0C0?logo=Ant-Design&logoColor=0170FE" alt="Ant Design" style="display: inline-block;" />&nbsp;
-</p>
-
-### 运维
-
-<p>
-  <img src="https://img.shields.io/badge/-Git-F05032?logo=Git&logoColor=FFF" alt="Git" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-GitHub-181717?logo=GitHub&logoColor=FFF" alt="GitHub" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-GitHub%20Actions-2088FF?logo=GitHub-Actions&logoColor=FFF" alt="GitHub Actions" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Docker-2496ED?logo=Docker&logoColor=FFF" alt="Docker" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Kubernetes-326CE5?logo=Kubernetes&logoColor=FFF" alt="Kubernetes" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Nginx-009639?logo=Nginx&logoColor=FFF" alt="Nginx" style="display: inline-block;" />&nbsp;
-
-</p>
-
-### 开发工具
-
-<p>
-  <img src="https://img.shields.io/badge/nvovim-blue?logo=vim&logoColor=white " alt="Neovim" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-VSCode-C0C0C0?logo=Visual-Studio-Code&logoColor=007ACC" alt="VSCode" style="display: inline-block;" />&nbsp;
-   <img src="https://img.shields.io/badge/-Intellij%20IDEA-000?logo=Intellij-IDEA&logoColor=FFF" alt="Intellij IDEA" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-WebStorm-000?logo=WebStorm&logoColor=FFF" alt="WebStorm" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-PyCharm-C0C0C0?logo=PyCharm&logoColor=000" alt="PyCharm" style="display: inline-block;" />&nbsp;
-  <img src="https://img.shields.io/badge/-Android%20Studio-C0C0C0?logo=Android-Studio&logoColor=3DDC84" alt="Android Studio" style="display: inline-block;" />&nbsp;
-</p>
-
+<!--
+Profile template inspired by various awesome GitHub profiles
+Badges from shields.io and Simple Icons
+Stats from github-readme-stats and github-readme-streak-stats
+-->
