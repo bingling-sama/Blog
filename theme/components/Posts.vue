@@ -26,32 +26,78 @@
       :class="{ active: pageCurrent === i }"
       v-for="i in pages.length"
       :key="i"
-      @onClick="
-        () => {
-          pageCurrent = i
-        }
-      "
+      @click="setPage(i)"
       >{{ i }}</span
     >
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue"
+import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue"
 import { Post } from "../scripts/functions"
 import { withBase } from "vitepress"
 // @ts-expect-error
 import { data as posts } from "../scripts/posts.data"
 
-const pages: Post[][] =
-  posts.length > 10
-    ? posts.reduce((acc, post, index) => {
-        if (index % 10 === 0) acc.push([])
-        acc[acc.length - 1].push(post)
-        return acc
-      }, [] as Post[][])
-    : [posts]
+const MOBILE_BREAKPOINT = 768
+const DESKTOP_PAGE_SIZE = 10
+const MOBILE_PAGE_SIZE = 6
+
 const pageCurrent = ref(1)
+const pageSize = ref(DESKTOP_PAGE_SIZE)
+
+const pages = computed(() => splitPosts(posts, pageSize.value))
+
+function setPage(page: number) {
+  pageCurrent.value = page
+}
+
+function updatePageSize() {
+  pageSize.value =
+    window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE
+}
+
+function splitPosts(items: Post[], size: number) {
+  if (items.length <= size) return [items]
+
+  return items.reduce((acc, post, index) => {
+    if (index % size === 0) acc.push([])
+    acc[acc.length - 1].push(post)
+    return acc
+  }, [] as Post[][])
+}
+
+function clampCurrentPage() {
+  if (pageCurrent.value > pages.value.length) {
+    pageCurrent.value = pages.value.length || 1
+  }
+}
+
+let resizeHandler: (() => void) | null = null
+
+onMounted(() => {
+  updatePageSize()
+  clampCurrentPage()
+
+  resizeHandler = () => {
+    const nextPageSize =
+      window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE
+
+    if (nextPageSize !== pageSize.value) {
+      pageSize.value = nextPageSize
+    }
+  }
+
+  window.addEventListener("resize", resizeHandler)
+})
+
+onBeforeUnmount(() => {
+  if (resizeHandler) {
+    window.removeEventListener("resize", resizeHandler)
+  }
+})
+
+watch(pages, clampCurrentPage)
 </script>
 
 <style scoped>
