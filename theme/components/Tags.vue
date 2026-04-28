@@ -1,6 +1,11 @@
 <template>
   <div class="tags">
-    <span @click="toggleTag(String(key))" v-for="(_, key) in data" class="tag">
+    <span
+      @click="toggleTag(String(key))"
+      v-for="(_, key) in data"
+      class="tag"
+      :class="{ 'tag-active': selectTag === key }"
+    >
       {{ key }} <strong>{{ data[key].length }}</strong>
     </span>
   </div>
@@ -29,7 +34,8 @@ import { data as posts } from "../scripts/posts.data"
 let url = location.href.split("?")[1]
 let params = new URLSearchParams(url)
 const data = computed(() => initTags(posts))
-let selectTag = ref(params.get("tag") ? params.get("tag") : "")
+const defaultTag = Object.keys(data.value)[0] ?? ""
+let selectTag = ref(params.get("tag") ? params.get("tag") : defaultTag)
 const toggleTag = (tag: string) => {
   selectTag.value = tag
 }
@@ -57,6 +63,15 @@ const toggleTag = (tag: string) => {
 
 .tag strong {
   color: var(--vp-c-brand);
+}
+
+.tag-active {
+  background-color: var(--vp-c-brand);
+  color: var(--vp-c-white);
+}
+
+.tag-active strong {
+  color: var(--vp-c-white);
 }
 
 .tag-header {
