@@ -1,6 +1,6 @@
 ---
 date: 2025-02-07 16:20:09
-updated: 2025-06-26 09:01:04
+updated: 2026-04-28 14:59:00
 category: Design
 tags:
   - FrontEnd
@@ -53,7 +53,7 @@ description: 设计和配置 Splash Screen 与 App Icon
 - 系统应用不同遮罩形状显示图标（圆形、泪滴、方形等）。
 - 前景图像应居中，避免边缘贴边（保持安全区）。
 
-![](https://image.baidu.com/search/down?url=https://tvax4.sinaimg.cn/large/007CWdRmly1i2rtfs2ymfj318g18gdmo.jpg)
+![Android Icon Design](https://cdn.ipfsscan.io/weibo/large/007CWdRmly1i2rt4fxfesj31a20u81as.jpg)
 
 ---
 
