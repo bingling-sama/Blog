@@ -67,8 +67,9 @@ aside: false
 ### 📊 GitHub Stats
 
 <a class="about-stats" href="https://github.com/bingling-sama" target="_blank" rel="noreferrer">
-	<p align="center">
-		<img src="https://streak-stats.booling.cn?user=bingling-sama&theme=transparent" alt="GitHub Streak" />
+  <div class="about-stats__center">
+    <img src="https://streak-stats.booling.cn?user=bingling-sama&theme=transparent" alt="GitHub Streak" />
+  </div>
   <div class="about-stats__row">
     <img
       src="https://stats.booling.cn/api?username=bingling-sama&show_icons=true&theme=transparent&include_all_commits=true&count_private=true"
@@ -78,11 +79,10 @@ aside: false
       src="https://stats.booling.cn/api/top-langs/?username=bingling-sama&layout=donut&theme=transparent&hide=html"
       alt="Top Languages"
     />
-  </div>	
-	</p>
-	<p align="center">
-	  <img src="https://raw.githubusercontent.com/bingling-sama/bingling-sama/output/github-contribution-grid-snake.svg" alt="Snake animation" />
-	</p>
+  </div>
+  <div class="about-stats__center">
+    <img src="https://raw.githubusercontent.com/bingling-sama/bingling-sama/output/github-contribution-grid-snake.svg" alt="Snake animation" />
+  </div>
 </a>
 
 ### ⌨️ Coding Activity

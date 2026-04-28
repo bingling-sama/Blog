@@ -3,17 +3,23 @@ import type { Post } from "./functions"
 
 export default createContentLoader("posts/**/*.md", {
   transform(raw): Post[] {
-    return raw.map(
-      ({ url, frontmatter }) =>
-        ({
-          url: url,
-          title: frontmatter.title,
-          description: frontmatter.description,
-          date: transformDate(frontmatter.date),
-          category: frontmatter.category,
-          tags: frontmatter.tags
-        }) as Post
-    )
+    return raw
+      .sort(
+        (a, b) =>
+          new Date(b.frontmatter.date).getTime() -
+          new Date(a.frontmatter.date).getTime()
+      )
+      .map(
+        ({ url, frontmatter }) =>
+          ({
+            url: url,
+            title: frontmatter.title,
+            description: frontmatter.description,
+            date: transformDate(frontmatter.date),
+            category: frontmatter.category,
+            tags: frontmatter.tags
+          }) as Post
+      )
   }
 })
 
