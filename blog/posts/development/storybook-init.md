@@ -1,9 +1,10 @@
 ---
 date: 2025-04-06 16:53:49
-updated: 2026-04-26 17:18:26
+updated: 2026-04-29 00:37:18
 category: Development
 tags:
   - FrontEnd
+  - Study
 title: Storybook + Vite on Bun
 description: 记录一下在 Bun 上将 Storybook 集成到 Vite 组件库项目中的过程
 ---

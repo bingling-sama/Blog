@@ -1,10 +1,11 @@
 ---
 date: 2024-11-29 18:16:35
-updated: 2025-06-26 09:18:36
+updated: 2026-04-29 00:37:30
 title: 前端工程化初见
 description: 介绍一下前端工程化当中的各种技术
 tags:
   - FrontEnd
+  - Study
 category: Development
 ---
 

@@ -1,11 +1,12 @@
 ---
 date: 2024-11-06 23:59:34
-updated: 2024-11-07 16:45:39
+updated: 2026-04-29 00:36:42
 title: 申请 GitHub 学生包踩坑实录
 description: 这个月学籍终于上学信网了，于是立刻拿来申请了一下GitHub学生包。
 category: Life
 tags:
   - Study
+  - GitHub
 ---
 
 
@@ -24,7 +25,7 @@ tags:
 
 此时你应该来到了这个界面
 
-![2470X1423/image.png](https://cdn.z.wiki/autoupload/20241107/TAnI/2470X1423/image.png)
+![image](https://cdn.ipfsscan.io/weibo/large/007CWdRmgy1icmz2ivsz8j31wm13jb1s.jpg)
 
 一般在校大学生选择第一个报告就好，点击查看，如果你没有申请过报告，会提示你申请。
 

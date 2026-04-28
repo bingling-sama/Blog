@@ -1,9 +1,10 @@
 ---
 date: 2024-10-27 20:48:18
-updated: 2024-10-29 21:34:30
+updated: 2026-04-29 00:37:11
 category: Development
 tags:
   - FrontEnd
+  - Study
 title: JavaScript 中 var 与 let 的区别
 description: 一直不太清楚 JavaScript 中 var 与 let 的区别，于是今天好好了解了一下……
 ---

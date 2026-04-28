@@ -1,9 +1,10 @@
 ---
 date: 2025-02-07 16:20:09
-updated: 2026-04-26 16:25:05
+updated: 2026-04-29 00:37:41
 category: Development
 tags:
   - FrontEnd
+  - Study
 title: React 组件封装
 description: 简要介绍一下 React 中的组件封装
 ---

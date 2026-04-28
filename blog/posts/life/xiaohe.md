@@ -1,9 +1,10 @@
 ---
 date: 2022-08-12 10:08:51
-updated: 2024-10-29 21:35:08
+updated: 2026-04-29 00:36:55
 category: Life
 tags:
   - System
+  - IME
 title: Windows 下添加小鹤双拼
 description: 如何通过修改注册表来为 Windows 添加小鹤双拼码表。
 ---
