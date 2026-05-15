@@ -1,5 +1,14 @@
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vitepress'
+import { defineConfig, loadEnv } from 'vitepress'
+
+const env = loadEnv('', process.cwd(), '')
+const defaultSrcExclude = ['README.md']
+const envSrcExclude = (env.EXCLUDE ?? '')
+	.split(',')
+	.map((item) => item.trim().replace(/^["'“”‘’]|["'“”‘’]$/g, ''))
+	.filter(Boolean)
+
+const srcExclude = [...defaultSrcExclude, ...envSrcExclude]
 
 export default defineConfig({
 	title: 'Booling✨',
@@ -37,7 +46,7 @@ export default defineConfig({
 		},
 		socialLinks: [{ icon: 'github', link: 'https://github.com/bingling-sama' }]
 	} as any,
-	srcExclude: ['README.md'],
+	srcExclude,
 	lastUpdated: true,
 	cleanUrls: true,
 	sitemap: {
