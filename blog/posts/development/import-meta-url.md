@@ -1,6 +1,6 @@
 ---
 date: 2026-04-29 00:00:00
-updated: 2026-05-07 17:53:15
+updated: 2026-05-15 13:30:41
 category: Development
 tags:
   - FrontEnd
@@ -45,7 +45,7 @@ ECMA-262 定义了一个抽象操作 `HostGetImportMetaProperties`：
 
 这就好比房东给了你一间毛坯房，装修成啥样全看你自己：
 
-```
+```txt
 ECMAScript 规范:
   └── import.meta 是一个空对象
 
@@ -105,12 +105,14 @@ console.log(import.meta.filename);
 - **`resolve`**：行为类似浏览器版，但走的是 Node.js 的模块解析算法（会在 `node_modules` 里翻）
 
 > 如果还在用 21.2 以下的 Node.js，也别慌，自己手搓一手：
+>
 > ```js
 > import { fileURLToPath } from 'url';
 > import { dirname } from 'path';
 > const __filename = fileURLToPath(import.meta.url);
 > const __dirname = dirname(__filename);
 > ```
+>
 > ~~好家伙，又回到了手写 CJS 兼容层的年代~~
 
 ### Deno
@@ -140,7 +142,7 @@ Bun 最"霸道"，直接塞了四个路径相关属性再加一个 `env`，~~不
 这个问题我当年也困惑过，CJS 时代多爽啊，直接 `__dirname` 就拿当前目录了。到了 ESM，还得绕个弯：
 
 | 需求 | CJS 方案 | ESM 方案 |
-|------|----------|----------|
+| ---- | -------- | -------- |
 | 获取当前文件路径 | `__filename`, `__dirname` | `import.meta.url` + `fileURLToPath` |
 | 基于当前模块解析路径 | `require.resolve()` | `import.meta.resolve()` |
 | 获取模块元信息 | 无标准方式 | `import.meta.url` 统一入口 |
@@ -174,6 +176,7 @@ const configPath = new URL('./config.json', import.meta.url);
 `import.meta.resolve()` 最初是浏览器专用，现在已经成了所有主流 ESM 宿主环境的标准配置。语义是**相对于当前模块解析模块说明符**，返回绝对 URL。
 
 不过各家的返回类型有差异：
+
 - 浏览器：返回字符串
 - Node.js：返回 URL 对象（可用 `.href` 拿字符串）
 - 规范允许返回任何对象，只要 `toString()` 能返回有效 URL

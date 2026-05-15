@@ -1,6 +1,6 @@
 ---
 date: 2026-04-26 00:00:00
-updated: 2026-04-26 01:34:21
+updated: 2026-05-15 13:30:41
 title: React Native 和 Expo 的渲染原理
 description: 记录一下 React Native 和 Expo 在移动端到底是怎么把前端代码跑到手机上的
 category: Development
@@ -33,7 +33,7 @@ React Native 的本职工作，是把 React 代码变成移动端的原生视图
 
 这一点和 Web 里的 React 很不一样。Web React 最终面对的是 DOM，而 React Native 面对的是原生视图。两者都使用 React 的写法，但落到的目标完全不同。
 
-## React Native 里的 UI 不是 DOM！
+## React Native 里的 UI 不是 DOM
 
 那么其次，React Native 和 Web React 的区别到底在哪里？
 
