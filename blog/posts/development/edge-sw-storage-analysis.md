@@ -9,7 +9,8 @@ tags:
   - Rust
   - Node.js
   - Edge
-updated: 2026-05-15 09:37:44
+updated: 2026-05-15 14:27:39
+description: 一怒之下写了一个 Edge 网页缓存数据储存空间分析器
 ---
 
 最近我 MacBook 的硬盘空间频频告急，作为一个每天都在跟代码打交道的开发者，我第一个想到的当然是 `node_modules` 和 Docker 镜像。然而清了一遍之后，空间依然捉襟见肘。
