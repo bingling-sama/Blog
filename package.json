@@ -32,6 +32,7 @@
 		"prettier": "^3.8.3",
 		"typescript": "^5.9.3",
 		"vitepress": "^1.6.4",
+		"vitepress-plugin-rss": "^0.4.4",
 		"vue": "^3.5.34"
 	},
 	"packageManager": "pnpm@11.1.2"
