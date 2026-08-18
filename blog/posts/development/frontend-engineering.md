@@ -31,7 +31,7 @@ Git 独特的分支系统设计给多人协作项目提供了非常好的开发�
 
 在一个工程化的项目中，开发一个新功能的简要过程如下：
 
-![image](https://cdn.ipfsscan.io/weibo/large/007CWdRmgy1hw3cwo9q6yj31o60k3gof.jpg)
+![image](https://i0.wp.com/wx4.sinaimg.cn/large/007CWdRmgy1hw3cwo9q6yj31o60k3gof.jpg)
 
 通过新建分支的形式，将开发新 Feature 的起点固定在某一个版本，可以在功能开发周期内保证基础代码的不变，避免开发过程中经常更新上游代码导致的一些临时 bug 和开发思路中断。
 
@@ -124,7 +124,7 @@ Webpack 是目前运用最广泛的前端项目打包工具，其主要工作是
 - `Loader`：资源内容转换器，其实就是实现从内容 A 转换 B 的转换器
 - `Plugin`：webpack构建过程中，会在特定的时机广播对应的事件，插件监听这些事件，在特定时间点介入编译过程
 
-#### 下一代的构建工具！
+#### 下一代的构建工具
 
 Vite 被誉为下一代构建工具，以打包速度快、热更新速度快深受开发者喜爱。Vite 所做的事和 Webpack 相同，但在构建过程中的优化比 Webpack 更优秀，HMR 速度和 build 速度都比 Webpack 快很多。
 

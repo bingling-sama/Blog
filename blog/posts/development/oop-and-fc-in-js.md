@@ -19,21 +19,21 @@ category: Development
 
 > **Object-oriented programming** (**OOP**) is a [programming paradigm](https://en.wikipedia.org/wiki/Programming_paradigm "Programming paradigm") based on the [object](https://en.wikipedia.org/wiki/Object_\(computer_science\) "Object (computer science)")[1](https://en.wikipedia.org/wiki/Object-oriented_programming#cite_note-alanKayOnOO-1) – a [software](https://en.wikipedia.org/wiki/Software "Software") entity that [encapsulates](https://en.wikipedia.org/wiki/Encapsulation_\(programming\) "Encapsulation (programming)") [data](https://en.wikipedia.org/wiki/Data "Data") and [function(s)](https://en.wikipedia.org/wiki/Function_\(computer_programming\) "Function (computer programming)"). An OOP [computer program](https://en.wikipedia.org/wiki/Computer_program "Computer program") consists of objects that interact with one another.[2](https://en.wikipedia.org/wiki/Object-oriented_programming#cite_note-2)[3](https://en.wikipedia.org/wiki/Object-oriented_programming#cite_note-3) A [programming language](https://en.wikipedia.org/wiki/Programming_language "Programming language") that provides OOP features is classified as an _OOP language_ but as the set of features that contribute to OOP is contended, classifying a language as OOP and the degree to which it supports or is OOP, are debatable. As paradigms are not mutually exclusive, a language can be [multi-paradigm](https://en.wikipedia.org/wiki/Multi-paradigm "Multi-paradigm"); can be categorized as more than only OOP.  
 > 面向对象编程（OOP）是一种基于对象的编程范式——一个封装数据和函数的软件实体。一个面向对象的计算机程序由相互交互的对象组成。 [2](https://en.wikipedia.org/wiki/Object-oriented_programming#cite_note-2) [3](https://en.wikipedia.org/wiki/Object-oriented_programming#cite_note-3) 提供面向对象特性的编程语言被归类为面向对象语言，但由于构成面向对象特性的特征集合存在争议，将一种语言归类为面向对象语言以及它支持或是否面向对象的程度是存在争议的。由于范式不是相互排斥的，一种语言可以是多范式；可以被归类为不仅仅是面向对象。
-> *以上内容摘自 [Wikipedia](https://en.wikipedia.org/wiki/Object-oriented_programming)*
+> _以上内容摘自 [Wikipedia](https://en.wikipedia.org/wiki/Object-oriented_programming)_
 
-面向对象把程序看成由 **对象 *Object*** 组成，每个对象就像现实中的事物，有：
+面向对象把程序看成由 **对象 _Object_** 组成，每个对象就像现实中的事物，有：
 
-- **属性 *Attributes***（数据）
-- **方法 *Method***（行为、能做的事）
+- **属性 _Attributes_**（数据）
+- **方法 _Method_**（行为、能做的事）
 
-根据对象所具有的属性与方法的不同，可以将对象进行 **分类**，这样就引入了 OOP 中 **类 *Class*** 的概念。类描述了对象所具有的属性与方法，但不关心其值。
+根据对象所具有的属性与方法的不同，可以将对象进行 **分类**，这样就引入了 OOP 中 **类 _Class_** 的概念。类描述了对象所具有的属性与方法，但不关心其值。
 
 而根据分类方式的细致程度不同，可以将一个类里的对象进行更细致的分类，这就引入了 **子类 & 父类** 的概念。
 
 非常经典且简单的例子：
-我定义 *动物 Animal* 为一个类，那么就可以细分为 *猫 Cat* 和 *狗 Dog* 等等很多个子类。Animal 就是 Cat 和 Dog 的父类。而对象就是具体某只猫，比如这只：
+我定义 _动物 Animal_ 为一个类，那么就可以细分为 _猫 Cat_ 和 _狗 Dog_ 等等很多个子类。Animal 就是 Cat 和 Dog 的父类。而对象就是具体某只猫，比如这只：
 
-![a-object](https://cdn.ipfsscan.io/weibo/large/007CWdRmgy1icjimglwjvj30ho05ojsd.jpg)
+![a-object](https://i0.wp.com/wx4.sinaimg.cn/large/007CWdRmgy1icjimglwjvj30ho05ojsd.jpg)
 
 而 Animal 这一类对象都具有的 属性 和 方法 又对应什么呢？也很简单，首先属性例如：名字、年龄……方法例如：进食、呼吸……
 
@@ -49,7 +49,7 @@ Animal 的子类 Cat 和 Dog 一定具有他们父类的所有属性与方法，
 
 > In [computer science](https://en.wikipedia.org/wiki/Computer_science "Computer science"), **functional programming** is a [programming paradigm](https://en.wikipedia.org/wiki/Programming_paradigm "Programming paradigm") where programs are constructed by [applying](https://en.wikipedia.org/wiki/Function_application "Function application") and [composing](https://en.wikipedia.org/wiki/Function_composition_\(computer_science\) "Function composition (computer science)") [functions](https://en.wikipedia.org/wiki/Function_\(computer_science\) "Function (computer science)"). It is a [declarative programming](https://en.wikipedia.org/wiki/Declarative_programming "Declarative programming") paradigm in which function definitions are [trees](https://en.wikipedia.org/wiki/Tree_\(data_structure\) "Tree (data structure)") of [expressions](https://en.wikipedia.org/wiki/Expression_\(computer_science\) "Expression (computer science)") that map [values](https://en.wikipedia.org/wiki/Value_\(computer_science\) "Value (computer science)") to other values, rather than a sequence of [imperative](https://en.wikipedia.org/wiki/Imperative_programming "Imperative programming") [statements](https://en.wikipedia.org/wiki/Statement_\(computer_science\) "Statement (computer science)") which update the [running state](https://en.wikipedia.org/wiki/State_\(computer_science\) "State (computer science)") of the program.  
 > 在计算机科学中，函数式编程是一种编程范式，其中程序通过应用和组合函数来构建。它是一种声明式编程范式，其中函数定义是映射值到其他值的表达式树，而不是更新程序运行状态的命令式语句序列。
-> *以上内容摘自 [Wikipedia](https://en.wikipedia.org/wiki/Functional_programming)*
+> _以上内容摘自 [Wikipedia](https://en.wikipedia.org/wiki/Functional_programming)_
 
 函数式编程（Functional Programming，FP）是一种把 **“函数”作为核心** 的编程思想，强调用**表达式计算结果**，而不是通过修改状态来完成任务。
 
@@ -60,7 +60,7 @@ Animal 的子类 Cat 和 Dog 一定具有他们父类的所有属性与方法，
 1. **不可变性（Immutable）**：数据一旦创建就不修改，所有操作都会返回新的数据。更容易推理、减少 Bug。
 2. **纯函数（Pure Function）**：同样的输入一定得到同样输出。且不依赖外部变量、不修改外部状态。可测试性强、行为可预测。
 3. **函数是一等公民（First-Class Citizens）**：函数可以像变量一样传来传去，也能作为参数和返回值。
- 4. **高阶函数（Higher-Order Functions）**：可以接收函数作为输入、或返回一个函数，例如 `map`, `filter`, `reduce`。
+4. **高阶函数（Higher-Order Functions）**：可以接收函数作为输入、或返回一个函数，例如 `map`, `filter`, `reduce`。
 
 总之，函数式编程就是用**纯函数 + 不可变数据**来写程序，让逻辑更简洁，状态更可控。
 
@@ -250,7 +250,7 @@ Funciton.prototype上有一些方法值得我们关注
 const doubleMap = numbers => {
 const doubled = [];
 for (let i = 0; i < numbers.length; i++) {
-	doubled.push(numbers[i] * 2);
+ doubled.push(numbers[i] * 2);
    }
  return doubled;
  };
