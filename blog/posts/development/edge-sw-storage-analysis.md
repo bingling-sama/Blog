@@ -9,7 +9,7 @@ tags:
   - Rust
   - Node.js
   - Edge
-updated: 2026-05-15 14:27:39
+updated: 2026-08-20 22:34:01
 description: 一怒之下写了一个 Edge 网页缓存数据储存空间分析器
 ---
 

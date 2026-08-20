@@ -253,3 +253,16 @@ h6 {
 .vp-doc mjx-container[jax="CHTML"][display="true"] {
   margin: 1rem 0;
 }
+
+/* mermaid diagram styles */
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}

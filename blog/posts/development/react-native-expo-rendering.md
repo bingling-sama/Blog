@@ -1,6 +1,6 @@
 ---
 date: 2026-04-26 00:00:00
-updated: 2026-05-15 13:30:41
+updated: 2026-08-20 22:34:16
 title: React Native 和 Expo 的渲染原理
 description: 记录一下 React Native 和 Expo 在移动端到底是怎么把前端代码跑到手机上的
 category: Development
