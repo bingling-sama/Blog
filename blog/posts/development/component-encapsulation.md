@@ -1,300 +1,272 @@
 ---
 date: 2025-02-07 16:20:09
-updated: 2026-04-29 00:37:41
+updated: 2026-09-02 14:47:18
 category: Development
 tags:
   - FrontEnd
   - Study
 title: React 组件封装
-description: 简要介绍一下 React 中的组件封装
+description: 从基础 Props 抽象、副作用隔离到 AntD 与 shadcn/ui 的架构选型思考
 ---
+
 # React 项目中的组件封装
-在前端开发中，组件封装指的是将 UI 的一部分（例如一个按钮、一个表单、一个对话框等）及其相关的逻辑（例如数据获取、事件处理、状态管理等）组合成一个独立的、可复用的单元，这个单元就称为组件。
 
-组件封装的目标是提高代码的可复用性、可维护性和可测试性。通过将 UI 和逻辑封装到组件中，我们可以：
+写 React 代码时，我们几乎每天都在新建 `.tsx` 文件并导出一个个函数。但“把一段 JSX 抽出来”和“做好一次组件封装”是两码事。
 
-- **提高代码复用性:** 将常用的 UI 元素封装成组件，可以在不同的页面或项目中重复使用，避免重复编写相同的代码。
-- **提高代码可维护性:** 当需要修改 UI 或逻辑时，只需要修改组件的代码，而不需要修改多个地方的代码。
-- **提高代码可测试性:** 组件可以独立进行测试，更容易发现和修复 bug。
-- **提升开发效率:** 使用组件可以加快开发速度，因为开发者可以直接使用现成的组件，而不需要从头开始编写代码。
-- **增强代码组织结构:** 将代码拆分成更小、更易于管理的单元，使代码更具可读性和可理解性。
+封装的本质是**划定责任边界**：隐藏内部不需要外部关心的状态与实现细节，只暴露清晰、稳定的接口（Props 与事件回调）。好的封装能让业务页面像搭积木一样清晰；而过度或不当的封装，往往会把简单的逻辑缠成无法维护的面条代码。
 
-组件封装的核心思想:
+---
 
-- **封装性:** 组件内部的实现细节对外隐藏，只暴露必要的接口供外部使用。
-- **可复用性:** 组件可以在不同的场景下重复使用。
-- **可组合性:** 组件可以像积木一样组合成更复杂的 UI。
+## 1. 基础抽象：从纯渲染到局部交互
 
-## 基础的组件封装
-以 React 中最常用的 *函数式组件* 为例，一个最简单的组件封装如下：
+最基础的封装往往遵循纯函数逻辑：输入确定的 Props，输出预期的 UI。
 
 ```tsx
-const Greet = (name: string) => {
-  return <div>Hello {name} </div>
+interface GreetProps {
+  name: string
 }
 
-// using the functional component
-<Greet name="Alice"/>
-<Greet name="Bob"/>
+export const Greet = ({ name }: GreetProps) => {
+  return <div>Hello, {name}</div>
+}
 ```
 
-通过更改传入组件的 `props` 值，我们就可以复用这个封装好的组件。当然，有时组件不仅仅用于数据渲染，也用于与用户交互：
+当组件需要响应用户行为时，可以通过定义明确的事件接口与内部状态来承载交互：
 
 ```tsx
-interface ButtonProps {
-  onClick?: () => void
-  disabled?: boolean
-  children: React.ReactNode
+interface CounterProps {
+  initialCount?: number
+  onChange?: (count: number) => void
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, disabled, children }) => {
-  return (
-    <button onClick={onClick} disabled={disabled}>
-      {children}
-    </button>
-  )
-}
+export const Counter = ({ initialCount = 0, onChange }: CounterProps) => {
+  const [count, setCount] = useState(initialCount)
 
-```
-
-组件也可以拥有自己的 `state`，以实现响应式的数据渲染与操作：
-
-```tsx
-const Counter = () => {
-  const [count, setCount] = useState(0)
+  const handleIncrement = () => {
+    const nextCount = count + 1
+    setCount(nextCount)
+    onChange?.(nextCount)
+  }
 
   return (
-    <div>
-      <p>你点击了按钮 {count} 次</p>
-      <button onClick={() => setCount((prevCount) => prevCount + 1)}>
-        点击我
-      </button>
+    <div className="counter-box">
+      <span>当前计数：{count}</span>
+      <button onClick={handleIncrement}>+1</button>
     </div>
   )
 }
-
 ```
 
-看到这里，恭喜你已经入门了 React 的组件封装。但实际开发中，组件承担的功能往往更加复杂，想要真正优雅地封装出好的组件水是很深的。
+这里封装的关键在于：外部调用方只需要关心 `initialCount` 和 `onChange`，而不需要介入 `setCount` 的具体流转细节。
 
+---
 
-## 更进一步
-在实际的业务中，前端的数据大部分要从后端获取，而这个过程中常常涉及异步操作。在一个组件中进行异步操作，一般需要依靠 `useEffect` 钩子：
+## 2. 逻辑分层：副作用与状态透传
+
+业务组件不可能永远只是静态展示。数据获取、事件监听、跨层级状态共享往往是复杂度的主要来源。
+
+### 副作用隔离
+
+React 的函数组件在每次状态更新时都会重新执行函数体。因此，数据请求这类异步操作不能直接写在组件主体中，否则不仅会造成状态死循环，还会违背渲染函数的纯度要求。
+
+通常我们用 `useEffect` 或封装自定义 Hook 来收敛这部分逻辑：
 
 ```tsx
-const AsyncComponentPromise = () => {
-  const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetch("/api/data")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        return response.json()
-      })
-      .then((jsonData) => setData(jsonData))
-      .catch((error) => setError(error))
-      .finally(() => setLoading(false))
-  }, [])
-
-  if (loading) {
-    return <div>Loading...</div>
-  }
-
-  if (error) {
-    return <div>Error：{error.message}</div>
-  }
-
-  if (data) {
-    return (
-      <div>
-        <h1>Loaded</h1>
-        <ul>
-          {data.map((item) => (
-            <li key={item.id}>{item.name}</li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
-
-  return <div>No Data</div>
+interface User {
+  id: string
+  name: string
 }
 
-```
+export const UserList = () => {
+  const [users, setUsers] = useState<User[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
 
-我们为什么需要 `useEffect` 钩子来进行异步操作呢？答案很简单，React 作为一个 UI 框架，其核心在于渲染出页面，所以整个函数式组件的函数体，实际上是构建、渲染这个组件的流程，一旦我们在渲染流程中直接进行异步操作，就会导致这个流程需要等待异步操作结束，即阻塞了组件的渲染。
+  useEffect(() => {
+    let ignore = false
 
-而 `useEffect` 钩子为了解决这个问题，其接收的函数将会在组件渲染完成后执行，这样就避免了异步操作对组件渲染的阻塞。
+    fetch("/api/users")
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.json()
+      })
+      .then((data) => {
+        if (!ignore) setUsers(data)
+      })
+      .catch((err) => {
+        if (!ignore) setError(err)
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false)
+      })
 
-实际上应该放在 `useEffect` 钩子中执行的不仅仅是异步操作，还有例如修改特殊变量、进行 I/O 操作、抛出异常等代码，这些有一个统称叫做 *副作用*，这里不展开讲解。
+    return () => {
+      ignore = true
+    }
+  }, [])
 
-另一个非常有用的钩子叫做 `useContext`，它是 React 中 *状态提升* 操作的高级解决方案，可以将状态跨越多层组件透传，一个典型的例子是用它实现侧边栏这种布局状态的控制：
-
-```tsx
-import { createContext, useContext, useState } from "react"
-
-const SidebarContext = createContext()
-
-const SidebarProvider = ({ children }) => {
-  // 在 Provider 中保存状态，并提供给内部组件访问
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen)
-  }
+  if (loading) return <div>加载中...</div>
+  if (error) return <div>请求失败：{error.message}</div>
+  if (users.length === 0) return <div>暂无数据</div>
 
   return (
-    <SidebarContext.Provider value={{ isSidebarOpen, toggleSidebar }}>
+    <ul>
+      {users.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+在实际项目中，更推崇的做法是将 `useEffect` 内的数据获取收敛为 `useUsers` 等自定义 Hook，使 UI 组件只负责消费状态，彻底与底层 I/O 细节解耦。
+
+---
+
+### 跨层级状态透传（Context API）
+
+当某个状态（如主题切换、全局布局折叠状态）需要被深层嵌套的子组件读取时，逐层透传 Props（Prop Drilling）会严重污染中间组件的接口。
+
+标准做法是结合 Context 与自定义 Hook，并在 Hook 内部做好越界校验：
+
+```tsx
+import { createContext, useContext, useState, ReactNode } from "react"
+
+interface SidebarContextType {
+  isOpen: boolean
+  toggle: () => void
+}
+
+const SidebarContext = createContext<SidebarContextType | null>(null)
+
+export const SidebarProvider = ({ children }: { children: ReactNode }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const toggle = () => setIsOpen((prev) => !prev)
+
+  return (
+    <SidebarContext.Provider value={{ isOpen, toggle }}>
       {children}
     </SidebarContext.Provider>
   )
 }
 
-const useSidebar = () => {
-  const context = useContext(SidebarContext)
-  if (context === undefined) {
-    throw new Error("useSidebar must be used within a SidebarProvider")
+export const useSidebar = () => {
+  const ctx = useContext(SidebarContext)
+  if (!ctx) {
+    throw new Error("useSidebar 必须在 SidebarProvider 内部使用")
   }
-  return context
+  return ctx
+}
+```
+
+在消费侧，子组件直接通过 `useSidebar` 获取上下文：
+
+```tsx
+const SidebarTrigger = () => {
+  const { toggle } = useSidebar()
+  return <button onClick={toggle}>切换侧边栏</button>
 }
 
-const Sidebar = () => {
-  // 获取状态
-  const { isSidebarOpen, toggleSidebar } = useSidebar()
-
+const SidebarView = () => {
+  const { isOpen } = useSidebar()
   return (
-    <aside
-      className={`bg-gray-800 text-white w-64 ${
-        isSidebarOpen ? "block" : "hidden"
-      }`}
-    >
-      {/* Sidebar content */}
-      <button onClick={toggleSidebar}>关闭侧边栏</button>
+    <aside className={isOpen ? "w-64 block" : "hidden"}>
+      <nav>侧边栏内容</nav>
     </aside>
   )
 }
 
-export { SidebarProvider, Sidebar, useSidebar }
-
-```
-
-在使用组件时，要先创建 Sidebar 上下文，再调用 Sidebar 组件：
-
-```tsx
-const App = () => {
-  const { toggleSidebar } = useSidebar()
+// 组合使用
+export const Layout = () => {
   return (
     <SidebarProvider>
-      <div className="flex">
-        <Sidebar />
-        <main className="p-4">
-          {/* Main content */}
-          <button onClick={toggleSidebar}>打开侧边栏</button>
-        </main>
+      <div className="layout-container">
+        <SidebarTrigger />
+        <SidebarView />
       </div>
     </SidebarProvider>
   )
 }
-
 ```
 
-## 组件样式
+---
 
-前端开发另一个重要的部分就是样式的实现了，虽然用来编写样式的 Extension 有很多，但要利用好他们其实也需要一些技巧。例如刚接触前端开发的人最常犯的错误就是 css 选择器运用不熟练，导致出现非常多不同类名但拥有重复的代码。
+## 3. 样式与架构范式：Token 体系 vs Headless
 
-下面我们来看看几大组件库的样式实现方式。
+除了逻辑拆分，组件库在样式层面的架构选择直接决定了后期的二次定制成本与维护体验。目前业界最具代表性的两种流派是 **Ant Design** 与 **shadcn/ui**。
 
-### Ant Design
+### Ant Design：中心化 Design Token
 
-AntD 采用的是 Design Token 模式，通过预定义的原子化 Token 来自定义样式：
+Ant Design（v5+）基于 CSS-in-JS 与 Design Token 理念构建。它通过将颜色、圆角、间距等样式抽象为种子变量（Seed Tokens）与派生变量，由顶层 `ConfigProvider` 统一计算并下发：
 
 ```tsx
 import { Button, ConfigProvider, Space } from "antd"
-import React from "react"
 
-const App: React.FC = () => (
+export const ThemedApp = () => (
   <ConfigProvider
     theme={{
       token: {
-        // Seed Token，影响范围大
         colorPrimary: "#00b96b",
-        borderRadius: 2,
-
-        // 派生变量，影响范围小
-        colorBgContainer: "#f6ffed",
+        borderRadius: 4,
       },
     }}
   >
     <Space>
-      <Button type="primary">Primary</Button>
-      <Button>Default</Button>
+      <Button type="primary">主题主按钮</Button>
+      <Button>默认按钮</Button>
     </Space>
   </ConfigProvider>
 )
-
-export default App
-
 ```
 
-这种模式许多优点：
+- **适用场景**：中后台管理系统、注重开箱即用与跨团队统一视觉规范的场景。
+- **权衡**：AntD 封装程度极高，开发者几乎不需要手写基础 CSS；但如果业务需要做重度视觉重塑或定制非标动画，需要层层覆写内部组件结构与 Token，定制成本陡增。
 
-- **一致性:** 设计令牌确保在整个应用程序中使用相同的颜色、字体、间距等样式。 更改一个令牌的值会自动更新所有使用该令牌的地方，从而减少了维护工作量并避免了不一致性。
-- **可维护性:** 集中管理设计令牌使得修改样式变得更容易。 开发者只需要修改令牌的值，而不需要在整个代码库中搜索和替换样式。
-- **可扩展性:** 设计令牌使得设计系统更容易扩展。 可以轻松添加新的令牌，而不会影响现有代码。
-- **可重用性:** 设计令牌可以跨多个项目和平台重用，从而提高了效率。
-- **协作性:** 设计令牌为设计师和开发者提供了一种通用的语言，方便他们协作。 设计师可以定义令牌，开发者可以使用这些令牌来构建 UI 组件。
-- **主题定制:** 通过修改设计令牌，可以轻松地创建不同的主题，例如深色模式或品牌主题。
+---
 
-但同时也有许多缺陷：
+### shadcn/ui：Headless 基础 + 源码掌控
 
-- **学习成本:** 需要学习如何使用设计令牌系统，这对于团队成员来说可能需要一些时间和精力。
-- **初始设置成本:** 设置设计令牌系统需要一些前期工作，例如定义令牌、创建工具等。
-- **复杂性:** 对于小型项目，设计令牌系统可能显得过于复杂，得不偿失。 管理大量的令牌也可能变得复杂。
-- **工具依赖:** 通常需要使用一些工具来管理和使用设计令牌，例如 Style Dictionary 或类似的工具。 这增加了项目的依赖性。
-- **潜在的命名冲突:** 如果令牌命名不当，可能会导致命名冲突。 需要制定一个清晰的命名约定来避免这种情况。
-- **调试难度:** 追踪样式问题可能变得更困难，因为需要追踪令牌的层层映射关系。
+与传统打包发布的 npm 单体库不同，shadcn/ui 本质上是一个**组件代码合集**。它的底层依赖 Radix UI 处理无障碍（WAI-ARIA）与交互逻辑，样式则完全通过 Tailwind CSS 编写。
 
-### shadcn/ui
+通过命令行将组件源码直接注入项目目录：
 
-shadcn/ui 与 AntD 差别十分明显，其采用 Headless UI 理念构建：
-
-Headless UI 是一种新型的 UI 组件开发模式，它只关心行为逻辑，不涉及 UI 的具体实现，从而允许开发者自由定制 UI，这种设计思想符合开闭原则。
-
-目前比较出众的是 Radix、headlessui，主要都是解决 Behavior Libraries 层面的问题。旨在提供一套开放、无控制、无样式的基础组件，方便开发者进行进一步的个性化封装。我的探索之旅中，我读过、试过这两者，最终决定更深入地使用 Radix，主要是因为 [shadcn/ui](https://github.com/shadcn-ui/ui) 这个优秀项目也是建立在 Radix 的基础上！以下是 Radix 的几大核心理念：
-
-- 可访问性（Accessible）：如果你需要考虑应用的可访问性（残疾人士友好），Radix 的设计遵循 **`WAI-ARIA`** 规范，这是 W3C 编写的规范，定义了一组可用于其他元素的 HTML 特性，用于提供额外的语义化以及改善无障碍体验。
-- 无样式（Unstyled）：正如其名，Radix 提供的组件不包含任何预设风格，完全自由地配合任何样式方案，这也直击了自定义样式的痛点。
-- 开放性（Opened）：Radix 的开放性极佳，每一个组件都是独立的单元，可自由组合、灵活配置，满足你的各种需求。
-
-shadcn/ui 是 Vercel 的工程师推出的一款组件合集，建立在 Tailwind CSS 和 Radix UI 之上，目前包括了48个独立组件。根据[官方说明](https://ui.shadcn.com/docs)，这款产品被定义为「组件合集」而非传统的「组件库」，其独到之处在于：不通过 npm 安装，而是直接将组件源代码复制粘贴到项目中，这样极大地方便了用户根据自己的需求去修改和扩展代码。
-
-与传统组件库相比，shadcn/ui 遵循以下设计原则：
-
-- **避免不必要的依赖**：不把整个库作为依赖项添加，有助于减少项目体积，从而提升应用的加载速度。
-- **组件代码的直接编辑**：由于使用复制和粘贴的方式加入项目，提供了直接访问每个组件源代码的能力，开发者可以直接访问和控制每个组件的行为、样式和 DOM 结构，这种灵活性让 shadcn/ui 在众多 UI 解决方案中脱颖而出。
-- **细粒度的控制**：每一个组件都是独立的单元，可以单独使用和定制，这种模块化的设计不仅简化了个别组件的定制过程，也便于整体 UI 系统的扩展和维护。
-- **多层次的样式自定义**：首先，shadcn/ui 提供了图形界面的主题编辑器，允许开发者在不直接修改 CSS 的情况下，通过编辑器定制一系列样式（如颜色、字体、边距等）；其次，开发者还可以在组件源代码层面进行个性化调整，或在使用组件时直接在标签上添加 className；最后，通过 RenderProps 方式进一步扩展 UI，开发者可以拿到当前上下文的状态，天然适合对 UI 的自定义扩展。这种多维度的自定义能力极大增强了 UI 的灵活性和适应性。
-
-例如，使用 shadcn/ui 中的 Tabs 组件时，可以通过以下命令简单地添加到项目中：
-
-```html
-<Tabs defaultValue="account" className="w-full">
-  <TabsList>
-    <TabsTrigger value="account">Account</TabsTrigger>
-    <TabsTrigger value="password">Password</TabsTrigger>
-  </TabsList>
-  <TabsContent value="account">在这里修改你的账号设置</TabsContent>
-  <TabsContent value="password">在这里修改你的密码</TabsContent>
-</Tabs>
+```bash
+npx shadcn@latest add tabs
 ```
 
-执行 **`npx shadcn-ui@latest add tabs`** 后，Tabs 组件会被安装到 **`./components/ui/tabs.tsx`**，此时开发者可以直接编辑源代码以定制 Tabs 组件。Tabs 组件自身被设计为多个可单独定制的子组件（如 Tabs, TabsContent, TabsList, TabsTrigger），这为定制和风格化提供了极大的便利。
+生成的代码直接落在项目本身的 `components/ui/tabs.tsx` 中。调用方式采用子组件组合模式（Compound Components）：
 
-shadcn/ui 的设计理念是将交互逻辑的复杂性留给组件维护者，而将 UI 的定制性最大化地交给使用者，实现了业务需求的高度定制化。这种做法符合软件设计原则「关注点分离」（Separation of concerns，SoC），不过也带来了一些挑战：
+```tsx
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-- **对开发者的要求较高**：需要良好的抽象设计能力来处理无UI层的组件。
-- **较高的使用成本&升级成本**：完全自定义的 UI 层可能带来更大的开发成本，未来的更新升级也比较麻烦，需要仔细评估成本和收益。
+export const SettingsTabs = () => (
+  <Tabs defaultValue="account" className="w-full">
+    <TabsList>
+      <TabsTrigger value="account">账号设置</TabsTrigger>
+      <TabsTrigger value="password">安全密码</TabsTrigger>
+    </TabsList>
+    <TabsContent value="account">
+      <div className="p-4">修改个人资料与邮箱...</div>
+    </TabsContent>
+    <TabsContent value="password">
+      <div className="p-4">重置密码与双重认证...</div>
+    </TabsContent>
+  </Tabs>
+)
+```
+
+- **架构优势**：
+  1. **零黑盒**：代码就在你的仓库里，想要改 DOM 结构、换动画类名或加自定义 Props，直接改源码即可，不存在“等官方发版修复”的问题。
+  2. **按需引入**：不引入庞大的全局 Runtime，打包体积只受实际引用的组件与 Tailwind 样式影响。
+  3. **交互与视觉解耦**：底层 Radix 处理键盘导航、Focus 焦点捕获与屏幕阅读器无障碍，上层自由定制视觉。
+- **权衡与代价**：
+  源码进入业务工程后，维护责任就转移到了业务团队自己身上。上游 Bug 修复或重大重构无法通过一次 `npm update` 自动解决，需要开发者对组件源码具备足够的理解与维护能力。
+
+---
+
+## 总结思考
+
+组件封装没有放之四海皆准的标准，关键在于根据业务生命周期做出权衡：
+
+- **基础页面与快速交付**：选择 Ant Design 这类开箱即用的高阶组件库，以约定换取交付效率。
+- **重品牌定制与复杂交互产品**：采用 Radix / Headless + Tailwind（如 shadcn/ui）方案，将行为基础与视觉表现彻底解耦，在长期迭代中换取最大自由度。
