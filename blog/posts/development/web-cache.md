@@ -1,6 +1,6 @@
 ---
 date: 2026-08-20 21:35:00
-updated: 2026-09-02 16:45:28
+updated: 2026-09-11 00:07:55
 category: Development
 tags:
   - FrontEnd
@@ -29,12 +29,12 @@ description: 全面解析 Web 开发中的全链路缓存机制，涵盖浏览�
 
 ```mermaid
 graph LR
-    User[用户 / 浏览器] -->|1. 浏览器缓存| LocalCache{Memory / Disk Cache}
-    LocalCache -->|未命中| Edge[2. CDN 边缘节点]
-    Edge -->|回源| Gateway[3. 反向代理 Nginx / Caddy]
-    Gateway -->|请求| Server[4. 应用服务]
-    Server -->|查询缓存| Redis[(5. 分布式缓存 Redis)]
-    Redis -->|未命中 / 穿透| DB[(6. 数据库 Database)]
+    User["用户 / 浏览器"] -->|检查本地| LocalCache{"1. 浏览器缓存<br/>Memory / Disk"}:::cf-accent
+    LocalCache -->|未命中| Edge["2. CDN 边缘节点"]:::cf-accent
+    Edge -->|回源| Gateway["3. 反向代理<br/>Nginx / Caddy"]:::cf-muted
+    Gateway -->|请求| Server["4. 应用服务"]
+    Server -->|查询缓存| Redis[("5. 分布式缓存<br/>Redis")]:::cf-primary
+    Redis -->|未命中 / 穿透| DB[("6. 数据库<br/>Database")]
 ```
 
 可以看到，缓存并不是某一个单一的技术点，而是一整套**自底向上的防御工事**。离用户越近的缓存，响应速度越快，对后端资源的保护力度也越大。
@@ -225,11 +225,11 @@ example.com {
 
 ```mermaid
 graph TD
-    UserRequest[用户请求 index.html] --> Gateway[Nginx / CDN]
-    Gateway -->|Cache-Control: no-cache| HTML[index.html 每次协商更新]
+    UserRequest[用户请求 index.html] --> Gateway[Nginx / CDN]:::cf-muted
+    Gateway -->|Cache-Control: no-cache| HTML[index.html 每次协商更新]:::cf-accent
     HTML -->|引用静态资源| JS[assets/index-a1b2c3d4.js]
     HTML -->|引用静态资源| CSS[assets/style-9x8y7z6w.css]
-    JS -->|Cache-Control: max-age=1y, immutable| LocalDisk[强缓存 命中本地缓存]
+    JS -->|Cache-Control: max-age=1y, immutable| LocalDisk[强缓存 命中本地缓存]:::cf-primary
 ```
 
 ### 黄金配置法则

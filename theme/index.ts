@@ -6,6 +6,7 @@ import Category from "./components/Category.vue"
 import Tags from "./components/Tags.vue"
 import Posts from "./components/Posts.vue"
 import Comment from "./components/Comment.vue"
+import MermaidViewer from "./components/MermaidViewer.vue"
 
 import "./custom.css"
 
@@ -19,5 +20,6 @@ export default {
     app.component("Archives", Archives)
     app.component("Posts", Posts)
     app.component("Comment", Comment)
+    app.component("Mermaid", MermaidViewer)
   }
 } satisfies Theme

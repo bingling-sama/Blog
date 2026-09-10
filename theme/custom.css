@@ -254,15 +254,539 @@ h6 {
   margin: 1rem 0;
 }
 
-/* mermaid diagram styles */
+/* Cloudflare Technical Minimalist Theme for Mermaid */
 .mermaid {
   display: flex;
   justify-content: center;
-  margin: 1.5rem 0;
+  margin: 2rem 0;
+  padding: 1.75rem 1.25rem;
   overflow-x: auto;
+  background-color: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.02),
+    0 1px 2px -1px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .mermaid svg {
   max-width: 100%;
   height: auto;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif !important;
+}
+
+/* Prevent text clipping across all Mermaid nodes & labels */
+.mermaid foreignObject {
+  overflow: visible !important;
+}
+
+/* Perfect horizontal & vertical centering for nodes (both single and multi-line) */
+.mermaid .node foreignObject > div {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.35 !important;
+  box-sizing: border-box !important;
+}
+
+.mermaid .node foreignObject .nodeLabel {
+  display: inline-block !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Reset any inherited margins from VitePress (.vp-doc p, etc.) that cause downward shifts */
+.mermaid foreignObject p,
+.mermaid foreignObject span {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Precise geometric nodes - 2px radius */
+.mermaid .node rect,
+.mermaid .node polygon,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node path {
+  rx: 2px;
+  ry: 2px;
+  stroke-width: 1px !important;
+  transition: stroke 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Standard node typography & high contrast text */
+.mermaid .node .label,
+.mermaid .node .label *,
+.mermaid .node text,
+.mermaid .node .nodeLabel,
+.mermaid .node foreignObject {
+  color: #18181b !important;
+  fill: #18181b !important;
+}
+
+.mermaid .node:hover rect,
+.mermaid .node:hover polygon,
+.mermaid .node:hover circle,
+.mermaid .node:hover ellipse,
+.mermaid .node:hover path {
+  stroke: #ff5e1f !important;
+}
+
+/* Cluster / Subgraph box */
+.mermaid .cluster rect {
+  rx: 3px;
+  ry: 3px;
+  stroke: var(--vp-c-divider) !important;
+  stroke-width: 1px !important;
+  stroke-dasharray: 3 3;
+}
+
+.mermaid .cluster text {
+  fill: var(--vp-c-text-2) !important;
+  font-weight: 600;
+  font-size: 11px !important;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Edge & Arrows */
+.mermaid .edgePath path.path {
+  stroke: #71717a !important;
+  stroke-width: 1.25px !important;
+}
+
+.mermaid marker path {
+  fill: #ff5e1f !important;
+  stroke: #ff5e1f !important;
+}
+
+/* Edge Labels - Clean single-layer badge (prevent multi-nested borders) */
+.mermaid .edgeLabel {
+  color: #18181b !important;
+  fill: #18181b !important;
+  font-size: 11px !important;
+}
+
+.mermaid .edgeLabel rect {
+  fill: transparent !important;
+  stroke: none !important;
+  opacity: 0 !important;
+}
+
+.mermaid .edgeLabel div,
+.mermaid .edgeLabel p {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.mermaid .edgeLabel span {
+  display: inline-block !important;
+  color: #18181b !important;
+  fill: #18181b !important;
+  background-color: #ffffff !important;
+  border: 1px solid #e4e4e7 !important;
+  border-radius: 2px !important;
+  padding: 2px 7px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  white-space: nowrap !important;
+}
+
+/* ==========================================================================
+   Sequence Diagram (时序图) Cloudflare Technical Minimalism Theme
+   ========================================================================== */
+
+/* 1. Actor / Participant Cards */
+.mermaid rect.actor {
+  fill: #ffffff !important;
+  stroke: #d4d4d8 !important;
+  stroke-width: 1px !important;
+  rx: 2px !important;
+  ry: 2px !important;
+  transition: stroke 0.2s cubic-bezier(0.19, 1, 0.22, 1) !important;
+}
+
+.mermaid rect.actor:hover {
+  stroke: #ff5e1f !important;
+}
+
+.mermaid text.actor,
+.mermaid text.actor > tspan {
+  fill: #18181b !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+}
+
+/* 2. Actor Lifeline */
+.mermaid .actor-line {
+  stroke: #d4d4d8 !important;
+  stroke-width: 1px !important;
+  stroke-dasharray: 4 4 !important;
+}
+
+/* 3. Messages & Signal Lines */
+.mermaid .messageLine0 {
+  stroke: #52525b !important;
+  stroke-width: 1.25px !important;
+}
+
+.mermaid .messageLine1 {
+  stroke: #71717a !important;
+  stroke-width: 1.25px !important;
+  stroke-dasharray: 4 3 !important;
+}
+
+.mermaid [id$="-arrowhead"] path,
+.mermaid [id$="-crosshead"] path {
+  fill: #ff5e1f !important;
+  stroke: #ff5e1f !important;
+  stroke-width: 1px !important;
+}
+
+.mermaid .messageText {
+  fill: #27272a !important;
+  font-size: 12px !important;
+  font-weight: 450 !important;
+}
+
+/* 4. Sequence Number (Autonumber Badges) */
+.mermaid [id$="-sequencenumber"] {
+  fill: #ff5e1f !important;
+  stroke: #ea4e0f !important;
+  stroke-width: 1px !important;
+}
+
+.mermaid .sequenceNumber {
+  fill: #ffffff !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+}
+
+/* 5. Alt / Opt / Loop Control Boxes */
+.mermaid .labelBox {
+  fill: #fafafa !important;
+  stroke: #e4e4e7 !important;
+  stroke-width: 1px !important;
+  stroke-dasharray: 3 3 !important;
+  rx: 3px !important;
+  ry: 3px !important;
+}
+
+.mermaid .labelText,
+.mermaid .labelText > tspan,
+.mermaid .loopText,
+.mermaid .loopText > tspan,
+.mermaid .sectionTitle,
+.mermaid .sectionTitle > tspan {
+  fill: #52525b !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+}
+
+.mermaid .loopLine {
+  stroke: #e4e4e7 !important;
+  stroke-width: 1px !important;
+  stroke-dasharray: 3 3 !important;
+  fill: none !important;
+}
+
+/* 6. Notes & Activations */
+.mermaid .note {
+  fill: #fff7ed !important;
+  stroke: #fed7aa !important;
+  stroke-width: 1px !important;
+  rx: 2px !important;
+  ry: 2px !important;
+}
+
+.mermaid .noteText,
+.mermaid .noteText > tspan {
+  fill: #9a3412 !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+}
+
+.mermaid .activation0,
+.mermaid .activation1,
+.mermaid .activation2 {
+  fill: #ffedd5 !important;
+  stroke: #ff5e1f !important;
+  stroke-width: 1px !important;
+  rx: 1px !important;
+  ry: 1px !important;
+}
+
+/* Dark mode theme overrides */
+.dark .mermaid {
+  background-color: #141416;
+  border-color: #27272a;
+  box-shadow: none;
+}
+
+.dark .mermaid .node rect,
+.dark .mermaid .node polygon,
+.dark .mermaid .node circle,
+.dark .mermaid .node ellipse,
+.dark .mermaid .node path {
+  fill: #1f1f23 !important;
+  stroke: #38383e !important;
+}
+
+.dark .mermaid .node .label,
+.dark .mermaid .node .label *,
+.dark .mermaid .node text,
+.dark .mermaid .node .nodeLabel,
+.dark .mermaid .node foreignObject {
+  color: #ededed !important;
+  fill: #ededed !important;
+}
+
+.dark .mermaid .node:hover rect,
+.dark .mermaid .node:hover polygon,
+.dark .mermaid .node:hover circle,
+.dark .mermaid .node:hover ellipse,
+.dark .mermaid .node:hover path {
+  stroke: #ff7038 !important;
+}
+
+.dark .mermaid .cluster rect {
+  fill: #18181b !important;
+  stroke: #2e2e34 !important;
+}
+
+.dark .mermaid .cluster text,
+.dark .mermaid .cluster span,
+.dark .mermaid .cluster div,
+.dark .mermaid .cluster .nodeLabel {
+  fill: #a1a1aa !important;
+  color: #a1a1aa !important;
+}
+
+.dark .mermaid .edgePath path.path {
+  stroke: #71717a !important;
+}
+
+.dark .mermaid .edgeLabel {
+  color: #f4f4f5 !important;
+  fill: #f4f4f5 !important;
+}
+
+.dark .mermaid .edgeLabel rect {
+  fill: transparent !important;
+  stroke: none !important;
+  opacity: 0 !important;
+}
+
+.dark .mermaid .edgeLabel div,
+.dark .mermaid .edgeLabel p {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.dark .mermaid .edgeLabel span {
+  color: #f4f4f5 !important;
+  fill: #f4f4f5 !important;
+  background-color: #27272a !important;
+  border: 1px solid #3f3f46 !important;
+  box-shadow: none !important;
+}
+
+.dark .mermaid marker path {
+  fill: #ff7038 !important;
+  stroke: #ff7038 !important;
+}
+
+/* Dark mode overrides for Sequence Diagram */
+.dark .mermaid rect.actor {
+  fill: #1f1f23 !important;
+  stroke: #38383e !important;
+}
+
+.dark .mermaid rect.actor:hover {
+  stroke: #ff7038 !important;
+}
+
+.dark .mermaid text.actor,
+.dark .mermaid text.actor > tspan,
+.dark .mermaid .actor,
+.dark .mermaid .actor * {
+  fill: #ededed !important;
+  color: #ededed !important;
+}
+
+.dark .mermaid .actor-line {
+  stroke: #2e2e34 !important;
+}
+
+.dark .mermaid .messageLine0 {
+  stroke: #a1a1aa !important;
+}
+
+.dark .mermaid .messageLine1 {
+  stroke: #71717a !important;
+}
+
+.dark .mermaid [id$="-arrowhead"] path,
+.dark .mermaid [id$="-crosshead"] path {
+  fill: #ff7038 !important;
+  stroke: #ff7038 !important;
+}
+
+.dark .mermaid .messageText,
+.dark .mermaid .messageText * {
+  fill: #d4d4d8 !important;
+  color: #d4d4d8 !important;
+}
+
+.dark .mermaid [id$="-sequencenumber"] {
+  fill: #ff7038 !important;
+  stroke: #ea4e0f !important;
+}
+
+.dark .mermaid .labelBox {
+  fill: #1f1f23 !important;
+  stroke: #3f3f46 !important;
+}
+
+.dark .mermaid .labelText,
+.dark .mermaid .labelText > tspan,
+.dark .mermaid .loopText,
+.dark .mermaid .loopText > tspan,
+.dark .mermaid .sectionTitle,
+.dark .mermaid .sectionTitle > tspan,
+.dark .mermaid .labelText *,
+.dark .mermaid .loopText *,
+.dark .mermaid .sectionTitle * {
+  fill: #d4d4d8 !important;
+  color: #d4d4d8 !important;
+}
+
+.dark .mermaid .loopLine {
+  stroke: #52525b !important;
+}
+
+.dark .mermaid .note {
+  fill: #2e180d !important;
+  stroke: #7c2d12 !important;
+}
+
+.dark .mermaid .noteText,
+.dark .mermaid .noteText > tspan,
+.dark .mermaid .noteText * {
+  fill: #fed7aa !important;
+  color: #fed7aa !important;
+}
+
+.dark .mermaid .activation0,
+.dark .mermaid .activation1,
+.dark .mermaid .activation2 {
+  fill: #3b1606 !important;
+  stroke: #ff7038 !important;
+}
+
+/* Utility preset classes for Mermaid diagrams */
+
+/* 1. cf-primary: Cloudflare Orange solid node */
+.mermaid .node.cf-primary rect,
+.mermaid .node.cf-primary polygon,
+.mermaid .node.cf-primary circle,
+.mermaid .node.cf-primary ellipse,
+.mermaid .node.cf-primary path {
+  fill: #ff5e1f !important;
+  stroke: #ea4e0f !important;
+}
+
+.mermaid .node.cf-primary .label,
+.mermaid .node.cf-primary .label *,
+.mermaid .node.cf-primary text {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+/* 2. cf-accent: Warm light orange card with solid orange border */
+.mermaid .node.cf-accent rect,
+.mermaid .node.cf-accent polygon,
+.mermaid .node.cf-accent circle,
+.mermaid .node.cf-accent ellipse,
+.mermaid .node.cf-accent path {
+  fill: #fff7ed !important;
+  stroke: #ff5e1f !important;
+}
+
+.mermaid .node.cf-accent .label,
+.mermaid .node.cf-accent .label *,
+.mermaid .node.cf-accent text {
+  color: #9a3412 !important;
+  fill: #9a3412 !important;
+  font-weight: 500 !important;
+}
+
+.dark .mermaid .node.cf-accent rect,
+.dark .mermaid .node.cf-accent polygon,
+.dark .mermaid .node.cf-accent circle,
+.dark .mermaid .node.cf-accent ellipse,
+.dark .mermaid .node.cf-accent path {
+  fill: #2e180d !important;
+  stroke: #ff7038 !important;
+}
+
+.dark .mermaid .node.cf-accent .label,
+.dark .mermaid .node.cf-accent .label *,
+.dark .mermaid .node.cf-accent text {
+  color: #fed7aa !important;
+  fill: #fed7aa !important;
+}
+
+/* 3. cf-muted: Low-key auxiliary node with clear contrast */
+.mermaid .node.cf-muted rect,
+.mermaid .node.cf-muted polygon,
+.mermaid .node.cf-muted circle,
+.mermaid .node.cf-muted ellipse,
+.mermaid .node.cf-muted path {
+  fill: #f4f4f5 !important;
+  stroke: #a1a1aa !important;
+  stroke-dasharray: 4 3 !important;
+}
+
+.mermaid .node.cf-muted .label,
+.mermaid .node.cf-muted .label *,
+.mermaid .node.cf-muted text {
+  color: #27272a !important;
+  fill: #27272a !important;
+  font-weight: 500 !important;
+}
+
+.dark .mermaid .node.cf-muted rect,
+.dark .mermaid .node.cf-muted polygon,
+.dark .mermaid .node.cf-muted circle,
+.dark .mermaid .node.cf-muted ellipse,
+.dark .mermaid .node.cf-muted path {
+  fill: #18181b !important;
+  stroke: #52525b !important;
+  stroke-dasharray: 4 3 !important;
+}
+
+.dark .mermaid .node.cf-muted .label,
+.dark .mermaid .node.cf-muted .label *,
+.dark .mermaid .node.cf-muted text {
+  color: #d4d4d8 !important;
+  fill: #d4d4d8 !important;
 }
