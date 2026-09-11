@@ -1,10 +1,11 @@
 ---
 date: 2025-02-07 16:20:09
-updated: 2026-04-28 14:59:00
+updated: 2026-09-11 16:13:02
 category: Design
 tags:
-  - FrontEnd
+  - Design
   - Mobile
+  - Expo
 title: 移动应用图标设计
 description: 设计和配置 Splash Screen 与 App Icon
 ---

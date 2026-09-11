@@ -1,12 +1,12 @@
 ---
 date: 2024-11-06 23:59:34
-updated: 2026-04-29 00:36:42
+updated: 2026-09-11 16:14:10
 title: 申请 GitHub 学生包踩坑实录
 description: 这个月学籍终于上学信网了，于是立刻拿来申请了一下GitHub学生包。
 category: Life
 tags:
-  - Study
   - GitHub
+  - Life
 ---
 
 

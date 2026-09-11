@@ -1,10 +1,10 @@
 ---
 date: 2025-02-07 16:20:09
-updated: 2026-09-02 14:47:18
+updated: 2026-09-11 16:13:28
 category: Development
 tags:
+  - React
   - FrontEnd
-  - Study
 title: React 组件封装
 description: 从基础 Props 抽象、副作用隔离到 AntD 与 shadcn/ui 的架构选型思考
 ---

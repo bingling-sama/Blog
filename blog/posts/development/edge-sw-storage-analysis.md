@@ -1,15 +1,12 @@
 ---
 title: 是谁在我的 Edge 里吃了 4 个 G？
 date: 2026-05-07
-categories: Development
+category: Development
 tags:
   - FrontEnd
-  - System
   - Browser
-  - Rust
-  - Node.js
-  - Edge
-updated: 2026-08-20 22:34:01
+  - Performance
+updated: 2026-09-11 16:13:42
 description: 一怒之下写了一个 Edge 网页缓存数据储存空间分析器
 ---
 

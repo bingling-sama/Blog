@@ -1,15 +1,13 @@
 ---
 date: 2026-09-01 16:30:00
-updated: 2026-09-01 22:24:23
+updated: 2026-09-11 16:13:02
 title: 告别臃肿：在 Mac 上完全脱离 Android Studio 配置 Android SDK 与模拟器全指南
 description: 记录如何彻底卸载 Android Studio，利用官方全新的 Android CLI 工具链、ARM64 系统镜像与 ADB，从零搭建极简纯净的 Android 开发环境并跑通 Expo。
 category: Development
 tags:
   - Android
   - Mobile
-  - ReactNative
-  - Expo
-  - Mac
+  - Tools
 ---
 
 # 告别臃肿：在 Mac 上完全脱离 Android Studio 配置 Android SDK 与模拟器全指南

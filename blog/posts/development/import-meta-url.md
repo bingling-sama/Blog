@@ -1,12 +1,11 @@
 ---
 date: 2026-04-29 00:00:00
-updated: 2026-08-20 22:34:08
+updated: 2026-09-11 16:13:11
 category: Development
 tags:
-  - FrontEnd
-  - Study
   - JavaScript
-title: " import.meta.url 是啥子？"
+  - FrontEnd
+title: import.meta.url 是啥子？
 description: 从 ECMAScript 规范角度全面理解 import.meta 与 import.meta.url，涵盖浏览器、Node.js、Deno、Bun 各宿主环境的差异与约定，以及在 Vite 等构建工具中的实际应用。
 ---
 

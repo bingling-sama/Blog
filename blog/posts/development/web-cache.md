@@ -1,10 +1,11 @@
 ---
 date: 2026-08-20 21:35:00
-updated: 2026-09-11 00:07:55
+updated: 2026-09-11 16:13:42
 category: Development
 tags:
   - FrontEnd
-  - Study
+  - Network
+  - Performance
 title: 一文搞懂 Web 开发中的缓存体系：从浏览器到服务端
 description: 全面解析 Web 开发中的全链路缓存机制，涵盖浏览器强缓存与协商缓存、CDN 边缘加速与回源、Nginx/Caddy 配置实战、前端工程化 Hash 实践以及服务端 Redis 策略与经典三大问题。
 ---

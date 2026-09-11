@@ -1,10 +1,11 @@
 ---
 date: 2022-08-21 11:07:35
-updated: 2026-04-29 00:37:35
+updated: 2026-09-11 16:13:28
 category: Development
 tags:
   - FrontEnd
-  - Study
+  - Engineering
+  - Tools
 title: 配置 ESLint + Prettier 环境来规范代码风格
 description: 记录一次在前端项目中配置 ESLint + Prettier 来规范代码风格的过程。
 ---
