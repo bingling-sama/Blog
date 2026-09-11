@@ -1,8 +1,8 @@
 ---
 date: 2026-09-07 08:04:26
-updated: 2026-09-11 12:00:15
-title: Expo OTA 自建全流程：深入解析 XPREM 核心架构、运行模式与工程落地
-description: 全面拆解 Expo Updates 协议自建服务 XPREM 的端到端链路组件，深度对比 Stateless 与 Control Plane 模式的架构差异与部署配置，并提供工业级 CDN 与灰度发布实操。
+updated: 2026-09-11 15:15:20
+title: 不用 EAS Update 后：用 XPREM 自建 Expo 热更新服务
+description: 拆解 Expo Updates 协议自建服务 XPREM 的端到端链路组件，对比 Stateless 与 Control Plane 模式的架构差异与部署配置，提供 CDN 缓存、灰度发布与常见踩坑记录。
 category: Development
 tags:
   - Expo
@@ -12,7 +12,7 @@ tags:
   - DevOps
 ---
 
-# Expo OTA 自建全流程：深入解析 XPREM 核心架构、运行模式与工程落地
+# 不用 EAS Update 后：用 XPREM 自建 Expo 热更新服务
 
 在 React Native / Expo 项目进入稳定迭代后，官方 EAS Update 会面临两个现实问题：按 MAU 阶梯计费的成本随着用户增长迅速走高；而在国内部署或政企内网场景下，官方 CDN 与接口常受限于网络延迟和合规要求。
 
@@ -22,7 +22,7 @@ XPREM（前身为 `expo-open-ota`）是一个用 Go 实现的开源 Expo Updates
 
 ---
 
-## 一、 XPREM 架构总览：端到端链路拆解
+## 热更新从打包到生效经历了什么？
 
 OTA 热更新是一套高度依赖端云协同的协议体系。从开发者执行发布，到最终用户设备完成更新加载，整个系统被划分为 7 个职责明确的子系统：
 
@@ -75,9 +75,9 @@ flowchart TD
     CDN -->|"首次回源 Cache Miss"| Bucket
 ```
 
-我们将这 7 个部分拆开，逐层分析其内部机制与工程约束：
+我们把这 7 个部分拆开，逐层分析其内部机制与工程约束：
 
-### 1. 发布工具链（Publisher CLI）
+### eoas 命令行工具
 - **核心组件**：官方维护的 `eoas` CLI（兼容 `@mercuretechnologies/xprem`）。
 - **运行机制**：
   1. 调用 `expo export` 将前端代码和资源编译为 Hermes 字节码（HBC）、JS Bundle 以及 Assets 静态资源。
@@ -85,34 +85,34 @@ flowchart TD
   3. 服务端若已存在对应哈希文件，CLI 将**跳过该文件的物理上传**。
   4. 仅将全量更新中新增或修改的文件上传至存储，大幅削减 CI/CD 耗时与上行流量。
 
-### 2. 客户端原生运行时（expo-updates Runtime）
+### expo-updates 客户端行为
 - **核心组件**：移动端原生库 `expo-updates`（嵌入在 iOS IPA / Android APK 中）。
 - **工作机制**：
   1. **参数上报**：在应用冷启动或前台切回时，向配置的更新 URL 发送 HTTP GET 请求，通过 Header 上报当前硬件平台（`expo-platform`）、运行时版本（`expo-runtime-version`）、当前固化的发布通道（`expo-channel-name`）以及设备标识（`EAS-Client-ID`）。
   2. **签名验证**：收到服务端下发的 Manifest 后，利用本地打包时内置的 `certificate.pem` 公钥证书，验证响应头中的 `expo-signature` 签名有效性。签名损坏或不匹配直接中断更新。
   3. **增量组装与切换**：客户端读取 Manifest 内列出的资源下载链接，比对本地缓存，仅下载缺失资源；下载完成后在本地原子切换生效。
 
-### 3. 接入网关层（Gateway / Reverse Proxy）
+### Nginx / 反向代理配置要求
 - **核心组件**：Nginx、Traefik、Caddy 或 K8s Ingress Controller。
 - **必备能力**：
   1. **强制 HTTPS**：Expo Updates 官方规范强制要求 manifest 接口必须运行在 HTTPS 协议之上，网关层负责 SSL/TLS 证书终结。
   2. **解除上传限制**：发布端上传的完整 Bundle 和素材包体积可达数十至数百 MB，网关必须显式放开 `client_max_body_size`（如 `200M`），否则发布时会触发 `413 Request Entity Too Large`。
   3. **网络与真实 IP 透传**：透传 `X-Real-IP`、`X-Forwarded-For`，为服务端的地理位置解析（GeoIP）与审计日志提供真实源 IP。
 
-### 4. XPREM 核心计算引擎（Go Core Engine）
+### XPREM 服务端核心逻辑
 - **核心组件**：单静态二进制 Go 进程（无外部语言运行时依赖）。
 - **处理职责**：
   1. **路由与通道映射**：根据请求中的 `expo-channel-name` 或 `xprem-branch` 映射对应的目标分支。
   2. **灰度计算（Progressive Rollout）**：对 `EAS-Client-ID` 结合发布版本 Salt 执行确定性哈希运算（Deterministic Hash），计算设备是否落在灰度比例区间内。
   3. **Manifest 动态构建与签名**：动态将各资源的下载地址替换为 CDN 域名，随后利用对应应用的 RSA 私钥对整个 Manifest 计算 SHA-256 签名，生成 `expo-signature` 标头返回。
 
-### 5. 状态与元数据层（State & Metadata Layer）
+### 版本与发布元数据存储
 - **核心职责**：管理应用列表、分支关联、通道指向、更新版本记录、代码签名密钥以及审计日志。
 - **差异实现**：
   - 在 **Control Plane 模式** 下，由 **PostgreSQL 16** 统一接管，支持复杂查询、多应用租户隔离与安全加密。
   - 在 **Stateless 模式** 下，**完全没有数据库**，元数据作为 JSON 文件直接保存在对象存储的特定目录下。
 
-### 6. 对象存储与 CAS 资产库（Storage Backend & CAS）
+### 资源存储与 CAS 内容寻址
 - **核心组件**：Amazon S3、Cloudflare R2、七牛云 Kodo、MinIO 等 S3 兼容协议存储。
 - **存储拓扑（v3.2.0+ CAS 架构）**：
   ```
@@ -126,7 +126,7 @@ flowchart TD
   ```
   所有二进制资源脱离版本路径，统一收敛在 `cas/` 目录下由哈希直接定位。跨版本相同的文件在物理层面只有一份存储实体。
 
-### 7. 边缘分发网络（CDN Delivery Layer）
+### CDN 边缘分发与长缓存
 - **核心组件**：七牛云 CDN、Cloudflare、CloudFront、Fastly 等。
 - **核心机制**：
   - 承载全站 99% 以上的流量压力。客户端从 Manifest 中获取的都是经过 XPREM 改写后的 CDN 资源链接。
@@ -134,7 +134,7 @@ flowchart TD
 
 ---
 
-## 二、 运行模式深度对比：Stateless vs. Control Plane
+## 选型：要不要带数据库？
 
 XPREM 在服务启动阶段，会检查是否存在环境变量 `DB_URL`。**这是切换两种模式的唯一判定开关**。
 
@@ -170,11 +170,11 @@ flowchart TD
 
 ---
 
-## 三、 实战部署方案 A：无状态模式（Stateless Mode）
+## 轻量验证：无状态模式部署
 
 如果团队目前只有一个 App，希望以最低运维负担快速上线，且不介意借助官方 Expo 账号管理分支映射与发布鉴权，Stateless 模式是最轻量的路线。
 
-### 1. 生成并准备签名证书对
+### 生成签名证书
 在 Stateless 模式下，XPREM 不管理私钥生成，你必须在本地手动生成 RSA 密钥对：
 
 ```bash
@@ -188,7 +188,7 @@ npx eoas generate-certs
 - `public-key.pem`：公钥文件。
 - `certificate.pem`：验签证书（**放入移动端前端工程 `certs/` 目录下**）。
 
-### 2. 编写 Stateless 部署配置 (Docker Compose)
+### Docker Compose 编排文件
 创建 `docker-compose.yml`：
 
 ```yaml
@@ -243,7 +243,7 @@ services:
 docker compose up -d
 ```
 
-### 3. Stateless 模式发布更新工作流
+### 执行首次发布
 在无状态模式下，发布命令必须遵循以下两项铁律：
 1. **严禁配置 `EOO_TOKEN`**：如果环境变量中出现 `EOO_TOKEN`，CLI 会强行使用控制平面鉴权，导致请求被无状态服务端拒绝。
 2. **使用 Expo 鉴权**：通过 `EXPO_TOKEN` 或已登录的 EAS 账号鉴权。
@@ -262,11 +262,11 @@ npx eoas publish \
 
 ---
 
-## 四、 实战部署方案 B：控制平面模式（Control Plane Mode，生产级）
+## 生产推荐：控制平面模式部署
 
 在生产环境中，强烈建议部署完整的 Control Plane 模式。它不仅消除了对 Expo 官方基础设施的单点依赖，还带来了多应用集中管理、安全私钥落库以及 1%~99% 灰度发布能力。
 
-### 1. 生成服务端核心机密
+### 生成 JWT 与主加密密钥
 控制平面需要两组关键 Secret：
 1. `JWT_SECRET`：用于控制台 Session 鉴权与上传授权。
 2. `DB_KEYS_MASTER_KEY_B64`：**核心主密钥**。XPREM 每次新建 App 生成的 RSA 私钥都会被该主密钥在内存中加密后再写入 PostgreSQL。
@@ -282,7 +282,7 @@ openssl rand -base64 32  # 记录为 DB_KEYS_MASTER_KEY_B64
 
 > **安全硬约束**：`DB_KEYS_MASTER_KEY_B64` 必须永久离线备份。如果主密钥丢失或被覆盖，数据库中所有应用的签名私钥都将彻底无法解密，已发布上线的客户端将永远无法接收后续更新！
 
-### 2. 编写 Control Plane 部署配置 (Docker Compose)
+### 服务端与数据库 Compose 配置
 创建 `docker-compose.yml`：
 
 ```yaml
@@ -363,7 +363,7 @@ docker compose logs -f xprem-server
 ```
 日志中出现数据库迁移完成与监听端口信息即代表启动成功。
 
-### 3. 控制台初始化应用与获取密钥
+### 在控制台建项目并导出证书
 访问 `https://ota-api.yourdomain.com/dashboard`：
 1. **创建应用**：点击 **Applications -> Create New Application**。
    - 在此模式下，**你不需要手动生成密钥文件**。服务端在创建应用时，会自动生成高强度 RSA 密钥对，并使用 `DB_KEYS_MASTER_KEY_B64` 加密存入 PostgreSQL。
@@ -373,11 +373,11 @@ docker compose logs -f xprem-server
 
 ---
 
-## 五、 接入网关与 CDN 边缘缓存配置
+## 接入网关与 CDN 缓存规则
 
 无论采用哪种模式，接入层与 CDN 的配置逻辑是共通的。
 
-### 1. Nginx 反向代理配置
+### Nginx 配置与上传限制放行
 ```nginx
 server {
     listen 80;
@@ -405,7 +405,7 @@ server {
 }
 ```
 
-### 2. CDN 边缘缓存策略（极度关键）
+### CDN 缓存规则配置
 在 CDN 控制台为 `ota-assets.yourdomain.com` 添加配置：
 1. **缓存过期时间**：
    - 针对路径 `/cas/*`、`/assets/*` 以及文件后缀 `bundle,js,hbc,png,jpg,webp,ttf,json`，设置缓存有效时间为 **365 天**。
@@ -415,7 +415,7 @@ server {
 
 ---
 
-## 六、 Expo 客户端工程集成契约
+## 客户端接入配置（app.config.ts）
 
 在 Expo 项目的 `app.config.ts` 中声明端上配置。这是客户端能够成功接入自建服务的核心契约：
 
@@ -457,9 +457,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 
 ---
 
-## 七、 生产发布与灰度控制（Control Plane）
+## 日常发布、灰度与紧急回滚
 
-### 1. 全量生产发布
+### 全量发布
 ```bash
 export EOO_TOKEN="your_dashboard_api_token"
 export RELEASE_CHANNEL="production"
@@ -470,7 +470,7 @@ npx eoas publish \
   --platform all
 ```
 
-### 2. 渐进式灰度发布 (Progressive Rollout)
+### 渐进式灰度（1%~99%）
 对于涉及核心链路改造的版本，使用 `--rollout-percentage` 限制分流范围：
 
 ```bash
@@ -482,7 +482,7 @@ npx eoas publish \
 - **哈希命中逻辑**：XPREM 会取出客户端上报的 `EAS-Client-ID`，与当前 Rollout 随机 Salt 进行哈希，映射到 0~99 区间。该算法在设备端无需维持会话即可确保单台设备在灰度期间的命中结果恒定不变。
 - **动态推进**：可在 XPREM 控制台中随时将比例调大至 25%、50%、100%，或点击 **Promote to 100%**。灰度推进**只允许单调递增**。
 
-### 3. 秒级版本故障回滚 (Rollback)
+### 线上事故一键回滚
 当线上最新版本出现灾难性缺陷，无需等待代码重新打包编译，执行回滚指令：
 
 ```bash
@@ -492,13 +492,13 @@ npx eoas rollback --branch production
 
 ---
 
-## 八、 避坑与排错清单
+## 踩坑记录与排查
 
-### 1. 禁用 `--no-dumpSourcemap` 避免 CAS 缓存失效
+### 别关 --dumpSourcemap：避免 CAS 缓存失效
 `eoas publish` 默认会附加 `--dumpSourcemap` 参数。**不要显式禁用它**。
 - **深层机理**：Hermes 编译器在未指定 SourceMap 输出时，会在编译生成的 HBC 字节码末尾注入临时系统的随机绝对路径。这会导致相同的源代码在不同时间或不同机器上构建出的 `.hbc` 哈希值完全不同，使得 CAS 内容寻址去重机制彻底失效，导致大量冗余文件上传与 CDN 缓存重复刷新。
 
-### 2. CI/CD 流水线中 Git 脏检查中断
+### CI 环境中绕过 Git 状态检查
 `eoas publish` 默认要求当前工作目录处于干净的 Git 提交状态。若 CI 流水线前序脚本生成了临时文件，会直接报错中止：`Commit all changes. Aborting...`。
 - **应对方案**：在 CI 构建脚本中加入 `--nonInteractive`，并声明 `EAS_NO_VCS=1` 或附加 `--disableRepositoryCheck`：
   ```bash
@@ -510,7 +510,7 @@ npx eoas rollback --branch production
     --disableRepositoryCheck
   ```
 
-### 3. 部署后接口与签名验证 (curl 诊断命令)
+### 用 curl 验证服务端签名与缓存
 部署完成后，可通过模拟客户端 HTTP Header 快速验证端点连通性：
 
 ```bash
