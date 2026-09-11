@@ -121,7 +121,9 @@ export default withMermaid(
         useMaxWidth: true,
         padding: 16,
         nodeSpacing: 45,
-        rankSpacing: 75
+        rankSpacing: 75,
+        wrappingWidth: 350,
+        subGraphTitleMargin: { top: 5, bottom: 15 }
       }
     },
     ignoreDeadLinks: true,

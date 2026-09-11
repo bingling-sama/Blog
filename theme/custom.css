@@ -303,6 +303,7 @@ h6 {
   text-align: center !important;
   margin: 0 !important;
   padding: 0 !important;
+  white-space: nowrap !important;
 }
 
 /* Reset any inherited margins from VitePress (.vp-doc p, etc.) that cause downward shifts */
@@ -310,6 +311,7 @@ h6 {
 .mermaid foreignObject span {
   margin: 0 !important;
   padding: 0 !important;
+  white-space: nowrap !important;
 }
 
 /* Precise geometric nodes - 2px radius */
