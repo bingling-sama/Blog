@@ -341,20 +341,24 @@ const updateDimensionsAndFit = (forceReset = false) => {
 
     initialFitScale.value = fullFitScale
 
+    const isVertical = isVerticalDiagram(props.graph, dims.width, dims.height)
+
     if (!hasUserInteracted.value || forceReset) {
       // If fitting full width would make the diagram text too small (< 0.72):
-      // Start with a comfortable legible scale (0.82) and align to left so the user starts reading from step 1
-      if (fullFitScale < 0.72) {
-        const readableScale = 0.82
-        scale.value = readableScale
-        translateX.value =
-          28 + (dims.width * readableScale) / 2 - containerW / 2
-        translateY.value = 0
-      } else {
-        scale.value = fullFitScale
-        translateX.value = 0
-        translateY.value = 0
-      }
+      // Start with a comfortable legible scale (0.82)
+      const chosenScale = fullFitScale < 0.72 ? 0.82 : fullFitScale
+      scale.value = chosenScale
+
+      const pos = computeInitialTranslation(
+        chosenScale,
+        dims.width,
+        dims.height,
+        containerW,
+        viewportHeight.value,
+        isVertical
+      )
+      translateX.value = pos.x
+      translateY.value = pos.y
     }
   } else {
     // Fullscreen mode: fit both width and height
@@ -369,10 +373,79 @@ const updateDimensionsAndFit = (forceReset = false) => {
     initialFitScale.value = fitScale
     if (!hasUserInteracted.value || forceReset) {
       scale.value = fitScale
-      translateX.value = 0
-      translateY.value = 0
+      const isVertical = isVerticalDiagram(props.graph, dims.width, dims.height)
+      const pos = computeInitialTranslation(
+        fitScale,
+        dims.width,
+        dims.height,
+        window.innerWidth,
+        window.innerHeight,
+        isVertical
+      )
+      translateX.value = pos.x
+      translateY.value = pos.y
     }
   }
+}
+
+const isVerticalDiagram = (
+  rawGraph: string,
+  svgW: number,
+  svgH: number
+): boolean => {
+  const raw = decodeURIComponent(rawGraph)
+  if (/\b(graph\s+LR|flowchart\s+LR)\b/i.test(raw)) {
+    return false
+  }
+  if (
+    /\b(graph\s+(TD|TB)|flowchart\s+(TD|TB)|sequenceDiagram|stateDiagram)\b/i.test(
+      raw
+    )
+  ) {
+    return true
+  }
+  return svgH >= svgW * 0.75
+}
+
+const computeInitialTranslation = (
+  currentScale: number,
+  svgW: number,
+  svgH: number,
+  viewW: number,
+  viewH: number,
+  isVertical: boolean
+): { x: number; y: number } => {
+  const renderedW = svgW * currentScale
+  const renderedH = svgH * currentScale
+
+  let x = 0
+  let y = 0
+
+  if (isVertical) {
+    // 纵向图 (TD / TB / Sequence):
+    // 1. 水平方向：绝对居中！对齐视口正中心 (x = 0)，保证头节点与左右子图完全对称居中
+    x = 0
+
+    // 2. 垂直方向：如果渲染高度超出视口，顶部对齐留白 48px（避开右上角工具栏），确保头节点在正上方
+    if (renderedH > viewH - 56) {
+      y = 48 + (renderedH - viewH) / 2
+    } else {
+      y = 0
+    }
+  } else {
+    // 横向图 (LR):
+    // 1. 水平方向：如果渲染宽度超出视口，左对齐留白 32px，确保起始节点（步骤 1）从左侧展开
+    if (renderedW > viewW - 48) {
+      x = 32 + (renderedW - viewW) / 2
+    } else {
+      x = 0
+    }
+
+    // 2. 垂直方向：垂直居中
+    y = 0
+  }
+
+  return { x, y }
 }
 
 const zoomIn = () => {
@@ -390,15 +463,38 @@ const zoomOut = () => {
 const toggleFitOrOriginal = () => {
   hasUserInteracted.value = true
   isTransitioning.value = true
+  const viewport = viewportRef.value
+  const viewW = viewport?.clientWidth || containerRef.value?.clientWidth || 700
+  const viewH = viewport?.clientHeight || viewportHeight.value || 300
+  const svgW = canvasWidth.value || 700
+  const svgH = canvasHeight.value || 300
+  const isVertical = isVerticalDiagram(props.graph, svgW, svgH)
+
   // If close to fit scale, zoom to 100%; otherwise toggle to fit scale
   if (Math.abs(scale.value - initialFitScale.value) < 0.05) {
     scale.value = 1
-    translateX.value = 0
-    translateY.value = 0
+    const pos = computeInitialTranslation(
+      1,
+      svgW,
+      svgH,
+      viewW,
+      viewH,
+      isVertical
+    )
+    translateX.value = pos.x
+    translateY.value = pos.y
   } else {
     scale.value = initialFitScale.value
-    translateX.value = 0
-    translateY.value = 0
+    const pos = computeInitialTranslation(
+      initialFitScale.value,
+      svgW,
+      svgH,
+      viewW,
+      viewH,
+      isVertical
+    )
+    translateX.value = pos.x
+    translateY.value = pos.y
   }
 }
 
