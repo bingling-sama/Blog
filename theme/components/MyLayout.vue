@@ -69,8 +69,11 @@ import DefaultTheme from "vitepress/theme"
 import Copyright from "./Copyright.vue"
 import { withBase } from "vitepress"
 import { busuanziData, fetchBusuanzi } from "../scripts/busuanzi"
+import { useScrollHash } from "../scripts/useScrollHash"
 
 const { Layout } = DefaultTheme
+
+useScrollHash()
 
 onMounted(() => {
   fetchBusuanzi()
