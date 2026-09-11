@@ -143,6 +143,13 @@ export default withMermaid(
           title: "Booling✨ RSS Feed",
           href: "/feed.xml"
         }
+      ],
+      [
+        "meta",
+        {
+          name: "referrer",
+          content: "no-referrer-when-downgrade"
+        }
       ]
     ],
     rewrites: {

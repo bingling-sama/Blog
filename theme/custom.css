@@ -224,15 +224,38 @@ h6 {
 
 .post-info {
   font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
-.post-info span {
-  display: inline-block;
+.post-info > span {
+  display: inline-flex;
+  align-items: center;
   padding: 0 8px;
   background-color: var(--vp-c-bg-alt);
   margin-right: 10px;
   transition: 0.4s;
   border-radius: 2px;
   color: var(--vp-c-text-1);
+}
+.post-info .post-info-pv,
+.post-info .post-info-uv {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.post-info .post-info-pv span,
+.post-info .post-info-uv span {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  font-weight: 600;
+  color: var(--vp-c-brand);
+}
+.post-info .pv-icon,
+.post-info .uv-icon {
+  margin-right: 2px;
+  vertical-align: -2px;
 }
 
 /* math rendering */
