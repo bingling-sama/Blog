@@ -46,7 +46,9 @@ export function useScrollHash() {
       return
     }
     headings = Array.from(
-      docContainer.querySelectorAll<HTMLElement>(":where(h2, h3, h4, h5, h6)[id]")
+      docContainer.querySelectorAll<HTMLElement>(
+        ":where(h2, h3, h4, h5, h6)[id]"
+      )
     ).filter(
       (el) =>
         Boolean(el.id) &&

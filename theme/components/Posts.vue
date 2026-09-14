@@ -54,7 +54,9 @@ function setPage(page: number) {
 
 function updatePageSize() {
   pageSize.value =
-    window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE
+    window.innerWidth <= MOBILE_BREAKPOINT
+      ? MOBILE_PAGE_SIZE
+      : DESKTOP_PAGE_SIZE
 }
 
 function splitPosts(items: Post[], size: number) {
@@ -81,7 +83,9 @@ onMounted(() => {
 
   resizeHandler = () => {
     const nextPageSize =
-      window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE
+      window.innerWidth <= MOBILE_BREAKPOINT
+        ? MOBILE_PAGE_SIZE
+        : DESKTOP_PAGE_SIZE
 
     if (nextPageSize !== pageSize.value) {
       pageSize.value = nextPageSize

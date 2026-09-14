@@ -1,4 +1,3 @@
-import { fileURLToPath, URL } from "node:url"
 import { defineConfig, loadEnv } from "vitepress"
 import { withMermaid } from "vitepress-plugin-mermaid"
 import { RssPlugin } from "vitepress-plugin-rss"
@@ -82,7 +81,8 @@ export default withMermaid(
     mermaid: {
       theme: "base",
       themeVariables: {
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
         fontSize: "13px",
         background: "#ffffff",
         primaryColor: "#ffffff",
@@ -180,24 +180,20 @@ export default withMermaid(
     sitemap: {
       hostname: siteUrl
     },
-		vite: {
-			plugins: [RssPlugin(RSS)],
-			server: { port: 3000 },
-			optimizeDeps: {
-				include: [
-					'mermaid',
-					'fastdom',
-					'dayjs'
-				]
-			},
-			resolve: {
-				alias: [
-					{
-						find: /^dayjs$/,
-						replacement: 'dayjs/esm/index.js'
-					}
-				]
-			}
-		}
+    vite: {
+      plugins: [RssPlugin(RSS)],
+      server: { port: 3000 },
+      optimizeDeps: {
+        include: ["mermaid", "fastdom", "dayjs"]
+      },
+      resolve: {
+        alias: [
+          {
+            find: /^dayjs$/,
+            replacement: "dayjs/esm/index.js"
+          }
+        ]
+      }
+    }
   })
 )
