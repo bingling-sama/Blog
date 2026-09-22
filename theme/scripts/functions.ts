@@ -5,6 +5,8 @@ export type Post = {
   tags: string[]
   description: string
   url: string
+  readingTime?: string
+  wordCount?: number
 }
 
 export function initTags(post: Post[]): Map<string, Post[]> {

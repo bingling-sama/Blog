@@ -9,6 +9,23 @@
         <span class="post-date">
           {{ $frontmatter.date?.substring(0, 10) }}
         </span>
+        <span v-if="readingTime" class="post-reading-time">
+          <svg
+            class="reading-time-icon"
+            viewBox="0 0 24 24"
+            width="14"
+            height="14"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          {{ readingTime }}
+        </span>
         <span v-for="item in $frontmatter.tags" :key="item" class="post-tag">
           <a :href="withBase(`/pages/tags.html?tag=${item}`)">{{ item }}</a>
         </span>
@@ -64,16 +81,37 @@
   <Copyright />
 </template>
 <script setup>
-import { onMounted } from "vue"
+import { computed, onMounted } from "vue"
 import DefaultTheme from "vitepress/theme"
 import Copyright from "./Copyright.vue"
-import { withBase } from "vitepress"
+import { useRoute, withBase } from "vitepress"
 import { counterData, fetchCounter } from "../scripts/counter"
 import { useScrollHash } from "../scripts/useScrollHash"
+// @ts-expect-error
+import { data as posts } from "../scripts/posts.data"
 
 const { Layout } = DefaultTheme
 
 useScrollHash()
+
+const route = useRoute()
+
+const readingTime = computed(() => {
+  const currentPath = route.path
+    .replace(/\.html$/, "")
+    .replace(/\/index$/, "")
+    .replace(/\/$/, "")
+
+  const matched = posts.find((p) => {
+    const postUrl = p.url
+      .replace(/\.html$/, "")
+      .replace(/\/index$/, "")
+      .replace(/\/$/, "")
+    return postUrl === currentPath
+  })
+
+  return matched?.readingTime || ""
+})
 
 onMounted(() => {
   fetchCounter()

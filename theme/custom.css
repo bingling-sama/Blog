@@ -239,7 +239,8 @@ h6 {
   color: var(--vp-c-text-1);
 }
 .post-info .post-info-pv,
-.post-info .post-info-uv {
+.post-info .post-info-uv,
+.post-info .post-reading-time {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -253,7 +254,8 @@ h6 {
   color: var(--vp-c-brand);
 }
 .post-info .pv-icon,
-.post-info .uv-icon {
+.post-info .uv-icon,
+.post-info .reading-time-icon {
   margin-right: 2px;
   vertical-align: -2px;
 }
@@ -862,4 +864,3 @@ h6 {
   background-color: rgba(24, 24, 27, 0.92) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
-
