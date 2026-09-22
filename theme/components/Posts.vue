@@ -12,7 +12,7 @@
       </div>
       <p class="describe" v-html="post.description"></p>
       <div class="post-info">
-        {{ post.date }}
+        <span class="post-date">{{ post.date }}</span>
         <span v-for="item in post.tags"
           ><a :href="withBase(`/tags?tag=${item}`)"> {{ item }}</a></span
         >
@@ -165,6 +165,14 @@ watch(pages, clampCurrentPage)
   color: var(--vp-c-text-2);
   margin: 10px 0;
   line-height: 1.5rem;
+}
+.post-info {
+  row-gap: 6px;
+}
+.post-info .post-date {
+  padding: 0;
+  background-color: transparent;
+  margin-right: 10px;
 }
 .pagination {
   margin-top: 16px;
