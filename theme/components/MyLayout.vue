@@ -12,7 +12,7 @@
         <span v-for="item in $frontmatter.tags" :key="item" class="post-tag">
           <a :href="withBase(`/pages/tags.html?tag=${item}`)">{{ item }}</a>
         </span>
-        <span id="busuanzi_container_page_pv" class="post-info-pv">
+        <span id="counter_container_page_pv" class="post-info-pv">
           <svg
             class="pv-icon"
             viewBox="0 0 24 24"
@@ -28,14 +28,14 @@
             <circle cx="12" cy="12" r="3"></circle>
           </svg>
           阅读量
-          <span id="busuanzi_value_page_pv">{{
-            busuanziData.pagePv || "--"
+          <span id="counter_value_page_pv">{{
+            counterData.pagePv || "--"
           }}</span>
           次
         </span>
         <span
-          v-if="busuanziData.pageUv"
-          id="busuanzi_container_page_uv"
+          v-if="counterData.pageUv"
+          id="counter_container_page_uv"
           class="post-info-uv"
         >
           <svg
@@ -53,7 +53,7 @@
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
           访客数
-          <span id="busuanzi_value_page_uv">{{ busuanziData.pageUv }}</span> 人
+          <span id="counter_value_page_uv">{{ counterData.pageUv }}</span> 人
         </span>
       </div>
     </template>
@@ -68,7 +68,7 @@ import { onMounted } from "vue"
 import DefaultTheme from "vitepress/theme"
 import Copyright from "./Copyright.vue"
 import { withBase } from "vitepress"
-import { busuanziData, fetchBusuanzi } from "../scripts/busuanzi"
+import { counterData, fetchCounter } from "../scripts/counter"
 import { useScrollHash } from "../scripts/useScrollHash"
 
 const { Layout } = DefaultTheme
@@ -76,6 +76,6 @@ const { Layout } = DefaultTheme
 useScrollHash()
 
 onMounted(() => {
-  fetchBusuanzi()
+  fetchCounter()
 })
 </script>

@@ -8,7 +8,7 @@ import Tags from "./components/Tags.vue"
 import Posts from "./components/Posts.vue"
 import Comment from "./components/Comment.vue"
 import MermaidViewer from "./components/MermaidViewer.vue"
-import { fetchBusuanzi } from "./scripts/busuanzi"
+import { fetchCounter } from "./scripts/counter"
 
 import "./custom.css"
 
@@ -29,7 +29,7 @@ export default {
       router.onAfterRouteChanged = (to) => {
         origOnAfterRouteChanged?.(to)
         setTimeout(() => {
-          fetchBusuanzi()
+          fetchCounter()
         }, 50)
       }
     }

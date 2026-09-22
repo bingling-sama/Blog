@@ -1,7 +1,7 @@
 import { inBrowser } from "vitepress"
 import { reactive } from "vue"
 
-export interface BusuanziData {
+export interface CounterData {
   sitePv: string | number
   siteUv: string | number
   pagePv: string | number
@@ -9,7 +9,7 @@ export interface BusuanziData {
   loaded: boolean
 }
 
-export const busuanziData = reactive<BusuanziData>({
+export const counterData = reactive<CounterData>({
   sitePv: "",
   siteUv: "",
   pagePv: "",
@@ -17,7 +17,7 @@ export const busuanziData = reactive<BusuanziData>({
   loaded: false
 })
 
-interface BusuanziResponse {
+export interface CounterResponse {
   site_pv?: number
   site_uv?: number
   page_pv?: number
@@ -28,12 +28,12 @@ interface BusuanziResponse {
 declare global {
   interface Window {
     [key: string]: any
-    bszCaller?: {
-      fetch: (url?: string, callback?: (data: BusuanziResponse) => void) => void
+    counterCaller?: {
+      fetch: (url?: string, callback?: (data: CounterResponse) => void) => void
     }
-    bszTag?: {
-      bszs: string[]
-      texts: (data: BusuanziResponse) => void
+    counterTag?: {
+      keys: string[]
+      texts: (data: CounterResponse) => void
       shows: () => void
       hides: () => void
     }
@@ -53,25 +53,24 @@ function getPathHash(path: string): number {
   return Math.abs(hash)
 }
 
-function applyBusuanziData(data: BusuanziResponse): void {
+function applyCounterData(data: CounterResponse): void {
   if (!data) return
 
-  if (data.site_pv !== undefined) busuanziData.sitePv = data.site_pv
-  if (data.site_uv !== undefined) busuanziData.siteUv = data.site_uv
-  if (data.page_pv !== undefined) busuanziData.pagePv = data.page_pv
-  if (data.page_uv !== undefined) busuanziData.pageUv = data.page_uv
-  busuanziData.loaded = true
+  if (data.site_pv !== undefined) counterData.sitePv = data.site_pv
+  if (data.site_uv !== undefined) counterData.siteUv = data.site_uv
+  if (data.page_pv !== undefined) counterData.pagePv = data.page_pv
+  if (data.page_uv !== undefined) counterData.pageUv = data.page_uv
+  counterData.loaded = true
 
-  // 回填标准的 DOM 元素并显示容器
-  const bszKeys = ["site_pv", "site_uv", "page_pv", "page_uv"] as const
-  bszKeys.forEach((key) => {
+  const keys = ["site_pv", "site_uv", "page_pv", "page_uv"] as const
+  keys.forEach((key) => {
     const val = data[key]
     if (val !== undefined) {
-      const valEl = document.getElementById(`busuanzi_value_${key}`)
+      const valEl = document.getElementById(`counter_value_${key}`)
       if (valEl) {
         valEl.innerText = String(val)
       }
-      const containerEl = document.getElementById(`busuanzi_container_${key}`)
+      const containerEl = document.getElementById(`counter_container_${key}`)
       if (containerEl) {
         containerEl.style.display = "inline-flex"
       }
@@ -79,14 +78,13 @@ function applyBusuanziData(data: BusuanziResponse): void {
   })
 }
 
-export function fetchBusuanzi(): void {
+export function fetchCounter(): void {
   if (!inBrowser) return
 
   const now = Date.now()
   const currentUrl = window.location.href
   const currentPath = window.location.pathname
 
-  // 防止短时间内对同一个 URL 发生重复请求
   if (currentUrl === lastFetchUrl && now - lastFetchTime < 300) {
     return
   }
@@ -94,11 +92,9 @@ export function fetchBusuanzi(): void {
   lastFetchUrl = currentUrl
   lastFetchTime = now
 
-  // 路由跳转到新页面时，重置当前页的 PV / UV 状态
-  busuanziData.pagePv = ""
-  busuanziData.pageUv = ""
+  counterData.pagePv = ""
+  counterData.pageUv = ""
 
-  // 如果有上一个还在挂载中的 script，先移除
   if (currentScript && currentScript.parentNode) {
     currentScript.parentNode.removeChild(currentScript)
     currentScript = null
@@ -109,7 +105,7 @@ export function fetchBusuanzi(): void {
     window.location.hostname === "127.0.0.1" ||
     window.location.hostname === "0.0.0.0"
 
-  const callbackName = `BusuanziCallback_${Math.floor(1099511627776 * Math.random())}`
+  const callbackName = `CounterCallback_${Math.floor(1099511627776 * Math.random())}`
 
   const timeoutId = window.setTimeout(() => {
     try {
@@ -119,11 +115,10 @@ export function fetchBusuanzi(): void {
     }
   }, 10000)
 
-  window[callbackName] = (data: BusuanziResponse) => {
+  window[callbackName] = (data: CounterResponse) => {
     clearTimeout(timeoutId)
-    applyBusuanziData(data)
+    applyCounterData(data)
 
-    // 清理全局 callback 与 script
     try {
       delete window[callbackName]
     } catch {
@@ -140,7 +135,7 @@ export function fetchBusuanzi(): void {
   script.type = "text/javascript"
   script.async = true
   script.referrerPolicy = "no-referrer-when-downgrade"
-  script.src = `https://busuanzi.ibruce.info/busuanzi?jsonpCallback=${callbackName}`
+  script.src = `https://counter.booling.cn/?jsonpCallback=${callbackName}`
 
   script.onerror = () => {
     clearTimeout(timeoutId)
@@ -153,10 +148,9 @@ export function fetchBusuanzi(): void {
       script.parentNode.removeChild(script)
     }
 
-    // 本地开发环境因 Referer 为 localhost 不蒜子后端会报 502，提供模拟数据以供本地排版调试
     if (isLocalDev) {
       const mockPagePv = (getPathHash(currentPath) % 300) + 12
-      applyBusuanziData({
+      applyCounterData({
         site_pv: 1988,
         site_uv: 668,
         page_pv: mockPagePv,
@@ -169,33 +163,32 @@ export function fetchBusuanzi(): void {
   document.head.appendChild(script)
 }
 
-// 注册兼容旧版 busuanzi API
 if (inBrowser) {
-  window.bszCaller = {
+  window.counterCaller = {
     fetch: () => {
-      fetchBusuanzi()
+      fetchCounter()
     }
   }
-  window.bszTag = {
-    bszs: ["site_pv", "page_pv", "site_uv", "page_uv"],
-    texts: (data: BusuanziResponse) => {
-      window.bszTag?.bszs.forEach((key) => {
-        const val = data[key as keyof BusuanziResponse]
+  window.counterTag = {
+    keys: ["site_pv", "page_pv", "site_uv", "page_uv"],
+    texts: (data: CounterResponse) => {
+      window.counterTag?.keys.forEach((key) => {
+        const val = data[key as keyof CounterResponse]
         if (val !== undefined) {
-          const el = document.getElementById(`busuanzi_value_${key}`)
+          const el = document.getElementById(`counter_value_${key}`)
           if (el) el.innerHTML = String(val)
         }
       })
     },
     shows: () => {
-      window.bszTag?.bszs.forEach((key) => {
-        const el = document.getElementById(`busuanzi_container_${key}`)
+      window.counterTag?.keys.forEach((key) => {
+        const el = document.getElementById(`counter_container_${key}`)
         if (el) el.style.display = "inline-flex"
       })
     },
     hides: () => {
-      window.bszTag?.bszs.forEach((key) => {
-        const el = document.getElementById(`busuanzi_container_${key}`)
+      window.counterTag?.keys.forEach((key) => {
+        const el = document.getElementById(`counter_container_${key}`)
         if (el) el.style.display = "none"
       })
     }
