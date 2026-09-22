@@ -3,6 +3,7 @@ import { withMermaid } from "vitepress-plugin-mermaid"
 import { RssPlugin } from "vitepress-plugin-rss"
 import type { PostInfo, RSSOptions } from "vitepress-plugin-rss"
 import { bnfLanguage, caddyfileLanguage } from "./shiki-languages"
+import { markdownItObsidian } from "./plugins/markdown-it-obsidian"
 
 const env = loadEnv("", process.cwd(), "")
 const defaultSrcExclude = ["README.md"]
@@ -76,7 +77,16 @@ export default withMermaid(
     description: "vitepress,blog,booling,bingling_sama",
     markdown: {
       math: true,
-      languages: [caddyfileLanguage, bnfLanguage]
+      languages: [caddyfileLanguage, bnfLanguage],
+      config(md) {
+        md.use(
+          markdownItObsidian({
+            publicDir: "blog/public",
+            srcDir: "blog",
+            base: "/"
+          })
+        )
+      }
     },
     mermaid: {
       theme: "base",

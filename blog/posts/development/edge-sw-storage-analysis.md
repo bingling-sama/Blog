@@ -6,7 +6,7 @@ tags:
   - FrontEnd
   - Browser
   - Performance
-updated: 2026-09-11 16:13:42
+updated: 2026-09-22 21:10:25
 description: 一怒之下写了一个 Edge 网页缓存数据储存空间分析器
 ---
 
@@ -32,11 +32,11 @@ description: 一怒之下写了一个 Edge 网页缓存数据储存空间分析�
 
 不过 Chromium 内核的浏览器有个好处 —— 它内置了几个"上帝视角"的调试页面：
 
-| 内部页面                             | 用途                          |
+| 内部页面 | 用途 |
 | -------------------------------- | --------------------------- |
-| `edge://quota-internals`         | 查看所有 Origin 的存储占用明细         |
+| `edge://quota-internals` | 查看所有 Origin 的存储占用明细 |
 | `edge://serviceworker-internals` | 查看所有注册的 Service Worker 及其状态 |
-| `edge://extensions`              | 扩展程序列表及其 ID                 |
+| `edge://extensions` | 扩展程序列表及其 ID |
 
 通过这几个页面，理论上可以把每个存储块跟具体的网站或扩展对应起来。但问题是 —— 这些页面是给人看的，不是给机器读的。几百个 Origin 一个个手动对照，那不是要累死？🤦‍♂️
 
