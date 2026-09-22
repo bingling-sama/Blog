@@ -1,7 +1,7 @@
 ---
 date: 2024-11-13 12:32:41
-updated: 2026-09-11 16:14:10
-title: 区块链技术初见
+updated: 2026-09-22 13:14:27
+title: 区块链技术简介
 description: 简单了解了一下区块链技术
 category: Development
 tags:

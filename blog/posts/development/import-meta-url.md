@@ -1,15 +1,15 @@
 ---
 date: 2026-04-29 00:00:00
-updated: 2026-09-11 16:13:11
+updated: 2026-09-22 13:16:36
 category: Development
 tags:
   - JavaScript
   - FrontEnd
-title: import.meta.url 是啥子？
+title: import.meta.url 究竟是啥
 description: 从 ECMAScript 规范角度全面理解 import.meta 与 import.meta.url，涵盖浏览器、Node.js、Deno、Bun 各宿主环境的差异与约定，以及在 Vite 等构建工具中的实际应用。
 ---
 
-# `import.meta.url` 是啥子？
+# `import.meta.url` 究竟是啥
 
 我一直不太清楚 `import.meta.url` 到底是怎么来的，总觉得它是个黑魔法。直到某天我翻开了 ECMAScript 规范，才发现 —— 原来人家是 ESM 的正规军，正儿八经的语言特性 👮。
 

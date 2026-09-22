@@ -1,6 +1,6 @@
 ---
 date: 2026-09-22 08:35:00
-title: 不蒜子被广告拦截器干掉后：用 Cloudflare Workers + D1 自建访客统计
+title: 用 Cloudflare Workers + D1 复刻不蒜子
 description: 从控制台里刺眼的 ERR_BLOCKED_BY_CLIENT 出发，记录自建 Busuanzi 兼容访客统计服务 counter 的全过程：D1 架构设计、真实 UV 哈希去重、历史基数平移，以及 VitePress 的前端去特征化集成。
 category: Project
 tags:
@@ -9,10 +9,10 @@ tags:
   - D1
   - VitePress
   - Analytics
-updated: 2026-09-22 09:47:45
+updated: 2026-09-22 13:15:38
 ---
 
-# 不蒜子被广告拦截器干掉后：用 Cloudflare Workers + D1 自建访客统计
+# 用 Cloudflare Workers + D1 复刻不蒜子
 
 日常打开自己博客的 F12 控制台，网络请求面板里赫然躺着一排红色的阻断报错：
 

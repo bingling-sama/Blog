@@ -1,7 +1,7 @@
 ---
 date: 2026-09-07 08:04:26
-updated: 2026-09-11 16:13:02
-title: 不用 EAS Update 后：用 XPREM 自建 Expo 热更新服务
+updated: 2026-09-22 13:14:59
+title: 用 XPREM 自建 Expo 热更新服务
 description: 拆解 Expo Updates 协议自建服务 XPREM 的端到端链路组件，对比 Stateless 与 Control Plane 模式的架构差异与部署配置，提供 CDN 缓存、灰度发布与常见踩坑记录。
 category: Development
 tags:
@@ -11,7 +11,7 @@ tags:
   - Mobile
 ---
 
-# 不用 EAS Update 后：用 XPREM 自建 Expo 热更新服务
+# 用 XPREM 自建 Expo 热更新服务
 
 在 React Native / Expo 项目进入稳定迭代后，官方 EAS Update 会面临两个现实问题：按 MAU 阶梯计费的成本随着用户增长迅速走高；而在国内部署或政企内网场景下，官方 CDN 与接口常受限于网络延迟和合规要求。
 
