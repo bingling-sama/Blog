@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div ref="containerRef" class="container">
     <div
       v-for="(post, index) in pages[pageCurrent - 1]"
       :key="index"
@@ -33,9 +33,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue"
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue"
 import { Post } from "../scripts/functions"
-import { withBase } from "vitepress"
+import { inBrowser, withBase } from "vitepress"
 // @ts-expect-error
 import { data as posts } from "../scripts/posts.data"
 
@@ -43,13 +43,43 @@ const MOBILE_BREAKPOINT = 768
 const DESKTOP_PAGE_SIZE = 10
 const MOBILE_PAGE_SIZE = 6
 
+const containerRef = ref<HTMLElement | null>(null)
 const pageCurrent = ref(1)
 const pageSize = ref(DESKTOP_PAGE_SIZE)
 
 const pages = computed(() => splitPosts(posts, pageSize.value))
 
+function scrollToFirstPost() {
+  if (!inBrowser) return
+
+  const target =
+    containerRef.value?.querySelector(".post-list") || containerRef.value
+  if (!target) return
+
+  const navEl = document.querySelector(".VPNav")
+  const navHeight = navEl ? navEl.getBoundingClientRect().height : 64
+  const targetTop = Math.max(
+    0,
+    window.scrollY + target.getBoundingClientRect().top - navHeight - 16
+  )
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches
+
+  window.scrollTo({
+    top: targetTop,
+    behavior: prefersReducedMotion ? "auto" : "smooth"
+  })
+}
+
 function setPage(page: number) {
   pageCurrent.value = page
+  nextTick(() => {
+    requestAnimationFrame(() => {
+      scrollToFirstPost()
+    })
+  })
 }
 
 function updatePageSize() {
@@ -107,6 +137,7 @@ watch(pages, clampCurrentPage)
 <style scoped>
 .container {
   margin: 2rem 0;
+  scroll-margin-top: calc(var(--vp-nav-height, 64px) + 16px);
 }
 
 .post-list {
