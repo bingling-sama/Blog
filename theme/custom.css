@@ -864,3 +864,37 @@ h6 {
   background-color: rgba(24, 24, 27, 0.92) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
+
+.vp-doc ul.task-list-container {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0.5rem 0;
+}
+
+.vp-doc ul.task-list-container ul.task-list-container {
+  padding-left: 1.5rem;
+  margin: 0.25rem 0;
+}
+
+.vp-doc li.task-list-item {
+  list-style-type: none;
+  display: flex;
+  align-items: flex-start;
+  margin: 0.3rem 0;
+}
+
+.vp-doc li.task-list-item::before {
+  display: none !important;
+}
+
+.vp-doc li.task-list-item > input.task-list-item-checkbox {
+  margin: 0.35rem 0.55rem 0 0;
+  cursor: pointer;
+  accent-color: var(--vp-c-brand);
+  flex-shrink: 0;
+}
+
+.vp-doc li.task-list-item > label.task-list-item-label {
+  flex: 1;
+  line-height: 1.6;
+}

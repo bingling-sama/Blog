@@ -4,6 +4,7 @@ import { RssPlugin } from "vitepress-plugin-rss"
 import type { PostInfo, RSSOptions } from "vitepress-plugin-rss"
 import { bnfLanguage, caddyfileLanguage } from "./shiki-languages"
 import { markdownItObsidian } from "./plugins/markdown-it-obsidian"
+import { tasklist } from "@mdit/plugin-tasklist"
 
 const env = loadEnv("", process.cwd(), "")
 const defaultSrcExclude = ["README.md"]
@@ -79,6 +80,7 @@ export default withMermaid(
       math: true,
       languages: [caddyfileLanguage, bnfLanguage],
       config(md) {
+        md.use(tasklist)
         md.use(
           markdownItObsidian({
             publicDir: "blog/public",
