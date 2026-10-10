@@ -1,6 +1,6 @@
 ---
 date: 2026-10-02 10:30:00
-updated: 2026-10-02 19:21:36
+updated: 2026-10-09 17:51:44
 category: Design
 tags:
   - Design
@@ -345,7 +345,7 @@ flowchart TB
 单点修复样式只能解决局部布局。当原型规模扩大，新的维护问题就会浮上来：
 如果页面的主色调散落在几十处不同的类名里，尝试暗黑模式或品牌色微调就得逐处翻找；如果一个按钮在默认、Hover、Loading、Disabled 各状态下的颜色各自为政，界面很容易在细节处失控。
 
-下一篇 [[Phase 2]] 我们进入 **Design Tokens 与组件变体**：把 Figma 的 Variables 映射为规范的 Token 体系，并用状态机约束界面的完整交互行为。
+下一篇 [[03-design-tokens-and-component-states|Phase 2]] 我们进入 **Design Tokens 与组件变体**：把 Figma 的 Variables 映射为规范的 Token 体系，并用状态机约束界面的完整交互行为。
 
 ---
 
