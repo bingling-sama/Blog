@@ -1,0 +1,56 @@
+name: Notify Teleblog on New Posts
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "blog/posts/**/*.md"
+  workflow_dispatch:
+    inputs:
+      manual_file:
+        description: "手动推送指定文章路径 (例如: blog/posts/design/.../01.md)"
+        required: false
+        type: string
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # 检测 push 中真正新增的文章文件 (Added files)
+      - name: Detect Added Markdown Posts
+        id: changed-posts
+        if: ${{ github.event_name == 'push' }}
+        uses: tj-actions/changed-files@v45
+        with:
+          files: blog/posts/**/*.md
+          separator: " "
+
+      - name: Determine Target Files
+        id: target-files
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.manual_file }}" ]; then
+            echo "files=${{ github.event.inputs.manual_file }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "files=${{ steps.changed-posts.outputs.added_files }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push to Teleblog API
+        if: steps.target-files.outputs.files != ''
+        env:
+          TELEBLOG_WORKER_URL: ${{ secrets.TELEBLOG_WORKER_URL }}
+          TELEBLOG_PRIVATE_KEY_HEX: ${{ secrets.TELEBLOG_PRIVATE_KEY_HEX }}
+          SITE_URL: "https://blog.booling.cn"
+        run: |
+          echo "待推送文件列表: ${{ steps.target-files.outputs.files }}"
+          node scripts/notify-teleblog.mjs ${{ steps.target-files.outputs.files }}
