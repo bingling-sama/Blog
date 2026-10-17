@@ -3,23 +3,18 @@
     <div class="category">
       {{ key }}
     </div>
-    <a
+    <PostItem
       v-for="(post, index) in posts"
       :key="index"
-      :href="withBase(post.url)"
-      class="posts"
-    >
-      <div class="post-container">
-        <div class="post-dot" />
-        {{ post.title }}
-      </div>
-      <div class="date">{{ post.date }}</div>
-    </a>
+      :url="post.url"
+      :title="post.title"
+      :date="post.date"
+    />
   </div>
 </template>
 <script lang="ts" setup>
-import { withBase } from "vitepress"
 import { computed } from "vue"
+import PostItem from "./PostItem.vue"
 import { initCategory } from "../scripts/functions"
 
 //@ts-expect-error

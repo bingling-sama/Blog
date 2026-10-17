@@ -1,0 +1,89 @@
+/* Utility preset classes for Mermaid diagrams */
+
+/* 1. cf-primary: Cloudflare Orange solid node */
+.mermaid .node.cf-primary rect,
+.mermaid .node.cf-primary polygon,
+.mermaid .node.cf-primary circle,
+.mermaid .node.cf-primary ellipse,
+.mermaid .node.cf-primary path {
+  fill: #ff5e1f !important;
+  stroke: #ea4e0f !important;
+}
+
+.mermaid .node.cf-primary .label,
+.mermaid .node.cf-primary .label *,
+.mermaid .node.cf-primary text {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+/* 2. cf-accent: Warm light orange card with solid orange border */
+.mermaid .node.cf-accent rect,
+.mermaid .node.cf-accent polygon,
+.mermaid .node.cf-accent circle,
+.mermaid .node.cf-accent ellipse,
+.mermaid .node.cf-accent path {
+  fill: #fff7ed !important;
+  stroke: #ff5e1f !important;
+}
+
+.mermaid .node.cf-accent .label,
+.mermaid .node.cf-accent .label *,
+.mermaid .node.cf-accent text {
+  color: #9a3412 !important;
+  fill: #9a3412 !important;
+  font-weight: 500 !important;
+}
+
+.dark .mermaid .node.cf-accent rect,
+.dark .mermaid .node.cf-accent polygon,
+.dark .mermaid .node.cf-accent circle,
+.dark .mermaid .node.cf-accent ellipse,
+.dark .mermaid .node.cf-accent path {
+  fill: #2e180d !important;
+  stroke: #ff7038 !important;
+}
+
+.dark .mermaid .node.cf-accent .label,
+.dark .mermaid .node.cf-accent .label *,
+.dark .mermaid .node.cf-accent text {
+  color: #fed7aa !important;
+  fill: #fed7aa !important;
+}
+
+/* 3. cf-muted: Low-key auxiliary node with clear contrast */
+.mermaid .node.cf-muted rect,
+.mermaid .node.cf-muted polygon,
+.mermaid .node.cf-muted circle,
+.mermaid .node.cf-muted ellipse,
+.mermaid .node.cf-muted path {
+  fill: #f4f4f5 !important;
+  stroke: #a1a1aa !important;
+  stroke-dasharray: 4 3 !important;
+}
+
+.mermaid .node.cf-muted .label,
+.mermaid .node.cf-muted .label *,
+.mermaid .node.cf-muted text {
+  color: #27272a !important;
+  fill: #27272a !important;
+  font-weight: 500 !important;
+}
+
+.dark .mermaid .node.cf-muted rect,
+.dark .mermaid .node.cf-muted polygon,
+.dark .mermaid .node.cf-muted circle,
+.dark .mermaid .node.cf-muted ellipse,
+.dark .mermaid .node.cf-muted path {
+  fill: #18181b !important;
+  stroke: #52525b !important;
+  stroke-dasharray: 4 3 !important;
+}
+
+.dark .mermaid .node.cf-muted .label,
+.dark .mermaid .node.cf-muted .label *,
+.dark .mermaid .node.cf-muted text {
+  color: #d4d4d8 !important;
+  fill: #d4d4d8 !important;
+}

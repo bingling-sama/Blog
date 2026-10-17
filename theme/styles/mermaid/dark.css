@@ -1,0 +1,169 @@
+/* Dark mode theme overrides */
+.dark .mermaid {
+  background-color: #141416;
+  border-color: #27272a;
+  box-shadow: none;
+}
+
+.dark .mermaid .node rect,
+.dark .mermaid .node polygon,
+.dark .mermaid .node circle,
+.dark .mermaid .node ellipse,
+.dark .mermaid .node path {
+  fill: #1f1f23 !important;
+  stroke: #38383e !important;
+}
+
+.dark .mermaid .node .label,
+.dark .mermaid .node .label *,
+.dark .mermaid .node text,
+.dark .mermaid .node .nodeLabel,
+.dark .mermaid .node foreignObject {
+  color: #ededed !important;
+  fill: #ededed !important;
+}
+
+.dark .mermaid .node:hover rect,
+.dark .mermaid .node:hover polygon,
+.dark .mermaid .node:hover circle,
+.dark .mermaid .node:hover ellipse,
+.dark .mermaid .node:hover path {
+  stroke: #ff7038 !important;
+}
+
+.dark .mermaid .cluster rect {
+  fill: #18181b !important;
+  stroke: #2e2e34 !important;
+}
+
+.dark .mermaid .cluster text,
+.dark .mermaid .cluster span,
+.dark .mermaid .cluster div,
+.dark .mermaid .cluster .nodeLabel {
+  fill: #a1a1aa !important;
+  color: #a1a1aa !important;
+}
+
+.dark .mermaid .edgePath path.path {
+  stroke: #71717a !important;
+}
+
+.dark .mermaid .edgeLabel {
+  color: #f4f4f5 !important;
+  fill: #f4f4f5 !important;
+}
+
+.dark .mermaid .edgeLabel rect {
+  fill: transparent !important;
+  stroke: none !important;
+  opacity: 0 !important;
+}
+
+.dark .mermaid .edgeLabel div,
+.dark .mermaid .edgeLabel p {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.dark .mermaid .edgeLabel span {
+  color: #f4f4f5 !important;
+  fill: #f4f4f5 !important;
+  background-color: #27272a !important;
+  border: 1px solid #3f3f46 !important;
+  box-shadow: none !important;
+}
+
+.dark .mermaid marker path {
+  fill: #ff7038 !important;
+  stroke: #ff7038 !important;
+}
+
+/* Dark mode overrides for Sequence Diagram */
+.dark .mermaid rect.actor {
+  fill: #1f1f23 !important;
+  stroke: #38383e !important;
+}
+
+.dark .mermaid rect.actor:hover {
+  stroke: #ff7038 !important;
+}
+
+.dark .mermaid text.actor,
+.dark .mermaid text.actor > tspan,
+.dark .mermaid .actor,
+.dark .mermaid .actor * {
+  fill: #ededed !important;
+  color: #ededed !important;
+}
+
+.dark .mermaid .actor-line {
+  stroke: #2e2e34 !important;
+}
+
+.dark .mermaid .messageLine0 {
+  stroke: #a1a1aa !important;
+}
+
+.dark .mermaid .messageLine1 {
+  stroke: #71717a !important;
+}
+
+.dark .mermaid [id$="-arrowhead"] path,
+.dark .mermaid [id$="-crosshead"] path {
+  fill: #ff7038 !important;
+  stroke: #ff7038 !important;
+}
+
+.dark .mermaid .messageText,
+.dark .mermaid .messageText * {
+  fill: #d4d4d8 !important;
+  color: #d4d4d8 !important;
+}
+
+.dark .mermaid [id$="-sequencenumber"] {
+  fill: #ff7038 !important;
+  stroke: #ea4e0f !important;
+}
+
+.dark .mermaid .labelBox {
+  fill: #1f1f23 !important;
+  stroke: #3f3f46 !important;
+}
+
+.dark .mermaid .labelText,
+.dark .mermaid .labelText > tspan,
+.dark .mermaid .loopText,
+.dark .mermaid .loopText > tspan,
+.dark .mermaid .sectionTitle,
+.dark .mermaid .sectionTitle > tspan,
+.dark .mermaid .labelText *,
+.dark .mermaid .loopText *,
+.dark .mermaid .sectionTitle * {
+  fill: #d4d4d8 !important;
+  color: #d4d4d8 !important;
+}
+
+.dark .mermaid .loopLine {
+  stroke: #52525b !important;
+}
+
+.dark .mermaid .note {
+  fill: #2e180d !important;
+  stroke: #7c2d12 !important;
+}
+
+.dark .mermaid .noteText,
+.dark .mermaid .noteText > tspan,
+.dark .mermaid .noteText * {
+  fill: #fed7aa !important;
+  color: #fed7aa !important;
+}
+
+.dark .mermaid .activation0,
+.dark .mermaid .activation1,
+.dark .mermaid .activation2 {
+  fill: #3b1606 !important;
+  stroke: #ff7038 !important;
+}

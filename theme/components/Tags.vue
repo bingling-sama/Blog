@@ -10,22 +10,17 @@
     </span>
   </div>
   <div class="tag-header">{{ selectTag }}</div>
-  <a
+  <PostItem
     v-for="(post, index) in selectTag ? data[selectTag] : []"
-    :href="withBase(post.url)"
     :key="index"
-    class="posts"
-  >
-    <div class="post-container">
-      <div class="post-dot"></div>
-      {{ post.title }}
-    </div>
-    <div class="date">{{ post.date }}</div>
-  </a>
+    :url="post.url"
+    :title="post.title"
+    :date="post.date"
+  />
 </template>
 <script lang="ts" setup>
 import { computed, ref } from "vue"
-import { withBase } from "vitepress"
+import PostItem from "./PostItem.vue"
 import { initTags } from "../scripts/functions"
 
 // @ts-expect-error

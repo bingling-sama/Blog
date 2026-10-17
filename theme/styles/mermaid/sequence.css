@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Sequence Diagram (时序图) Cloudflare Technical Minimalism Theme
+   ========================================================================== */
+
+/* 1. Actor / Participant Cards */
+.mermaid rect.actor {
+  fill: #ffffff !important;
+  stroke: #d4d4d8 !important;
+  stroke-width: 1px !important;
+  rx: 2px !important;
+  ry: 2px !important;
+  transition: stroke 0.2s cubic-bezier(0.19, 1, 0.22, 1) !important;
+}
+
+.mermaid rect.actor:hover {
+  stroke: #ff5e1f !important;
+}
+
+.mermaid text.actor,
+.mermaid text.actor > tspan {
+  fill: #18181b !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+}
+
+/* 2. Actor Lifeline */
+.mermaid .actor-line {
+  stroke: #d4d4d8 !important;
+  stroke-width: 1px !important;
+  stroke-dasharray: 4 4 !important;
+}
+
+/* 3. Messages & Signal Lines */
+.mermaid .messageLine0 {
+  stroke: #52525b !important;
+  stroke-width: 1.25px !important;
+}
+
+.mermaid .messageLine1 {
+  stroke: #71717a !important;
+  stroke-width: 1.25px !important;
+  stroke-dasharray: 4 3 !important;
+}
+
+.mermaid [id$="-arrowhead"] path,
+.mermaid [id$="-crosshead"] path {
+  fill: #ff5e1f !important;
+  stroke: #ff5e1f !important;
+  stroke-width: 1px !important;
+}
+
+.mermaid .messageText {
+  fill: #27272a !important;
+  font-size: 12px !important;
+  font-weight: 450 !important;
+}
+
+/* 4. Sequence Number (Autonumber Badges) */
+.mermaid [id$="-sequencenumber"] {
+  fill: #ff5e1f !important;
+  stroke: #ea4e0f !important;
+  stroke-width: 1px !important;
+}
+
+.mermaid .sequenceNumber {
+  fill: #ffffff !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+}
+
+/* 5. Alt / Opt / Loop Control Boxes */
+.mermaid .labelBox {
+  fill: #fafafa !important;
+  stroke: #e4e4e7 !important;
+  stroke-width: 1px !important;
+  stroke-dasharray: 3 3 !important;
+  rx: 3px !important;
+  ry: 3px !important;
+}
+
+.mermaid .labelText,
+.mermaid .labelText > tspan,
+.mermaid .loopText,
+.mermaid .loopText > tspan,
+.mermaid .sectionTitle,
+.mermaid .sectionTitle > tspan {
+  fill: #52525b !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+}
+
+.mermaid .loopLine {
+  stroke: #e4e4e7 !important;
+  stroke-width: 1px !important;
+  stroke-dasharray: 3 3 !important;
+  fill: none !important;
+}
+
+/* 6. Notes & Activations */
+.mermaid .note {
+  fill: #fff7ed !important;
+  stroke: #fed7aa !important;
+  stroke-width: 1px !important;
+  rx: 2px !important;
+  ry: 2px !important;
+}
+
+.mermaid .noteText,
+.mermaid .noteText > tspan {
+  fill: #9a3412 !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+}
+
+.mermaid .activation0,
+.mermaid .activation1,
+.mermaid .activation2 {
+  fill: #ffedd5 !important;
+  stroke: #ff5e1f !important;
+  stroke-width: 1px !important;
+  rx: 1px !important;
+  ry: 1px !important;
+}

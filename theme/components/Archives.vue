@@ -3,24 +3,19 @@
     <div class="year">
       {{ yearList[0].date.split("-")[0] }}
     </div>
-    <a
+    <PostItem
       v-for="(post, index) in yearList"
       :key="index"
-      :href="withBase(post.url)"
-      class="posts"
-    >
-      <div class="post-container">
-        <div class="post-dot" />
-        {{ post.title }}
-      </div>
-      <div class="date">{{ post.date.slice(5) }}</div>
-    </a>
+      :url="post.url"
+      :title="post.title"
+      :date="post.date.slice(5)"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { withBase } from "vitepress"
 import { computed } from "vue"
+import PostItem from "./PostItem.vue"
 import { useYearSort } from "../scripts/functions"
 
 // @ts-expect-error
