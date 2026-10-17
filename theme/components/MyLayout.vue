@@ -75,13 +75,25 @@
       </div>
     </template>
     <template #home-hero-after>
-      <img :src="withBase('/hero.webp')" alt="Hero Image" />
+      <div class="hero-image-wrapper">
+        <div class="hero-skeleton" aria-hidden="true" />
+        <img
+          :src="withBase('/hero.webp')"
+          alt="Hero Image"
+          class="hero-image"
+          width="4000"
+          height="1532"
+          fetchpriority="high"
+          decoding="async"
+          @load="onHeroImageLoad"
+        />
+      </div>
     </template>
   </Layout>
   <Copyright />
 </template>
 <script setup>
-import { computed, onMounted } from "vue"
+import { computed, onMounted, ref } from "vue"
 import DefaultTheme from "vitepress/theme-without-fonts"
 import Copyright from "./Copyright.vue"
 import { useRoute, withBase } from "vitepress"
@@ -95,6 +107,11 @@ const { Layout } = DefaultTheme
 useScrollHash()
 
 const route = useRoute()
+
+const isHeroLoaded = ref(false)
+const onHeroImageLoad = () => {
+  isHeroLoaded.value = true
+}
 
 const readingTime = computed(() => {
   const currentPath = route.path
@@ -117,3 +134,50 @@ onMounted(() => {
   fetchCounter()
 })
 </script>
+
+<style scoped>
+.hero-image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 4000 / 1532;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: var(--vp-c-bg-soft);
+  margin-top: 1.5rem;
+}
+
+.hero-skeleton {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--vp-c-bg-soft) 25%,
+    var(--vp-c-bg-alt) 37%,
+    var(--vp-c-bg-soft) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.hero-image {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4000 / 1532;
+  object-fit: cover;
+  transition: opacity 0.3s ease-in-out;
+}
+</style>
