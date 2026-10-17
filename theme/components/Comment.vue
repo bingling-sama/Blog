@@ -31,9 +31,8 @@ onMounted(() => {
   <div ref="utterancesRef" />
 </template>
 
-<style>
-/*global  style*/
-.utterances {
+<style scoped>
+:deep(.utterances) {
   max-width: inherit !important;
 }
 </style>
