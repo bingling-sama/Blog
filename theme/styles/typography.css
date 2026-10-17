@@ -1,0 +1,142 @@
+/* Typography & Markdown Document Overrides */
+.vp-doc a {
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.vp-doc p {
+  font-size: 0.9375rem;
+}
+
+/* About Badges & Stats */
+.about-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 0.5rem 0 1rem;
+}
+
+.about-badges img {
+  display: inline-block;
+  margin: 0;
+}
+
+.about-badges--top img {
+  height: auto;
+}
+
+.about-stats {
+  display: flex;
+  flex-direction: column;
+  margin: 0.75rem 0 1rem;
+  gap: 12px;
+}
+
+.about-stats__center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-stats__row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.about-stats__row img {
+  display: block;
+  margin: 0;
+  max-width: 100%;
+}
+
+.content a[rel~="noreferrer"]:link,
+a[rel~="noreferrer"]:visited {
+  color: var(--vp-c-brand);
+  font-weight: 500 !important;
+  border-bottom: 1px solid var(--vp-c-brand);
+}
+
+.content a[rel~="noreferrer"]:hover {
+  color: #888;
+}
+
+/* Headings */
+h1 {
+  font-size: 1.75rem !important;
+  font-weight: 500 !important;
+  padding-top: 14px;
+}
+
+h2 {
+  font-size: 1.5rem !important;
+  font-weight: 500 !important;
+  border-bottom: 1px solid var(--vp-c-divider-light);
+  border-top: none !important;
+  margin: inherit !important;
+}
+
+h3 {
+  font-size: 1.375rem !important;
+  font-weight: 500 !important;
+}
+
+h4 {
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+}
+
+h5 {
+  font-size: 1.125rem !important;
+  font-weight: 500 !important;
+}
+
+h6 {
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .vp-doc h1 {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* Task List */
+.vp-doc ul.task-list-container {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0.5rem 0;
+}
+
+.vp-doc ul.task-list-container ul.task-list-container {
+  padding-left: 1.5rem;
+  margin: 0.25rem 0;
+}
+
+.vp-doc li.task-list-item {
+  list-style-type: none;
+  display: flex;
+  align-items: flex-start;
+  margin: 0.3rem 0;
+}
+
+.vp-doc li.task-list-item::before {
+  display: none !important;
+}
+
+.vp-doc li.task-list-item > input.task-list-item-checkbox {
+  margin: 0.35rem 0.55rem 0 0;
+  cursor: pointer;
+  accent-color: var(--vp-c-brand);
+  flex-shrink: 0;
+}
+
+.vp-doc li.task-list-item > label.task-list-item-label {
+  flex: 1;
+  line-height: 1.6;
+}

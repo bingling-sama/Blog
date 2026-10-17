@@ -1,16 +1,20 @@
 import DefaultTheme from "vitepress/theme"
 import type { Theme } from "vitepress"
 import { inBrowser } from "vitepress"
+import { defineAsyncComponent } from "vue"
 import MyLayout from "./components/MyLayout.vue"
 import Archives from "./components/Archives.vue"
 import Category from "./components/Category.vue"
 import Tags from "./components/Tags.vue"
 import Posts from "./components/Posts.vue"
 import Comment from "./components/Comment.vue"
-import MermaidViewer from "./components/MermaidViewer.vue"
 import { fetchCounter } from "./scripts/counter"
 
-import "./custom.css"
+const MermaidViewer = defineAsyncComponent(
+  () => import("./components/MermaidViewer.vue")
+)
+
+import "./styles/index.css"
 
 export default {
   ...DefaultTheme,

@@ -1,0 +1,91 @@
+/* Tags, Archives & Post Items */
+.posts {
+  padding: 4px 0 4px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-dot {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--li-dot-color);
+}
+
+.post-container {
+  color: var(--vp-c-text-2);
+  font-size: 0.9375rem;
+  font-weight: 400;
+}
+
+.post-container:hover {
+  color: var(--vp-c-brand);
+}
+
+.date {
+  color: var(--date-color);
+  font-family: var(--date-font-family);
+}
+
+.post-info {
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.post-info > span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+  background-color: var(--vp-c-bg-alt);
+  margin-right: 10px;
+  transition: 0.4s;
+  border-radius: 2px;
+  color: var(--vp-c-text-1);
+}
+
+.post-info .post-info-pv,
+.post-info .post-info-uv,
+.post-info .post-reading-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.post-info .post-info-pv span,
+.post-info .post-info-uv span {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  font-weight: 600;
+  color: var(--vp-c-brand);
+}
+
+.post-info .pv-icon,
+.post-info .uv-icon,
+.post-info .reading-time-icon {
+  margin-right: 2px;
+  vertical-align: -2px;
+}
+
+@media screen and (max-width: 768px) {
+  .posts {
+    padding: 4px;
+  }
+
+  .post-dot {
+    margin-right: 4px;
+  }
+
+  .post-container {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 16.5em;
+  }
+}

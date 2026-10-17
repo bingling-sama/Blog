@@ -220,6 +220,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from "vue"
 import RawMermaid from "vitepress-plugin-mermaid/Mermaid.vue"
+import "../styles/mermaid.css"
 
 interface Props {
   id: string

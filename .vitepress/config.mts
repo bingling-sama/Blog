@@ -195,6 +195,9 @@ export default withMermaid(
     vite: {
       plugins: [RssPlugin(RSS)],
       server: { port: 3000 },
+      build: {
+        cssCodeSplit: true
+      },
       optimizeDeps: {
         include: ["mermaid", "fastdom", "dayjs"]
       },
