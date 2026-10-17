@@ -196,7 +196,8 @@ export default withMermaid(
       plugins: [RssPlugin(RSS)],
       server: { port: 3000 },
       build: {
-        cssCodeSplit: true
+        cssCodeSplit: true,
+        cssMinify: "lightningcss"
       },
       optimizeDeps: {
         include: ["mermaid", "fastdom", "dayjs"]

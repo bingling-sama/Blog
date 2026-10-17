@@ -82,7 +82,7 @@
 </template>
 <script setup>
 import { computed, onMounted } from "vue"
-import DefaultTheme from "vitepress/theme"
+import DefaultTheme from "vitepress/theme-without-fonts"
 import Copyright from "./Copyright.vue"
 import { useRoute, withBase } from "vitepress"
 import { counterData, fetchCounter } from "../scripts/counter"

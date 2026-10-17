@@ -1,15 +1,15 @@
-import DefaultTheme from "vitepress/theme"
+import DefaultTheme from "vitepress/theme-without-fonts"
 import type { Theme } from "vitepress"
 import { inBrowser } from "vitepress"
 import { defineAsyncComponent } from "vue"
 import MyLayout from "./components/MyLayout.vue"
-import Archives from "./components/Archives.vue"
-import Category from "./components/Category.vue"
-import Tags from "./components/Tags.vue"
 import Posts from "./components/Posts.vue"
-import Comment from "./components/Comment.vue"
 import { fetchCounter } from "./scripts/counter"
 
+const Archives = defineAsyncComponent(() => import("./components/Archives.vue"))
+const Category = defineAsyncComponent(() => import("./components/Category.vue"))
+const Tags = defineAsyncComponent(() => import("./components/Tags.vue"))
+const Comment = defineAsyncComponent(() => import("./components/Comment.vue"))
 const MermaidViewer = defineAsyncComponent(
   () => import("./components/MermaidViewer.vue")
 )
