@@ -1,6 +1,6 @@
 ---
 date: 2026-09-22 14:36:09
-updated: 2026-10-09 00:52:35
+updated: 2026-10-17 23:57:33
 category: Design
 tags:
   - Design
@@ -61,7 +61,7 @@ description: 解构 Canvas 与 DOM 之间的思维鸿沟，用 Auto Layout 与 G
 
 Figma 右侧面板中的 Auto Layout 参数，与浏览器渲染引擎有一一对应的几何映射：
 
-![[layout2flexbox.png]]
+![[layout2flexbox.webp]]
 
 ### 主轴与交叉轴的流向约束
 
@@ -104,7 +104,7 @@ Auto Layout 擅长处理**单一维度的线性流**（单行或单列）。但�
 
 这正是现代排版中引入 **二维网格（Grid）** 的原因。在 Figma 中，与之对应的是 **Layout Grid**。
 
-![[layout2grid.png]]
+![[layout2grid.webp]]
 
 ### 栅格参数的标准映射
 

@@ -1,6 +1,6 @@
 ---
 date: 2024-11-29 18:16:35
-updated: 2026-09-11 16:13:28
+updated: 2026-10-17 23:57:33
 title: 前端工程化初见
 description: 介绍一下前端工程化当中的各种技术
 tags:
@@ -31,7 +31,7 @@ Git 独特的分支系统设计给多人协作项目提供了非常好的开发�
 
 在一个工程化的项目中，开发一个新功能的简要过程如下：
 
-![image](https://i0.wp.com/wx4.sinaimg.cn/large/007CWdRmgy1hw3cwo9q6yj31o60k3gof.jpg)
+![image](/images/frontend-engineering-git-flow.webp)
 
 通过新建分支的形式，将开发新 Feature 的起点固定在某一个版本，可以在功能开发周期内保证基础代码的不变，避免开发过程中经常更新上游代码导致的一些临时 bug 和开发思路中断。
 

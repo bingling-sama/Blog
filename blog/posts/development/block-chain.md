@@ -1,6 +1,6 @@
 ---
 date: 2024-11-13 12:32:41
-updated: 2026-09-22 13:14:27
+updated: 2026-10-17 23:57:33
 title: 区块链技术简介
 description: 简单了解了一下区块链技术
 category: Development
@@ -13,7 +13,7 @@ tags:
 
 区块链的系统架构图大致如下：
 
-![image](https://i0.wp.com/wx4.sinaimg.cn/large/007CWdRmgy1ick9rzma4lj31210m6wrw.jpg)
+![image](/images/blockchain-architecture.webp)
 
 - 应用层：即区块链技术的实际应用案例，由于区块链本身是一个分布式账单，被大量用于金融领域。
 - 接口层：即区块链技术的编程实现，在此基础上可以开发各领域特定的区块链应用。

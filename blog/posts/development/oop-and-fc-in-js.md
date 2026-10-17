@@ -1,6 +1,6 @@
 ---
 date: 2025-11-24 17:17:41
-updated: 2026-09-11 16:13:12
+updated: 2026-10-17 23:57:33
 title: JavaScript 中的 OOP 与 FC
 description: 这篇分享主要让大家了解一下 js 中的 oop 与 fc，通过结合原理学习语法来提高大家的学习效率、加深大家对知识的理解。
 tags:
@@ -33,7 +33,7 @@ category: Development
 非常经典且简单的例子：
 我定义 _动物 Animal_ 为一个类，那么就可以细分为 _猫 Cat_ 和 _狗 Dog_ 等等很多个子类。Animal 就是 Cat 和 Dog 的父类。而对象就是具体某只猫，比如这只：
 
-![a-object](https://i0.wp.com/wx4.sinaimg.cn/large/007CWdRmgy1icjimglwjvj30ho05ojsd.jpg)
+![a-object](/images/oop-cat-object.webp)
 
 而 Animal 这一类对象都具有的 属性 和 方法 又对应什么呢？也很简单，首先属性例如：名字、年龄……方法例如：进食、呼吸……
 

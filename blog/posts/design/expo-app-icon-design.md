@@ -1,6 +1,6 @@
 ---
 date: 2025-02-07 16:20:09
-updated: 2026-09-11 16:13:02
+updated: 2026-10-17 23:57:33
 category: Design
 tags:
   - Design
@@ -25,9 +25,9 @@ description: 设计和配置 Splash Screen 与 App Icon
 | App Icon      | 强调极简和一致性。图标不带圆角，由系统统一加遮罩，保持系统风格。   | 强调灵活性。支持自定义前景与背景，系统应用多种遮罩（圆形、泪滴等）。 |
 | Splash Screen | 作为功能性过渡界面，不允许动画或延时，仅允许展示静态图像与背景色。 | 支持动画启动（Android 12 起），但强调流畅体验，建议简洁过渡。        |
 
-![Apple App Icon Example](https://docs-assets.developer.apple.com/published/298204fa29c2dc771deb8651963ce75a/app-icons-platform-appearance-overview%402x.png)
+![Apple App Icon Example](/images/apple-app-icons-overview.webp)
 
-![Android App Icon Example](https://i0.wp.com/wx4.sinaimg.cn/large/007CWdRmly1i2rt4fxfesj31a20u81as.jpg)
+![Android App Icon Example](/images/android-app-icon-design.webp)
 
 ---
 
@@ -42,7 +42,7 @@ description: 设计和配置 Splash Screen 与 App Icon
 - 图标应具有识别度，避免文字或复杂元素。
 - 背景必须不透明（纯白或品牌色），不要留空或透明区域。
 
-![iOS App Icon Design Template](https://static.uxbaike.com/uploads/2024/01/d2b5ca33bd970f64a6301fa75ae2eb22-307.png)
+![iOS App Icon Design Template](/images/ios-app-icon-template.webp)
 
 ---
 
@@ -54,7 +54,7 @@ description: 设计和配置 Splash Screen 与 App Icon
 - 系统应用不同遮罩形状显示图标（圆形、泪滴、方形等）。
 - 前景图像应居中，避免边缘贴边（保持安全区）。
 
-![Android Icon Design](https://i0.wp.com/wx4.sinaimg.cn/large/007CWdRmly1i2rt4fxfesj31a20u81as.jpg)
+![Android Icon Design](/images/android-app-icon-design.webp)
 
 ---
 
@@ -80,7 +80,7 @@ Splash Screen 是用户点击图标后的第一屏，其作用是承接启动过
 
 Apple 不允许控制 Splash 停留时间，不允许加入动画。开发者需通过配置 LaunchScreen.storyboard 实现固定启动页。
 
-![](https://www.applin.dev/docs/ios/launch_screen.storyboard.png)
+![](/images/ios-launch-screen-storyboard.webp)
 
 ### **Android 支持动画启动（12+），但建议尽量保持风格一致，不使用复杂动效。**
 
