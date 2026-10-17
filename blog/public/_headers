@@ -1,0 +1,30 @@
+# Cloudflare Pages Custom Headers Configuration
+# Documentation: https://developers.cloudflare.com/pages/configuration/headers/
+
+# 1. Immutable static assets with content hash (JS, CSS, fonts, chunks)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# 2. Public static images and media
+/images/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/hero.webp
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/avatar.webp
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/avatar.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/favicon.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+# 3. RSS and feed files
+/feed.xml
+  Cache-Control: public, max-age=3600, stale-while-revalidate=7200
+  Content-Type: application/xml; charset=utf-8
+
+# 4. Global default for HTML pages and documents
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
