@@ -148,7 +148,6 @@ onMounted(() => {
   max-width: 100%;
   aspect-ratio: 4000 / 1532;
   overflow: hidden;
-  border-radius: 8px;
   background-color: var(--vp-c-bg-soft);
   margin-top: 1.5rem;
 }
