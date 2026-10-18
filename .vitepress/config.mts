@@ -170,6 +170,11 @@ export default withResponsiveImages(
       const heroPath = path.resolve(siteConfig.outDir, "hero.webp")
       if (fs.existsSync(heroPath)) {
         await sharp(heroPath)
+          .resize({ width: 480, withoutEnlargement: true })
+          .webp({ quality: 80, effort: 5 })
+          .toFile(path.resolve(siteConfig.outDir, "hero-480w.webp"))
+
+        await sharp(heroPath)
           .resize({ width: 768, withoutEnlargement: true })
           .webp({ quality: 80, effort: 5 })
           .toFile(path.resolve(siteConfig.outDir, "hero-768w.webp"))
