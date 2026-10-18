@@ -2,7 +2,6 @@ import fs from "node:fs"
 import path from "node:path"
 import sharp from "sharp"
 import { defineConfig, loadEnv } from "vitepress"
-import { withMermaid } from "vitepress-plugin-mermaid"
 import { withResponsiveImages } from "vitepress-plugin-responsive-images"
 import { RssPlugin } from "vitepress-plugin-rss"
 import type { PostInfo, RSSOptions } from "vitepress-plugin-rss"
@@ -73,10 +72,9 @@ const RSS: RSSOptions = {
   }
 }
 
-export default withMermaid(
-  withResponsiveImages(
-    defineConfig({
-      title: "Booling✨",
+export default withResponsiveImages(
+  defineConfig({
+    title: "Booling✨",
     base: "/",
     srcDir: "blog",
     cacheDir: "./node_modules/vitepress_cache",
@@ -93,54 +91,16 @@ export default withMermaid(
             base: "/"
           })
         )
-      }
-    },
-    mermaid: {
-      theme: "base",
-      themeVariables: {
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-        fontSize: "13px",
-        background: "#ffffff",
-        primaryColor: "#ffffff",
-        primaryTextColor: "#18181b",
-        primaryBorderColor: "#d4d4d8",
-        lineColor: "#71717a",
-        arrowheadColor: "#ff5e1f",
-        edgeLabelBackground: "#ffffff",
-        textColor: "#18181b",
-        secondaryColor: "#fafafa",
-        secondaryBorderColor: "#d4d4d8",
-        secondaryTextColor: "#18181b",
-        tertiaryColor: "#f4f4f5",
-        tertiaryBorderColor: "#d4d4d8",
-        tertiaryTextColor: "#18181b",
-        clusterBkg: "#fafafa",
-        clusterBorder: "#e4e4e7",
-        noteBkgColor: "#fff7ed",
-        noteTextColor: "#9a3412",
-        noteBorderColor: "#fed7aa",
-        actorBkg: "#ffffff",
-        actorBorder: "#d4d4d8",
-        actorTextColor: "#18181b",
-        actorLineColor: "#a1a1aa",
-        signalColor: "#18181b",
-        signalTextColor: "#18181b",
-        labelBoxBkgColor: "#ffffff",
-        labelBoxBorderColor: "#d4d4d8",
-        labelTextColor: "#18181b",
-        loopTextColor: "#18181b",
-        activationBorderColor: "#ff5e1f",
-        activationBkgColor: "#ffedd5"
-      },
-      flowchart: {
-        htmlLabels: true,
-        useMaxWidth: true,
-        padding: 16,
-        nodeSpacing: 45,
-        rankSpacing: 75,
-        wrappingWidth: 350,
-        subGraphTitleMargin: { top: 5, bottom: 15 }
+
+        const defaultFence = md.renderer.rules.fence!.bind(md.renderer.rules)
+        md.renderer.rules.fence = (tokens, idx, options, env, self) => {
+          const token = tokens[idx]
+          const info = token.info.trim()
+          if (info === "mermaid" || info === "mmd") {
+            return `<Suspense><template #default><Mermaid id="mermaid-${idx}" graph="${encodeURIComponent(token.content)}"></Mermaid></template><template #fallback><div class="mermaid-loading">Loading diagram...</div></template></Suspense>`
+          }
+          return defaultFence(tokens, idx, options, env, self)
+        }
       }
     },
     ignoreDeadLinks: true,
@@ -266,5 +226,4 @@ export default withMermaid(
       webp: 85
     }
   }
-)
 )

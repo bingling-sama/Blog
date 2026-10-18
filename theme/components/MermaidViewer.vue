@@ -202,10 +202,10 @@
             : 'none'
         }"
       >
-        <RawMermaid
+        <div
           :id="props.id"
-          :graph="props.graph"
           :class="props.class || 'mermaid'"
+          v-html="svgContent"
         />
       </div>
     </div>
@@ -219,7 +219,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from "vue"
-import RawMermaid from "vitepress-plugin-mermaid/Mermaid.vue"
+import { mermaidConfig } from "../scripts/mermaidConfig"
 import "../styles/mermaid/index.css"
 
 interface Props {
@@ -232,6 +232,8 @@ const props = defineProps<Props>()
 
 const containerRef = ref<HTMLElement | null>(null)
 const viewportRef = ref<HTMLElement | null>(null)
+const svgContent = ref("")
+let themeObserver: MutationObserver | null = null
 
 // Natural SVG dimensions
 const canvasWidth = ref<number | null>(null)
@@ -631,7 +633,43 @@ const toggleFullscreen = () => {
   })
 }
 
+const renderChart = async () => {
+  if (typeof window === "undefined") return
+  try {
+    const mermaid = (await import("mermaid")).default
+    const hasDarkClass = document.documentElement.classList.contains("dark")
+    const config = {
+      ...mermaidConfig,
+      theme: hasDarkClass ? "dark" : (mermaidConfig.theme || "base"),
+      securityLevel: "loose",
+      startOnLoad: false
+    }
+    mermaid.initialize(config as any)
+    const chartCode = decodeURIComponent(props.graph)
+    const renderId = `m-${props.id.replace(/[^a-zA-Z0-9_-]/g, "") || Math.random().toString(36).slice(2, 8)}`
+    const { svg } = await mermaid.render(renderId, chartCode)
+    const salt = Math.random().toString(36).substring(7)
+    svgContent.value = `${svg} <span style="display: none">${salt}</span>`
+    nextTick(() => {
+      updateDimensionsAndFit(false)
+    })
+  } catch (err) {
+    console.error("Mermaid render error:", err)
+    svgContent.value = `<pre class="mermaid-error">${err}</pre>`
+  }
+}
+
 onMounted(() => {
+  renderChart()
+
+  themeObserver = new MutationObserver(async () => {
+    await renderChart()
+  })
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"]
+  })
+
   // Wait for initial render
   nextTick(() => {
     updateDimensionsAndFit(true)
@@ -664,6 +702,7 @@ onUnmounted(() => {
     document.body.style.overflow = ""
     window.removeEventListener("keydown", handleKeydown)
   }
+  themeObserver?.disconnect()
   mutationObserver?.disconnect()
   resizeObserver?.disconnect()
 })
