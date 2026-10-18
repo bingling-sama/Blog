@@ -125,8 +125,10 @@ function clampCurrentPage() {
 let resizeHandler: (() => void) | null = null
 
 onMounted(() => {
-  updatePageSize()
-  clampCurrentPage()
+  requestAnimationFrame(() => {
+    updatePageSize()
+    clampCurrentPage()
+  })
 
   resizeHandler = () => {
     const nextPageSize =
@@ -139,7 +141,7 @@ onMounted(() => {
     }
   }
 
-  window.addEventListener("resize", resizeHandler)
+  window.addEventListener("resize", resizeHandler, { passive: true })
 })
 
 onBeforeUnmount(() => {

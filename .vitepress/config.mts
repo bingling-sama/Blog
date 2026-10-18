@@ -231,7 +231,7 @@ export default withResponsiveImages(
         cssMinify: "lightningcss"
       },
       optimizeDeps: {
-        include: ["mermaid", "fastdom", "dayjs"]
+        include: ["dayjs"]
       },
       resolve: {
         alias: [

@@ -1,17 +1,13 @@
-import { computed, nextTick, onMounted, onUnmounted, watch } from "vue"
-import {
-  getScrollOffset,
-  inBrowser,
-  onContentUpdated,
-  useData,
-  useRoute
-} from "vitepress"
+<template>
+  <span class="scroll-hash-sync" style="display: none" aria-hidden="true" />
+</template>
 
-export function useScrollHash() {
-  if (!inBrowser) return
+<script setup lang="ts">
+import { nextTick, onMounted, onUnmounted, watch } from "vue"
+import { getScrollOffset, inBrowser, onContentUpdated, useRoute } from "vitepress"
 
+if (inBrowser) {
   const route = useRoute()
-  const { frontmatter } = useData()
 
   let headings: HTMLElement[] = []
   let isClickScrolling = false
@@ -19,25 +15,7 @@ export function useScrollHash() {
   let ticking = false
   let isInitialHashReady = true
 
-  const isPostPage = computed(() => {
-    if (
-      frontmatter.value.page ||
-      frontmatter.value.layout === "home" ||
-      frontmatter.value.layout === "page"
-    ) {
-      return false
-    }
-    return (
-      route.path.startsWith("/posts/") ||
-      (!frontmatter.value.page && !frontmatter.value.layout)
-    )
-  })
-
   const refreshHeadings = () => {
-    if (!isPostPage.value) {
-      headings = []
-      return
-    }
     const docContainer =
       document.querySelector(".VPDoc .vp-doc") ||
       document.querySelector(".vp-doc")
@@ -113,13 +91,13 @@ export function useScrollHash() {
   }
 
   const syncHash = () => {
-    if (!isPostPage.value || isClickScrolling) return
+    if (isClickScrolling) return
     const activeId = getActiveHeadingId()
     updateHash(activeId)
   }
 
   const onScroll = () => {
-    if (!isPostPage.value || isClickScrolling) return
+    if (isClickScrolling) return
     if (!ticking) {
       window.requestAnimationFrame(() => {
         if (!isClickScrolling) {
@@ -132,7 +110,6 @@ export function useScrollHash() {
   }
 
   const handleClick = (e: MouseEvent) => {
-    if (!isPostPage.value) return
     const target = (e.target as HTMLElement)?.closest?.("a")
     if (!target) return
 
@@ -158,21 +135,19 @@ export function useScrollHash() {
   }
 
   const initPage = () => {
-    if (!isPostPage.value) {
-      headings = []
-      return
-    }
+    // 延迟到首屏渲染完成后的空闲帧执行，避免破坏布局批处理导致 Forced Reflow
+    window.requestAnimationFrame(() => {
+      refreshHeadings()
 
-    refreshHeadings()
-
-    if (window.location.hash) {
-      isInitialHashReady = false
-      setTimeout(() => {
+      if (window.location.hash) {
+        isInitialHashReady = false
+        setTimeout(() => {
+          isInitialHashReady = true
+        }, 500)
+      } else {
         isInitialHashReady = true
-      }, 1000)
-    } else {
-      isInitialHashReady = true
-    }
+      }
+    })
   }
 
   onMounted(() => {
@@ -184,7 +159,9 @@ export function useScrollHash() {
 
   onContentUpdated(() => {
     nextTick(() => {
-      refreshHeadings()
+      window.requestAnimationFrame(() => {
+        refreshHeadings()
+      })
     })
   })
 
@@ -204,3 +181,4 @@ export function useScrollHash() {
     if (clickScrollTimer) clearTimeout(clickScrollTimer)
   })
 }
+</script>

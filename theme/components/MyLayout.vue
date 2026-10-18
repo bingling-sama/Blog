@@ -6,6 +6,7 @@
         style="padding-top: 20px"
         class="post-info"
       >
+        <ScrollHashSync />
         <span class="post-date">
           {{ $frontmatter.date?.substring(0, 10) }}
         </span>
@@ -102,15 +103,13 @@
 import { computed, onMounted, ref } from "vue"
 import DefaultTheme from "vitepress/theme-without-fonts"
 import Copyright from "./Copyright.vue"
+import ScrollHashSync from "./ScrollHashSync.vue"
 import { useRoute, withBase } from "vitepress"
 import { counterData, fetchCounter } from "../scripts/counter"
-import { useScrollHash } from "../scripts/useScrollHash"
 // @ts-expect-error
 import { data as posts } from "../scripts/posts.data"
 
 const { Layout } = DefaultTheme
-
-useScrollHash()
 
 const route = useRoute()
 
