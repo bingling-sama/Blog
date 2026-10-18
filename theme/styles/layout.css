@@ -3,6 +3,10 @@
   min-height: calc(100vh - 78px) !important; /* reduce copyright */
 }
 
+.VPHome {
+  margin-bottom: 0 !important;
+}
+
 /* Aside & VPDoc Layout */
 .aside {
   position: fixed !important;
