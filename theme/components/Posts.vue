@@ -1,5 +1,6 @@
 <template>
-  <div ref="containerRef" class="container">
+  <main class="home-main">
+    <div ref="containerRef" class="container">
     <div
       v-for="(post, index) in pages[pageCurrent - 1]"
       :key="index"
@@ -46,7 +47,8 @@
       @click="setPage(i)"
       >{{ i }}</span
     >
-  </div>
+    </div>
+  </main>
 </template>
 
 <script lang="ts" setup>

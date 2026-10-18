@@ -142,7 +142,15 @@ export default withResponsiveImages(
         { text: "About", link: "/about" }
       ],
       search: {
-        provider: "local"
+        provider: "local",
+        options: {
+          translations: {
+            button: {
+              buttonText: "Search",
+              buttonAriaLabel: "Search K"
+            }
+          }
+        }
       },
       outline: {
         label: "文章摘要"
