@@ -158,6 +158,7 @@ export default withResponsiveImages(
       hostname: siteUrl
     },
     buildEnd: async (siteConfig) => {
+      // 1. 生成响应式 hero 图片
       const heroPath = path.resolve(siteConfig.outDir, "hero.webp")
       if (fs.existsSync(heroPath)) {
         await sharp(heroPath)
@@ -169,6 +170,30 @@ export default withResponsiveImages(
           .resize({ width: 1440, withoutEnlargement: true })
           .webp({ quality: 82, effort: 5 })
           .toFile(path.resolve(siteConfig.outDir, "hero-1440w.webp"))
+      }
+
+      // 2. 将 vp-icons.css 内联进所有生成的 HTML 中，消除渲染阻塞外链
+      const iconsPath = path.resolve(siteConfig.outDir, "vp-icons.css")
+      if (fs.existsSync(iconsPath)) {
+        const iconsCss = fs.readFileSync(iconsPath, "utf-8").trim()
+        const walkHtml = (dir: string) => {
+          for (const item of fs.readdirSync(dir)) {
+            const full = path.join(dir, item)
+            if (fs.statSync(full).isDirectory()) {
+              walkHtml(full)
+            } else if (item.endsWith(".html")) {
+              const html = fs.readFileSync(full, "utf-8")
+              if (html.includes("vp-icons.css")) {
+                const replaced = html.replace(
+                  /<link[^>]+href="[^"]*vp-icons\.css"[^>]*>/i,
+                  `<style id="vp-icons">${iconsCss}</style>`
+                )
+                fs.writeFileSync(full, replaced, "utf-8")
+              }
+            }
+          }
+        }
+        walkHtml(siteConfig.outDir)
       }
     },
     vite: {
