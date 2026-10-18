@@ -1,17 +1,17 @@
 <template>
   <footer class="site-footer">
-    MIT Licensed | Copyright © 2021-2022
+    MIT Licensed | Copyright © 2021-{{ currentYear }}
     <a class="vitepress" :href="website">{{ webTitle }}</a
     ><br />
     Powered by
-    <a class="vitepress" target="_blank" href="//vitepress.vuejs.org/"
-      >VitePress - 1.4.1</a
+    <a class="vitepress" target="_blank" href="https://vitepress.dev/"
+      >VitePress</a
     >
     Theme by
     <a
       class="vitepress"
       target="_blank"
-      href="//github.com/airene/vitepress-blog-pure"
+      href="https://github.com/airene/vitepress-blog-pure"
       >Vitepress-blog</a
     >
     <div class="counter-stats">
@@ -47,6 +47,7 @@ import { counterData } from "../scripts/counter"
 const { site, theme } = useData()
 const website = theme.value.website
 const webTitle = site.value.title
+const currentYear = new Date().getFullYear()
 </script>
 
 <style scoped>
