@@ -79,10 +79,16 @@
         <div class="hero-skeleton" aria-hidden="true" />
         <img
           :src="withBase('/hero.webp')"
+          :srcset="`
+            ${withBase('/hero-768w.webp')} 768w,
+            ${withBase('/hero-1440w.webp')} 1440w,
+            ${withBase('/hero.webp')} 1920w
+          `"
+          sizes="(max-width: 768px) 100vw, (max-width: 1440px) 100vw, 1920px"
           alt="Hero Image"
           class="hero-image"
-          width="4000"
-          height="1532"
+          width="1920"
+          height="735"
           fetchpriority="high"
           decoding="async"
           @load="onHeroImageLoad"

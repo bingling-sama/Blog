@@ -3,9 +3,12 @@ import path from "node:path";
 import { execSync } from "node:child_process";
 import sharp from "sharp";
 
-const IMAGES_DIR = path.resolve(process.cwd(), "blog/public/images");
+const PUBLIC_DIR = path.resolve(process.cwd(), "blog/public");
+const IMAGES_DIR = path.resolve(PUBLIC_DIR, "images");
 const BLOG_DIR = path.resolve(process.cwd(), "blog");
 const SUPPORTED_EXTS = new Set([".png", ".jpg", ".jpeg", ".bmp", ".tiff", ".avif"]);
+const MAX_WIDTH = 1920; // 宽屏合理上限，避免 4K/Retina 截图过大
+const WEBP_QUALITY = 85; // 高保真有损压缩，视觉无损且比 lossless 体积小 80%+
 
 /**
  * 递归收集指定目录下所有文件
@@ -40,53 +43,98 @@ function formatSize(bytes) {
  * 主流程
  */
 async function main() {
-  console.log("🔍 扫描需要转换的图片...");
+  console.log("🔍 扫描需要转换和优化的图片...");
 
-  // 1. 扫描 blog/public/images 下所有非 webp 格式图片
-  const imageFiles = walk(IMAGES_DIR, (filePath) => {
+  // 1. 扫描 blog/public 下所有非 webp 格式图片 (除 favicon 外)
+  const imageFiles = walk(PUBLIC_DIR, (filePath) => {
     const ext = path.extname(filePath).toLowerCase();
+    const basename = path.basename(filePath);
+    if (basename === "favicon.png") return false;
     return SUPPORTED_EXTS.has(ext);
   });
 
-  if (imageFiles.length === 0) {
-    console.log("✨ 未发现需要转换的图片，所有图片均已为 WebP 格式。");
-    return;
-  }
-
-  console.log(`🚀 发现 ${imageFiles.length} 张待转换图片，开始无损转为 WebP...`);
-
   const convertedList = [];
 
-  for (const inputPath of imageFiles) {
-    const ext = path.extname(inputPath);
-    const outputPath = inputPath.slice(0, -ext.length) + ".webp";
+  if (imageFiles.length > 0) {
+    console.log(`🚀 发现 ${imageFiles.length} 张待转换图片，开始转为高保真 WebP...`);
 
-    const oldStat = fs.statSync(inputPath);
+    for (const inputPath of imageFiles) {
+      const ext = path.extname(inputPath);
+      const outputPath = inputPath.slice(0, -ext.length) + ".webp";
 
-    // 无损高保真转换 (lossless: true 确保 100% 像素精度)
-    await sharp(inputPath)
-      .webp({ lossless: true, effort: 4 })
-      .toFile(outputPath);
+      const oldStat = fs.statSync(inputPath);
 
-    const newStat = fs.statSync(outputPath);
-    const ratio = (((oldStat.size - newStat.size) / oldStat.size) * 100).toFixed(1);
+      // 调整最大宽度并采用高质量 WebP 编码 (quality: 85, effort: 5)
+      await sharp(inputPath)
+        .resize({ width: MAX_WIDTH, withoutEnlargement: true })
+        .webp({ quality: WEBP_QUALITY, effort: 5 })
+        .toFile(outputPath);
 
-    console.log(
-      `  ✓ 转换: ${path.relative(process.cwd(), inputPath)} -> ${path.basename(outputPath)} ` +
-      `(${formatSize(oldStat.size)} -> ${formatSize(newStat.size)}, 节省 ${ratio}%)`
-    );
+      const newStat = fs.statSync(outputPath);
+      const ratio = (((oldStat.size - newStat.size) / oldStat.size) * 100).toFixed(1);
 
-    // 删除原始文件
-    fs.unlinkSync(inputPath);
+      console.log(
+        `  ✓ 转换: ${path.relative(process.cwd(), inputPath)} -> ${path.basename(outputPath)} ` +
+        `(${formatSize(oldStat.size)} -> ${formatSize(newStat.size)}, 节省 ${ratio}%)`
+      );
 
-    convertedList.push({
-      oldFullPath: inputPath,
-      newFullPath: outputPath,
-      oldBasename: path.basename(inputPath),
-      newBasename: path.basename(outputPath),
-      oldRelativeFromImages: path.relative(IMAGES_DIR, inputPath).replace(/\\/g, "/"),
-      newRelativeFromImages: path.relative(IMAGES_DIR, outputPath).replace(/\\/g, "/")
-    });
+      // 删除原始文件
+      fs.unlinkSync(inputPath);
+
+      convertedList.push({
+        oldFullPath: inputPath,
+        newFullPath: outputPath,
+        oldBasename: path.basename(inputPath),
+        newBasename: path.basename(outputPath),
+        oldRelativeFromImages: path.relative(IMAGES_DIR, inputPath).replace(/\\/g, "/"),
+        newRelativeFromImages: path.relative(IMAGES_DIR, outputPath).replace(/\\/g, "/")
+      });
+    }
+  }
+
+  // 2. 检查现存的 WebP 图片（优化之前用 lossless 生成导致体积过大的文件）
+  const existingWebpFiles = walk(PUBLIC_DIR, (filePath) => filePath.endsWith(".webp"));
+  for (const webpPath of existingWebpFiles) {
+    const stat = fs.statSync(webpPath);
+    const meta = await sharp(webpPath).metadata();
+    
+    // 如果原图宽于 MAX_WIDTH 或 单图大于 150KB，尝试优化
+    if ((meta.width && meta.width > MAX_WIDTH) || stat.size > 150 * 1024) {
+      const tempOutput = webpPath + ".tmp.webp";
+      await sharp(webpPath)
+        .resize({ width: MAX_WIDTH, withoutEnlargement: true })
+        .webp({ quality: WEBP_QUALITY, effort: 5 })
+        .toFile(tempOutput);
+
+      const newStat = fs.statSync(tempOutput);
+      if (newStat.size < stat.size * 0.85) {
+        // 体积至少减少 15% 以上才替换
+        fs.renameSync(tempOutput, webpPath);
+        const ratio = (((stat.size - newStat.size) / stat.size) * 100).toFixed(1);
+        console.log(
+          `  ⚡ 重新压缩 WebP: ${path.relative(process.cwd(), webpPath)} ` +
+          `(${meta.width}x${meta.height} -> 最大宽 ${MAX_WIDTH}, ${formatSize(stat.size)} -> ${formatSize(newStat.size)}, 节省 ${ratio}%)`
+        );
+      } else {
+        fs.unlinkSync(tempOutput);
+      }
+    }
+  }
+
+  // 3. 检查 favicon.png（如果是超大原图，缩放至 128x128）
+  const faviconPath = path.join(PUBLIC_DIR, "favicon.png");
+  if (fs.existsSync(faviconPath)) {
+    const favStat = fs.statSync(faviconPath);
+    if (favStat.size > 50 * 1024) {
+      const tempFav = faviconPath + ".tmp.png";
+      await sharp(faviconPath)
+        .resize({ width: 128, height: 128, fit: "contain" })
+        .png({ compressionLevel: 9 })
+        .toFile(tempFav);
+      const newFavStat = fs.statSync(tempFav);
+      fs.renameSync(tempFav, faviconPath);
+      console.log(`  ✓ 优化 favicon.png: ${formatSize(favStat.size)} -> ${formatSize(newFavStat.size)}`);
+    }
   }
 
   // 2. 扫描博客所有 Markdown 文件，同步更新引用

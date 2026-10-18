@@ -1,5 +1,9 @@
+import fs from "node:fs"
+import path from "node:path"
+import sharp from "sharp"
 import { defineConfig, loadEnv } from "vitepress"
 import { withMermaid } from "vitepress-plugin-mermaid"
+import { withResponsiveImages } from "vitepress-plugin-responsive-images"
 import { RssPlugin } from "vitepress-plugin-rss"
 import type { PostInfo, RSSOptions } from "vitepress-plugin-rss"
 import { bnfLanguage, caddyfileLanguage } from "./shiki-languages"
@@ -70,8 +74,9 @@ const RSS: RSSOptions = {
 }
 
 export default withMermaid(
-  defineConfig({
-    title: "Booling✨",
+  withResponsiveImages(
+    defineConfig({
+      title: "Booling✨",
     base: "/",
     srcDir: "blog",
     cacheDir: "./node_modules/vitepress_cache",
@@ -192,8 +197,49 @@ export default withMermaid(
     sitemap: {
       hostname: siteUrl
     },
+    buildEnd: async (siteConfig) => {
+      const heroPath = path.resolve(siteConfig.outDir, "hero.webp")
+      if (fs.existsSync(heroPath)) {
+        await sharp(heroPath)
+          .resize({ width: 768, withoutEnlargement: true })
+          .webp({ quality: 80, effort: 5 })
+          .toFile(path.resolve(siteConfig.outDir, "hero-768w.webp"))
+
+        await sharp(heroPath)
+          .resize({ width: 1440, withoutEnlargement: true })
+          .webp({ quality: 82, effort: 5 })
+          .toFile(path.resolve(siteConfig.outDir, "hero-1440w.webp"))
+      }
+    },
     vite: {
-      plugins: [RssPlugin(RSS)],
+      plugins: [
+        RssPlugin(RSS),
+        {
+          name: "hero-responsive-dev",
+          configureServer(server) {
+            server.middlewares.use(async (req, res, next) => {
+              const match = req.url?.match(/^\/hero-(\d+)w\.webp$/)
+              if (match) {
+                const width = parseInt(match[1], 10)
+                const heroPath = path.resolve(
+                  process.cwd(),
+                  "blog/public/hero.webp"
+                )
+                if (fs.existsSync(heroPath)) {
+                  const buf = await sharp(heroPath)
+                    .resize({ width, withoutEnlargement: true })
+                    .webp({ quality: 80 })
+                    .toBuffer()
+                  res.setHeader("Content-Type", "image/webp")
+                  res.end(buf)
+                  return
+                }
+              }
+              next()
+            })
+          }
+        }
+      ],
       server: { port: 3000 },
       build: {
         cssCodeSplit: true,
@@ -211,5 +257,14 @@ export default withMermaid(
         ]
       }
     }
-  })
+  }),
+  {
+    widths: [640, 1024, 1600],
+    formats: ["webp"],
+    sizes: "(max-width: 768px) 100vw, 720px",
+    quality: {
+      webp: 85
+    }
+  }
+)
 )

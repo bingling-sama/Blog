@@ -1,5 +1,5 @@
 <template>
-  <div class="site-footer">
+  <footer class="site-footer">
     MIT Licensed | Copyright © 2021-2022
     <a class="vitepress" :href="website">{{ webTitle }}</a
     ><br />
@@ -38,7 +38,7 @@
         <span id="counter_value_site_uv">{{ counterData.siteUv }}</span> 人次
       </span>
     </div>
-  </div>
+  </footer>
 </template>
 <script lang="ts" setup>
 import { useData } from "vitepress"
@@ -51,7 +51,7 @@ const webTitle = site.value.title
 
 <style scoped>
 .site-footer {
-  color: #888;
+  color: var(--vp-c-text-2, #71717a);
   text-align: center;
   font-size: 0.75rem;
   width: 100%;
