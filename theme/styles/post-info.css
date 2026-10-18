@@ -1,9 +1,96 @@
-/* Post Meta Badges (.post-info) */
+/* Post Header Info (Article Top) */
+.post-header-info {
+  padding-top: 20px;
+  margin-bottom: 12px;
+}
+
+.post-meta {
+  font-size: 0.8125rem;
+  color: var(--vp-c-text-2);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.post-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.post-meta .post-date {
+  font-weight: 500;
+}
+
+.post-meta .post-info-pv,
+.post-meta .post-info-uv,
+.post-meta .post-reading-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.post-meta .post-info-pv span,
+.post-meta .post-info-uv span {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  font-weight: 600;
+  color: var(--vp-c-brand);
+}
+
+.post-meta .pv-icon,
+.post-meta .uv-icon,
+.post-meta .reading-time-icon {
+  width: 14px;
+  height: 14px;
+  vertical-align: -2px;
+  opacity: 0.85;
+}
+
+/* Post Tags Badges */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin-top: 10px;
+}
+
+.post-tags .post-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 2px 8px;
+  background-color: var(--vp-c-bg-alt);
+  border-radius: 4px;
+  transition:
+    background-color 0.25s,
+    color 0.25s;
+}
+
+.post-tags .post-tag:hover {
+  background-color: var(--vp-c-default-soft);
+}
+
+.post-tags .post-tag a {
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+}
+
+.post-tags .post-tag a:hover {
+  color: var(--vp-c-brand);
+}
+
+/* Post Meta Badges (.post-info for post list items) */
 .post-info {
   font-size: 12px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 6px 10px;
 }
 
 .post-info > span {
@@ -11,7 +98,6 @@
   align-items: center;
   padding: 0 8px;
   background-color: var(--vp-c-bg-alt);
-  margin-right: 10px;
   transition: 0.4s;
   border-radius: 2px;
   color: var(--vp-c-text-1);
