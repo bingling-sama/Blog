@@ -1,58 +1,63 @@
 <template>
   <main class="home-main">
     <div ref="containerRef" class="container">
-    <div
-      v-for="(post, index) in pages[pageCurrent - 1]"
-      :key="index"
-      class="post-list"
-    >
-      <div class="post-header">
-        <div class="post-title">
-          <a :href="withBase(post.url)"> {{ post.title }}</a>
+      <div
+        v-for="(post, index) in pages[pageCurrent - 1]"
+        :key="index"
+        class="post-list"
+      >
+        <div class="post-header">
+          <div class="post-title">
+            <PostLink :post="post">{{ post.title }}</PostLink>
+          </div>
+        </div>
+        <p v-if="post.externalLink" class="describe">{{ post.description }}</p>
+        <p v-else class="describe" v-html="post.description"></p>
+        <div class="post-info">
+          <span class="post-date">{{ post.date }}</span>
+          <span v-if="post.externalLink && post.sourceAuthor"
+            >原作者：{{ post.sourceAuthor }}</span
+          >
+          <span v-if="post.readingTime" class="post-reading-time">
+            <svg
+              class="reading-time-icon"
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            {{ post.readingTime }}
+          </span>
+          <span v-for="item in post.tags"
+            ><a :href="withBase(`/tags?tag=${item}`)"> {{ item }}</a></span
+          >
         </div>
       </div>
-      <p class="describe" v-html="post.description"></p>
-      <div class="post-info">
-        <span class="post-date">{{ post.date }}</span>
-        <span v-if="post.readingTime" class="post-reading-time">
-          <svg
-            class="reading-time-icon"
-            viewBox="0 0 24 24"
-            width="14"
-            height="14"
-            stroke="currentColor"
-            stroke-width="2"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          {{ post.readingTime }}
-        </span>
-        <span v-for="item in post.tags"
-          ><a :href="withBase(`/tags?tag=${item}`)"> {{ item }}</a></span
-        >
-      </div>
     </div>
-  </div>
 
-  <div class="pagination">
-    <span
-      class="link"
-      :class="{ active: pageCurrent === i }"
-      v-for="i in pages.length"
-      :key="i"
-      @click="setPage(i)"
-      >{{ i }}</span
-    >
+    <div class="pagination">
+      <span
+        class="link"
+        :class="{ active: pageCurrent === i }"
+        v-for="i in pages.length"
+        :key="i"
+        @click="setPage(i)"
+        >{{ i }}</span
+      >
     </div>
   </main>
 </template>
 
 <script lang="ts" setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue"
+import PostLink from "./PostLink.vue"
 import { Post } from "../scripts/functions"
 import { inBrowser, withBase } from "vitepress"
 // @ts-expect-error
@@ -236,12 +241,7 @@ watch(pages, clampCurrentPage)
   .post-title {
     font-size: 1.0625rem;
     font-weight: 400;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-    width: 17rem;
+    max-width: 100%;
   }
   .describe {
     font-size: 0.9375rem;

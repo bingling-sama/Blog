@@ -1,10 +1,7 @@
 <template>
   <Layout>
     <template #doc-before>
-      <div
-        v-if="!$frontmatter.page"
-        class="post-header-info"
-      >
+      <div v-if="!$frontmatter.page" class="post-header-info">
         <ScrollHashSync />
         <div class="post-meta">
           <span class="post-date">
@@ -42,7 +39,7 @@
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
               <circle cx="12" cy="12" r="3"></circle>
             </svg>
-            阅读量
+            {{ $frontmatter.externalLink ? "本页访问量" : "阅读量" }}
             <span id="counter_value_page_pv">{{
               counterData.pagePv || "--"
             }}</span>
@@ -108,7 +105,7 @@ import { computed, onMounted, ref } from "vue"
 import DefaultTheme from "vitepress/theme-without-fonts"
 import Copyright from "./Copyright.vue"
 import ScrollHashSync from "./ScrollHashSync.vue"
-import { useRoute, withBase } from "vitepress"
+import { useData, useRoute, withBase } from "vitepress"
 import { counterData, fetchCounter } from "../scripts/counter"
 // @ts-expect-error
 import { data as posts } from "../scripts/posts.data"
@@ -116,6 +113,7 @@ import { data as posts } from "../scripts/posts.data"
 const { Layout } = DefaultTheme
 
 const route = useRoute()
+const { frontmatter } = useData()
 
 const isHeroLoaded = ref(false)
 const onHeroImageLoad = () => {
@@ -123,6 +121,7 @@ const onHeroImageLoad = () => {
 }
 
 const readingTime = computed(() => {
+  if (frontmatter.value.externalLink) return ""
   const currentPath = route.path
     .replace(/\.html$/, "")
     .replace(/\/index$/, "")

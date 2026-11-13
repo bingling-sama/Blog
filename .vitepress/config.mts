@@ -8,6 +8,9 @@ import type { PostInfo, RSSOptions } from "vitepress-plugin-rss"
 import { bnfLanguage, caddyfileLanguage } from "./shiki-languages"
 import { markdownItObsidian } from "./plugins/markdown-it-obsidian"
 import { tasklist } from "@mdit/plugin-tasklist"
+import { externalPosts } from "./plugins/external-posts"
+import { getExternalPost } from "../theme/scripts/external-posts.mjs"
+import { recommendationRssPlugin } from "../scripts/recommendation-rss.mjs"
 
 const env = loadEnv("", process.cwd(), "")
 const defaultSrcExclude = ["README.md"]
@@ -18,6 +21,7 @@ const envSrcExclude = (env.EXCLUDE ?? "")
 
 const srcExclude = [...defaultSrcExclude, ...envSrcExclude]
 const siteUrl = "https://blog.booling.cn"
+const rssRecommendations = new Map()
 
 function toArray(value: unknown): unknown[] {
   return Array.isArray(value) ? value : value ? [value] : []
@@ -60,14 +64,23 @@ const RSS: RSSOptions = {
     link: "https://github.com/bingling-sama"
   },
   filter(post) {
-    if (
-      !post.url.startsWith("/posts/") ||
-      post.filepath.includes("/.drafts/")
-    ) {
+    const sourcePath = path
+      .relative(path.resolve("blog"), post.filepath)
+      .split(path.sep)
+      .join("/")
+    if (!sourcePath.startsWith("posts/") || sourcePath.includes("/.drafts/")) {
       return false
     }
 
     normalizePostCategories(post)
+    const external = getExternalPost(post.frontmatter, post.filepath)
+    if (external.externalLink) {
+      rssRecommendations.set(`${siteUrl}${post.url}`, {
+        title: post.title,
+        description: post.description,
+        ...external
+      })
+    }
     return true
   }
 }
@@ -78,11 +91,19 @@ export default withResponsiveImages(
     base: "/",
     srcDir: "blog",
     cacheDir: "./node_modules/vitepress_cache",
+    transformPageData(pageData) {
+      const external = getExternalPost(
+        pageData.frontmatter,
+        pageData.relativePath
+      )
+      Object.assign(pageData.frontmatter, external)
+    },
     description: "vitepress,blog,booling,bingling_sama",
     markdown: {
       math: true,
       languages: [caddyfileLanguage, bnfLanguage],
       config(md) {
+        md.use(externalPosts)
         md.use(tasklist)
         md.use(
           markdownItObsidian({
@@ -144,6 +165,15 @@ export default withResponsiveImages(
       search: {
         provider: "local",
         options: {
+          _render(src, env, md) {
+            const html = md.render(src, env)
+            if (!env.frontmatter?.externalLink) return html
+            // Search indexes HTML text, not the Vue source card's runtime content.
+            return html.replace(
+              "<ExternalPostRecord />",
+              `<p>${md.utils.escapeHtml(env.frontmatter.description)}</p>`
+            )
+          },
           translations: {
             button: {
               buttonText: "Search",
@@ -211,7 +241,7 @@ export default withResponsiveImages(
     },
     vite: {
       plugins: [
-        RssPlugin(RSS),
+        recommendationRssPlugin(RssPlugin(RSS), rssRecommendations),
         {
           name: "hero-responsive-dev",
           configureServer(server) {

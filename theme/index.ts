@@ -4,6 +4,7 @@ import { inBrowser } from "vitepress"
 import { defineAsyncComponent } from "vue"
 import MyLayout from "./components/MyLayout.vue"
 import Posts from "./components/Posts.vue"
+import ExternalPostRecord from "./components/ExternalPostRecord.vue"
 import { fetchCounter } from "./scripts/counter"
 
 const Archives = defineAsyncComponent(() => import("./components/Archives.vue"))
@@ -25,6 +26,7 @@ export default {
     app.component("Category", Category)
     app.component("Archives", Archives)
     app.component("Posts", Posts)
+    app.component("ExternalPostRecord", ExternalPostRecord)
     app.component("Comment", Comment)
     app.component("Mermaid", MermaidViewer)
 

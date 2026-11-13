@@ -7,6 +7,7 @@
       v-for="(post, index) in posts"
       :key="index"
       :url="post.url"
+      :external-link="post.externalLink"
       :title="post.title"
       :date="post.date"
     />

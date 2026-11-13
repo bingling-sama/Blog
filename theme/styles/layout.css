@@ -1,4 +1,8 @@
 /* Layout & Container Constraints */
+body {
+  min-width: 0;
+}
+
 .Layout {
   min-height: calc(100vh - 78px) !important; /* reduce copyright */
 }

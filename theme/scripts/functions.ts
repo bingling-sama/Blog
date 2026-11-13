@@ -5,6 +5,8 @@ export type Post = {
   tags: string[]
   description: string
   url: string
+  externalLink?: string
+  sourceAuthor?: string
   readingTime?: string
   wordCount?: number
 }

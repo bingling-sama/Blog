@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       # 检测 push 中真正新增的文章文件 (Added files)
       - name: Detect Added Markdown Posts
@@ -44,6 +44,14 @@ jobs:
           else
             echo "files=${{ steps.changed-posts.outputs.added_files }}" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Setup pnpm
+        if: steps.target-files.outputs.files != ''
+        uses: pnpm/action-setup@v4
+
+      - name: Install notification dependencies
+        if: steps.target-files.outputs.files != ''
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Push to Teleblog API
         if: steps.target-files.outputs.files != ''

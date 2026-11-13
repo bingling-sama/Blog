@@ -1,20 +1,21 @@
 <template>
-  <a :href="withBase(url)" class="posts">
-    <div class="post-container">
+  <div class="posts">
+    <PostLink :post="{ url, externalLink }" class="post-container">
       <div class="post-dot" />
-      {{ title }}
-    </div>
+      <span>{{ title }}</span>
+    </PostLink>
     <div class="date">{{ date }}</div>
-  </a>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { withBase } from "vitepress"
+import PostLink from "./PostLink.vue"
 
 defineProps<{
   url: string
   title: string
   date: string
+  externalLink?: string
 }>()
 </script>
 
@@ -24,6 +25,8 @@ defineProps<{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5em;
 }
 
 .post-dot {
@@ -37,6 +40,8 @@ defineProps<{
 }
 
 .post-container {
+  flex: 1 1 60%;
+  min-width: 0;
   color: var(--vp-c-text-2);
   font-size: 0.9375rem;
   font-weight: 400;
@@ -58,13 +63,6 @@ defineProps<{
 
   .post-dot {
     margin-right: 4px;
-  }
-
-  .post-container {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 16.5em;
   }
 
   .date {

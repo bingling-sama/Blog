@@ -14,6 +14,7 @@
     v-for="(post, index) in selectTag ? data[selectTag] : []"
     :key="index"
     :url="post.url"
+    :external-link="post.externalLink"
     :title="post.title"
     :date="post.date"
   />

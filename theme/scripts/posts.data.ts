@@ -1,6 +1,7 @@
 import { createContentLoader } from "vitepress"
 import type { Post } from "./functions"
 import { calculateReadingTime } from "./readingTime"
+import { getExternalPost } from "./external-posts.mjs"
 
 export default createContentLoader("posts/**/*.md", {
   includeSrc: true,
@@ -12,7 +13,11 @@ export default createContentLoader("posts/**/*.md", {
           new Date(a.frontmatter.date).getTime()
       )
       .map(({ url, frontmatter, src }) => {
-        const { text, words } = calculateReadingTime(src ?? "")
+        const filePath = `blog${url.replace(/\.html$/, "").replace(/\/$/, "/index")}.md`
+        const external = getExternalPost(frontmatter, filePath)
+        const reading = external.externalLink
+          ? {}
+          : calculateReadingTime(src ?? "")
         return {
           url: url,
           title: frontmatter.title,
@@ -20,8 +25,9 @@ export default createContentLoader("posts/**/*.md", {
           date: transformDate(frontmatter.date),
           category: frontmatter.category,
           tags: frontmatter.tags,
-          readingTime: text,
-          wordCount: words
+          ...external,
+          readingTime: "text" in reading ? reading.text : undefined,
+          wordCount: "words" in reading ? reading.words : undefined
         } as Post
       })
   }
