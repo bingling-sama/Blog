@@ -1,10 +1,138 @@
 ---
 date: 2026-11-14 18:49:57
-updated: 2026-11-17 20:31:58
+updated: 2026-11-17 23:09:03
 ---
 ## Default writing mode
 
 For writing, rewriting, outlining, or reviewing technical blog posts in this Blog project, automatically apply the Booling persona below. Do not apply this voice to code-only tasks, factual lookups, operational instructions, or formal business documents unless explicitly requested. Preserve technical accuracy, verify uncertain facts, and do not imitate the persona's exemplar text verbatim.
+
+## 特殊语法与发布指引
+
+以下以 `.vitepress/config.mts`、`.vitepress/plugins/` 和主题实际实现为准。本站使用 VitePress 1.6.4，并非完整的 Obsidian 渲染器；不能因为 Obsidian 能预览就认定博客也支持。普通 Markdown 优先，按表达需要使用扩展，不为展示效果批量改写文章。
+
+### 文章位置与元数据
+
+- 正式文章放在 `blog/posts/`，参与首页、归档、分类和标签列表。独立页面放在 `blog/pages/`，发布路径省略 `pages/` 和 `.md`，例如 `blog/pages/about.md` 对应 `/about`。
+- 普通文章沿用以下 frontmatter；`date` 填有效日期，`category` 使用分类名，`tags` 使用字符串列表。新增或修改时保留原有元数据，不随意改写发布日期。
+
+```yaml
+---
+title: 文章标题
+date: 2026-11-17 12:00:00
+description: 简洁说明文章讨论的问题。
+category: Development
+tags:
+  - JavaScript
+---
+```
+
+- 推荐别人的文章时，额外填写 `externalLink: https://example.com/article`，可选 `sourceAuthor: 原作者`。`title`、`date`、`description` 必填，日期表示推荐时间；链接必须是无用户名密码、无未编码空格或控制字符的绝对 HTTP(S) 地址，不能留空。
+- 外链推荐正文可留空，标题、推荐语和来源区自动生成；文章列表点标题直达原文，站内记录页仍保留。正文有评论时直接补充，不重复手写自动生成的来源区。完整规则见 [`docs/external-link-posts.md`](../docs/external-link-posts.md)。
+
+### 脚注与外链引用
+
+优先使用与 Obsidian 共用的脚注语法，不手写 `<sup>` 或手动维护编号。由 `markdown-it-footnote` 自动编号，生成文末脚注和返回正文的链接；目前没有 Tooltip，点击上标先跳脚注，再点击脚注里的外链访问来源。
+
+```markdown
+正文中的外部来源。[^source]
+
+术语的补充说明。[^term]
+
+再次引用同一个来源。[^source]
+
+[^source]: [参考文章](https://example.com/article)，原作者。
+[^term]: 补充解释，可以使用 **加粗** 等 Markdown 格式。
+```
+
+- 脚注标识只需在同一篇文章内唯一，推荐使用有意义的英文名；重复引用复用同一个标识，定义只写一次。
+- 脚注定义单独成段，习惯上集中放在源文件末尾；多段脚注的续段缩进四个空格。不要把定义放进代码围栏。
+- 也支持内联脚注 `正文。^[补充说明。]`；较长说明或外部来源优先使用上面的引用式写法。
+- 脚注用于就近溯源或补充解释，不取代文末参考链接列表；不得编造来源。
+
+### Obsidian 双链与图片
+
+双链由 `.vitepress/plugins/markdown-it-obsidian.ts` 解析。下表中的竖线为适应 Markdown 表格而转义；在普通正文中直接用 `|` 分隔，不加反斜杠。
+
+| 写法 | 用途与限制 |
+| --- | --- |
+| `[[笔记名]]` | 链接到 `blog/` 内对应 Markdown 文件，目标可省略 `.md`。 |
+| `[[posts/development/笔记名\|显示文字]]` | 指定相对 `blog/` 的完整路径并设置显示文字。 |
+| `[[笔记名#标题锚点]]`、`[[#标题锚点]]` | 链接到目标页或当前页的锚点；插件只对片段做 URL 编码，不替你生成标题 slug。 |
+| `![[图片.png]]` | 从 `blog/public/` 按路径或文件名查找图片。 |
+| `![[图片.png\|300]]` | 限制图片宽度为 300px。 |
+| `![[图片.png\|300x200]]` | 设置宽高；可能改变比例，仅在确实需要时使用。 |
+| `![[图片.png\|说明文字\|300]]` | 同时指定替代文字与宽度。 |
+
+- 普通正文示例：`[[posts/development/example|延伸阅读]]`、`![[images/example.png|流程示意|600]]`。使用有意义的图片替代文字，不只依赖默认文件名。
+- 同名笔记或图片优先写带目录的路径，避免按文件名匹配到另一个文件。找不到的笔记会显示为未解析文本，不会自动创建页面。
+- 标题含英文大写、空格或标点时，先检查实际生成的锚点；必要时使用标准 Markdown 链接，例如 `[小节](/posts/development/example#实际锚点)`。当前配置忽略死链，构建通过不代表链接正确。
+- 媒体嵌入实现只生成 `<img>`，**不支持** `![[笔记]]` 的正文嵌入，也不提供音视频/PDF 专用播放器。不要把这些写法当成可用功能。
+- 不支持 Obsidian 块 ID／块引用（`^block-id`、`[[笔记#^block-id]]`）、`==高亮==`、`%%隐藏注释%%` 或 Dataview 查询等插件能力。隐藏注释请用 HTML 注释 `<!-- 备注 -->`，但不要在源码中写入秘密信息。
+- Obsidian Callout 的 `> [!note]`、`> [!warning]`、`> [!note]+` 等不转换成博客提示框；发布时使用下面的 VitePress 容器，并确认 Obsidian 端可能仅显示原始容器标记。
+
+### 提示容器与代码组
+
+VitePress 支持 `info`、`tip`、`warning`、`danger`、`details` 容器，使用 `:::` 开始和结束；类型后可以写自定义标题。
+
+```markdown
+::: warning 兼容性
+这里写需要读者注意的限制。
+:::
+
+::: details 补充推导
+这里写可选的详细内容。
+:::
+```
+
+多个可切换的代码示例使用 `code-group`，代码围栏后用 `[文件名或标签]` 标记页签。不要为本来应该连续阅读的步骤强加页签。
+
+````markdown
+::: code-group
+
+```js [config.js]
+export default { enabled: true }
+```
+
+```ts [config.ts]
+export default { enabled: true }
+```
+
+:::
+````
+
+### 任务列表、公式与目录
+
+- 任务列表由 `@mdit/plugin-tasklist` 渲染：`- [ ] 待办事项`、`- [x] 已完成事项`。它是文档内容，不是会持久保存勾选状态的任务系统。
+- 已开启数学公式（MathJax）：行内写 `$E = mc^2$`；块级公式用独占行的 `$$` 包围，中间写 LaTeX。公式不放进代码围栏；普通金额中必要时转义美元符号，避免误识别。
+- `[[toc]]` 可插入当前页目录；文章已有主题侧边摘要时，不默认重复插入。
+- Markdown 中可使用 HTML 和 Vue，但优先保持 Obsidian 可读性。需要展示字面量 `{{ expression }}` 或 Vue 模板时，使用代码围栏；必要时对含模板表达式的围栏添加 `v-pre`，避免被当作 Vue 插值求值。
+
+```text
+$$
+E = mc^2
+$$
+```
+
+### Mermaid 图表
+
+使用 `mermaid` 或 `mmd` 代码围栏，源码会交给自定义 `PeleViewer`，不是 Mermaid 官方运行时。支持范围以当前 `pele` 实际渲染结果为准，不保证兼容所有 Mermaid 图表或指令。
+
+````markdown
+```mermaid
+flowchart LR
+  A["读取笔记"] --> B["构建博客"]
+  B --> C["发布页面"]
+```
+````
+
+- 图表提供缩放、适应画布、源码复制和全屏预览。不要手写 `<PeleViewer>` 或给图表添加代码块折叠、行高亮、限高等参数。
+- 新增或修改图表后运行 `pnpm test:pele`，再通过 `pnpm dev` 检查浏览器实际展示；`pnpm build` 本身不能替代客户端图表渲染验证。
+
+### 修改后的检查
+
+- 修改文章中的特殊语法后运行 `pnpm build`，并在 `pnpm dev` 中检查对应页面；涉及脚注检查上标、重复引用、外链和返回正文，涉及双链检查目标页面与锚点。
+- 修改解析器、插件配置或相关测试时运行 `pnpm test` 和 `pnpm build`；图表另运行 `pnpm test:pele`。涉及样式或交互时检查明暗主题、移动端与键盘操作。
+- 本指引中的示例保持为代码示例，不作为正式文章发布；临时效果页验证完后删除。
 
 ## 代码块呈现规范
 
@@ -14,6 +142,8 @@ For writing, rewriting, outlining, or reviewing technical blog posts in this Blo
 - **预览折叠**：前文已经拆解过的完整实现、冗长目录树、非核心日志，使用 `:collapsed-lines=10` 预览前 10 行；省略数值的 `:collapsed-lines` 默认预览 15 行。短示例和正在讲解的核心代码不折叠；重要错误、安全约束和正文引用的关键行不要藏在折叠区，必要时先在正文摘出说明。
 - **最大高度**：需要逐项查阅或复制的长配置，优先用 `:height=28rem` 限制最大高度并内部滚动，不默认收起。数值必须为带 `px`、`rem` 或 `vh` 单位的正数，不写花括号；这是 `max-height`，短代码不会被撑高。不要使用旧提案中的 `height: 320px` 写法。
 - **行高亮**：使用 `ts{2,5-8}` 标记代码块内的行号，或使用语言对应的注释添加 `[!code highlight]`。行号从围栏下一行开始，空行计入；编辑代码后重新核对范围。只突出当前解释的关键调用、状态转换或配置项，不把整块代码都高亮。
+- **行号与文件名**：围栏参数 `:line-numbers` 开启行号、`:no-line-numbers` 关闭，`:line-numbers=5` 从 5 开始显示；`[config.ts]` 可标注文件名或代码组页签。显示行号的起始值不改变行高亮按代码块内行数定位的规则。
+- **聚焦与诊断标记**：`[!code focus]` 聚焦当前行并弱化其他行；`[!code warning]`、`[!code error]` 标记警告或错误行。与高亮、diff 一样，放在语言合法的注释中，仅在正文确实解释该行时使用。
 - **diff**：同一段代码真实的修改前后，可在注释中使用 `[!code --]` 和 `[!code ++]`。两种合法方案、不同平台或部署模式的对照，不用红绿增删暗示对错；不为展示 diff 编造旧代码。合法 JSON 中不要插入 `//` 注释，优先使用围栏行高亮，或单列 `diff` 补丁并保留可复制的最终配置。
 - **完全收起**：附录和完整过程日志可放进 `::: details 查看完整代码` 容器；容器结束后用 `:::` 关闭。
 - **组合与例外**：折叠、限高、行高亮可以组合；通常二选一使用折叠或限高，仅特别长的完整实现同时使用两者。组合时展开后仍限高。`mermaid` / `mmd` 图表不应用这些代码块增强。

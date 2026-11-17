@@ -8,6 +8,7 @@ import type { PostInfo, RSSOptions } from "vitepress-plugin-rss"
 import { bnfLanguage, caddyfileLanguage } from "./shiki-languages"
 import { markdownItObsidian } from "./plugins/markdown-it-obsidian"
 import { tasklist } from "@mdit/plugin-tasklist"
+import footnote from "markdown-it-footnote"
 import { externalPosts } from "./plugins/external-posts"
 import { codeBlocks } from "./plugins/code-blocks"
 import { getExternalPost } from "../theme/scripts/external-posts.mjs"
@@ -106,6 +107,7 @@ export default withResponsiveImages(
       config(md) {
         md.use(externalPosts)
         md.use(tasklist)
+        md.use(footnote)
         md.use(codeBlocks)
         md.use(
           markdownItObsidian({
