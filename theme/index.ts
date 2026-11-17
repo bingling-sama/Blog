@@ -1,7 +1,8 @@
 import DefaultTheme from "vitepress/theme-without-fonts"
 import type { Theme } from "vitepress"
 import { inBrowser } from "vitepress"
-import { defineAsyncComponent } from "vue"
+import { defineAsyncComponent, onMounted, onUnmounted } from "vue"
+import { setupCodeBlocks } from "./scripts/code-blocks"
 import MyLayout from "./components/MyLayout.vue"
 import Posts from "./components/Posts.vue"
 import ExternalPostRecord from "./components/ExternalPostRecord.vue"
@@ -15,11 +16,19 @@ const MermaidViewer = defineAsyncComponent(
   () => import("./components/MermaidViewer.vue")
 )
 
+import "vitepress-plugin-code-collapse/style.css"
 import "./styles/index.css"
 
 export default {
   ...DefaultTheme,
   Layout: MyLayout,
+  setup() {
+    let cleanup: (() => void) | undefined
+    onMounted(() => {
+      cleanup = setupCodeBlocks()
+    })
+    onUnmounted(() => cleanup?.())
+  },
   enhanceApp({ app, router }) {
     // register global component
     app.component("Tags", Tags)

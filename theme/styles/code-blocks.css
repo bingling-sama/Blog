@@ -1,0 +1,65 @@
+/* A shared scrollport keeps line numbers aligned with the code. */
+.vp-doc .code-scroll {
+  position: relative;
+  max-height: var(--code-max-height);
+  overflow: auto;
+}
+
+.vp-doc .code-scroll > pre {
+  overflow: visible;
+}
+
+.vp-doc .line-numbers-mode:has(> .code-scroll) {
+  padding-left: 0;
+}
+
+.vp-doc .line-numbers-mode > .code-scroll {
+  padding-left: 32px;
+}
+
+.vp-doc .code-scroll:focus-visible,
+.vp-doc button.collapsed-lines:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: -2px;
+}
+
+.vp-doc div.has-collapsed-lines {
+  padding-bottom: 28px;
+}
+
+.vp-doc div.has-collapsed-lines.collapsed > .code-scroll {
+  max-height: none;
+  overflow: hidden;
+}
+
+.vp-doc button.collapsed-lines {
+  width: 100%;
+  color: var(--vp-c-text-2);
+  font-size: var(--vp-code-font-size);
+}
+
+.vp-doc button.collapsed-lines::before {
+  background-color: currentColor;
+  animation: none;
+}
+
+.vp-doc button.collapsed-lines:hover,
+.vp-doc button.collapsed-lines:active {
+  color: var(--vp-c-text-1);
+}
+
+@media print {
+  .vp-doc div.has-collapsed-lines.collapsed {
+    height: auto;
+    overflow: visible;
+  }
+
+  .vp-doc .code-scroll {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .vp-doc button.collapsed-lines {
+    display: none;
+  }
+}

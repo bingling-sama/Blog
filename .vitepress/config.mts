@@ -9,6 +9,7 @@ import { bnfLanguage, caddyfileLanguage } from "./shiki-languages"
 import { markdownItObsidian } from "./plugins/markdown-it-obsidian"
 import { tasklist } from "@mdit/plugin-tasklist"
 import { externalPosts } from "./plugins/external-posts"
+import { codeBlocks } from "./plugins/code-blocks"
 import { getExternalPost } from "../theme/scripts/external-posts.mjs"
 import { recommendationRssPlugin } from "../scripts/recommendation-rss.mjs"
 
@@ -105,6 +106,7 @@ export default withResponsiveImages(
       config(md) {
         md.use(externalPosts)
         md.use(tasklist)
+        md.use(codeBlocks)
         md.use(
           markdownItObsidian({
             publicDir: "blog/public",
@@ -117,7 +119,7 @@ export default withResponsiveImages(
         md.renderer.rules.fence = (tokens, idx, options, env, self) => {
           const token = tokens[idx]
           const info = token.info.trim()
-          if (info === "mermaid" || info === "mmd") {
+          if (/^(mermaid|mmd)(?=\s|$)/.test(info)) {
             return `<Suspense><template #default><Mermaid id="mermaid-${idx}" graph="${encodeURIComponent(token.content)}"></Mermaid></template><template #fallback><div class="mermaid-loading">Loading diagram...</div></template></Suspense>`
           }
           return defaultFence(tokens, idx, options, env, self)
