@@ -32,7 +32,7 @@ Telegram 通知主链接仍指向站内记录页，简介包含原文链接和�
 
 ## 检查与测试
 
-以下测试命令使用 Node.js 22.18+（单元测试直接加载 TypeScript 渲染插件）。
+以下测试命令使用 Node.js 26.13.1+（当前 LTS；单元测试直接加载 TypeScript 渲染插件）。
 
 ```sh
 pnpm install --frozen-lockfile

@@ -45,6 +45,7 @@ defineProps<{
   color: var(--vp-c-text-2);
   font-size: 0.9375rem;
   font-weight: 400;
+  text-decoration-line: none !important;
 }
 
 .post-container:hover {

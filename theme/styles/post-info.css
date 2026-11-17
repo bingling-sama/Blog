@@ -17,6 +17,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  white-space: nowrap;
 }
 
 .post-meta .post-date {
@@ -87,8 +88,10 @@
 /* Post Meta Badges (.post-info for post list items) */
 .post-info {
   font-size: 12px;
-  display: flex;
-  flex-wrap: wrap;
+  /* Preserve the badge height previously inherited from VitePress 1's body. */
+  line-height: 24px;
+  display: flex !important;
+  flex-wrap: wrap !important;
   align-items: center;
   gap: 6px 10px;
 }
@@ -96,6 +99,9 @@
 .post-info > span {
   display: inline-flex;
   align-items: center;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
   padding: 0 8px;
   background-color: var(--vp-c-bg-alt);
   transition: 0.4s;
@@ -109,6 +115,14 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.post-info > span a {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .post-info .post-info-pv span,
@@ -123,6 +137,9 @@
 .post-info .pv-icon,
 .post-info .uv-icon,
 .post-info .reading-time-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
   margin-right: 2px;
   vertical-align: -2px;
 }

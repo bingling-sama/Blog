@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 26.13.1
 
       # 检测 push 中真正新增的文章文件 (Added files)
       - name: Detect Added Markdown Posts

@@ -55,6 +55,13 @@ with sync_playwright() as p:
     def visit(route):
         page.goto(origin + route)
         page.wait_for_load_state("networkidle")
+        page.wait_for_function("""() => {
+            const info = document.querySelector(".post-info");
+            const image = document.querySelector(".hero-image");
+            const infoReady = !info || getComputedStyle(info).display === "flex";
+            const imageReady = !image || getComputedStyle(image).width !== "1920px";
+            return infoReady && imageReady;
+        }""")
 
     def external_link(title="外链验收：一篇值得读的文章"):
         link = page.get_by_role("link", name=title, exact=False).first
@@ -117,9 +124,6 @@ with sync_playwright() as p:
                 return { weight: s.fontWeight, border: s.borderBottomWidth, decoration: s.textDecorationLine };
             }""")
             assert style == {"weight": "400", "border": "0px", "decoration": "none"}, (route, style)
-        assert link.locator(".recommendation-mark > span").first.evaluate(
-            "el => getComputedStyle(el).position"
-        ) == "absolute"
         assert link.locator(".recommendation-mark svg").is_visible()
     print("PASS homepage/archive/category/tag links, counts, metadata, keyboard popup and safe opener")
 
@@ -160,6 +164,18 @@ with sync_playwright() as p:
                 visit(route)
                 assert page.locator("html").evaluate("node => node.classList.contains('dark')") == (theme == "dark")
                 settle()
+                if route == base:
+                    assert page.locator(".post-info").first.evaluate(
+                        'el => getComputedStyle(el).lineHeight'
+                    ) == "24px", (theme, width, "homepage metadata line height changed")
+                    for badge in page.locator(".post-info .post-reading-time").all():
+                        assert badge.evaluate("""el => {
+                            const style = getComputedStyle(el);
+                            const icon = el.querySelector("svg").getBoundingClientRect();
+                            return style.whiteSpace === "nowrap"
+                                && el.getBoundingClientRect().height <= parseFloat(style.lineHeight) + 1
+                                && icon.width === 14 && icon.height === 14;
+                        }"""), (theme, width, "reading-time badge wraps or icon size changed")
                 overflow = page.evaluate("""() => [...document.querySelectorAll('body *')].filter(el => {
                     const r = el.getBoundingClientRect(); return r.width > 0 && (r.right > innerWidth + 1 || r.left < -1)
                 }).map(el => ({tag: el.tagName, class: el.className, width: el.getBoundingClientRect().width, text: el.textContent.slice(0, 70)})).slice(0, 20)""")

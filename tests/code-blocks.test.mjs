@@ -14,11 +14,16 @@ const fence = (info, code = lines) => `\`\`\`${info}\n${code}\n\`\`\``
 
 test("ordinary blocks are unchanged and do not automatically collapse", async () => {
   const plain = await createMarkdownRenderer(process.cwd())
-  assert.equal(md.render(fence("ts")), plain.render(fence("ts")))
+  const normalizeAsyncMarker = (html) =>
+    html.replace(/<!--::markdown-it-async::[^:]+::-->/g, "<!--async-->")
+  assert.equal(
+    normalizeAsyncMarker(md.render(fence("ts"))),
+    normalizeAsyncMarker(plain.render(fence("ts")))
+  )
 })
 
-test("height keeps the code and gutter inside a shared scrollport", () => {
-  const html = md.render(fence("ts{3} :line-numbers :height=320px"))
+test("height keeps the code and gutter inside a shared scrollport", async () => {
+  const html = await md.renderAsync(fence("ts{3} :line-numbers :height=320px"))
   assert.match(html, /line highlighted/)
   assert.match(html, /--code-max-height:320px/)
   assert.match(html, /class="code-scroll"[^>]*><pre/)
@@ -53,8 +58,8 @@ for (const height of [
   })
 }
 
-test("height, highlighting, diff and folding compose", () => {
-  const html = md.render(
+test("height, highlighting, diff and folding compose", async () => {
+  const html = await md.renderAsync(
     fence(
       "ts{3} :collapsed-lines=2 :height=24rem",
       "const a = 1 // [!code --]\nconst b = 2 // [!code ++]\nconst c = 3\nconst d = 4"

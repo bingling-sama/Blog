@@ -4,7 +4,12 @@
     class="pele-viewer"
     :class="{ 'is-fullscreen': isFullscreen }"
   >
-    <div class="pele-toolbar" role="toolbar" aria-label="图表工具栏" @pointerdown.stop>
+    <div
+      class="pele-toolbar"
+      role="toolbar"
+      aria-label="图表工具栏"
+      @pointerdown.stop
+    >
       <button
         class="toolbar-btn"
         type="button"
@@ -68,11 +73,7 @@
       </button>
     </div>
 
-    <div
-      v-if="loading"
-      class="pele-loading"
-      role="status"
-    >
+    <div v-if="loading" class="pele-loading" role="status">
       Loading diagram...
     </div>
     <div
@@ -95,13 +96,15 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref } from "vue"
-import Check from "@vicons/tabler/Check"
-import Copy from "@vicons/tabler/Copy"
-import Maximize from "@vicons/tabler/Maximize"
-import Minimize from "@vicons/tabler/Minimize"
-import Minus from "@vicons/tabler/Minus"
-import Plus from "@vicons/tabler/Plus"
-import Refresh from "@vicons/tabler/Refresh"
+import {
+  Check,
+  Copy,
+  Maximize,
+  Minimize,
+  Minus,
+  Plus,
+  Refresh
+} from "@vicons/tabler"
 
 interface Props {
   id: string

@@ -63,9 +63,7 @@
 </template>
 <script setup>
 import { computed, onMounted, ref } from "vue"
-import Clock from "@vicons/tabler/Clock"
-import Eye from "@vicons/tabler/Eye"
-import User from "@vicons/tabler/User"
+import { Clock, Eye, User } from "@vicons/tabler"
 import DefaultTheme from "vitepress/theme-without-fonts"
 import Copyright from "./Copyright.vue"
 import ScrollHashSync from "./ScrollHashSync.vue"
@@ -106,6 +104,7 @@ onMounted(() => {
   fetchCounter()
 })
 </script>
+<style src="../styles/index.css"></style>
 
 <style scoped>
 .hero-image-wrapper {

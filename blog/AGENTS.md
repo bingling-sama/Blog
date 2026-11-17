@@ -1,6 +1,6 @@
 ---
 date: 2026-11-14 18:49:57
-updated: 2026-11-17 23:42:49
+updated: 2026-11-18 01:16:19
 ---
 ## Default writing mode
 
@@ -8,7 +8,7 @@ For writing, rewriting, outlining, or reviewing technical blog posts in this Blo
 
 ## 特殊语法与发布指引
 
-以下以 `.vitepress/config.mts`、`.vitepress/plugins/` 和主题实际实现为准。本站使用 VitePress 1.6.4，并非完整的 Obsidian 渲染器；不能因为 Obsidian 能预览就认定博客也支持。普通 Markdown 优先，按表达需要使用扩展，不为展示效果批量改写文章。
+以下以 `.vitepress/config.mts`、`.vitepress/plugins/` 和主题实际实现为准。本站使用 VitePress 2.0.0-alpha.21，并非完整的 Obsidian 渲染器；不能因为 Obsidian 能预览就认定博客也支持。普通 Markdown 优先，按表达需要使用扩展，不为展示效果批量改写文章。
 
 ### 文章位置与元数据
 
@@ -104,7 +104,7 @@ export default { enabled: true }
 
 ### 任务列表、公式与目录
 
-- 任务列表由 `@mdit/plugin-tasklist` 渲染：`- [ ] 待办事项`、`- [x] 已完成事项`。它是文档内容，不是会持久保存勾选状态的任务系统。
+- 任务列表由 VitePress 内置 Markdown 能力渲染：`- [ ] 待办事项`、`- [x] 已完成事项`。它是文档内容，不是会持久保存勾选状态的任务系统。
 - 已开启数学公式（MathJax）：行内写 `$E = mc^2$`；块级公式用独占行的 `$$` 包围，中间写 LaTeX。公式不放进代码围栏；普通金额中必要时转义美元符号，避免误识别。
 - `[[toc]]` 可插入当前页目录；文章已有主题侧边摘要时，不默认重复插入。
 - Markdown 中可使用 HTML 和 Vue，但优先保持 Obsidian 可读性。需要展示字面量 `{{ expression }}` 或 Vue 模板时，使用代码围栏；必要时对含模板表达式的围栏添加 `v-pre`，避免被当作 Vue 插值求值。

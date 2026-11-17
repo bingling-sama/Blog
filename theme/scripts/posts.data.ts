@@ -1,6 +1,6 @@
 import { createContentLoader } from "vitepress"
 import type { Post } from "./functions"
-import { calculateReadingTime } from "./readingTime"
+import { calculateReadingTime } from "./readingTime.ts"
 import { getExternalPost } from "./external-posts.mjs"
 
 export default createContentLoader("posts/**/*.md", {

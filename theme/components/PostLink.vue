@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { withBase } from "vitepress"
-import ExternalLink from "@vicons/tabler/ExternalLink"
+import { ExternalLink } from "@vicons/tabler"
 import type { Post } from "../scripts/functions"
 import { getPostLink } from "../scripts/external-posts.mjs"
 
@@ -32,13 +32,14 @@ a {
 .vp-doc a.post-link:any-link {
   color: var(--vp-c-text-1);
   border-bottom: 0;
+  text-decoration: none !important;
 }
 .vp-doc a.post-link:any-link:hover {
   color: var(--vp-c-brand-1);
 }
 .vp-doc a.post-link:any-link:active {
   color: var(--vp-c-brand-1);
-  text-decoration: underline;
+  text-decoration: none !important;
 }
 a:focus-visible {
   outline: 2px solid var(--vp-c-brand-1);
@@ -55,9 +56,11 @@ a:focus-visible {
   white-space: nowrap;
 }
 .recommendation-icon {
+  display: inline-block;
   flex: 0 0 auto;
   width: 14px;
   height: 14px;
+  vertical-align: middle;
 }
 .visually-hidden {
   position: absolute;

@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { nextTick, onMounted, onUnmounted, watch } from "vue"
-import { getScrollOffset, inBrowser, onContentUpdated, useRoute } from "vitepress"
+import { inBrowser, onContentUpdated, useRoute } from "vitepress"
 
 if (inBrowser) {
   const route = useRoute()
@@ -75,9 +75,7 @@ if (inBrowser) {
       return headings[headings.length - 1].id
     }
 
-    const scrollOffset =
-      typeof getScrollOffset === "function" ? getScrollOffset() : 64
-    const offset = scrollOffset + 30
+    const offset = 64 + 30
 
     for (let i = headings.length - 1; i >= 0; i--) {
       const heading = headings[i]

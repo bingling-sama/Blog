@@ -17,10 +17,9 @@ const PeleViewer = defineAsyncComponent(
 )
 
 import "vitepress-plugin-code-collapse/style.css"
-import "./styles/index.css"
 
 export default {
-  ...DefaultTheme,
+  extends: DefaultTheme,
   Layout: MyLayout,
   setup() {
     let cleanup: (() => void) | undefined

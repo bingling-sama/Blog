@@ -45,7 +45,7 @@
 <script lang="ts" setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue"
 import PostLink from "./PostLink.vue"
-import Clock from "@vicons/tabler/Clock"
+import { Clock } from "@vicons/tabler"
 import { Post } from "../scripts/functions"
 import { inBrowser, withBase } from "vitepress"
 // @ts-expect-error

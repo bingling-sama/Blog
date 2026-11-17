@@ -12,8 +12,8 @@
 
 `:collapsed-lines` 不指定数值时默认展示 15 行。
 
-折叠使用 `vitepress-plugin-code-collapse`，固定为支持 VitePress 1.6.4 的
-0.7.0；升级时需检查 peerDependencies，较新版本要求 VitePress 2。
+折叠使用 `vitepress-plugin-code-collapse` 0.12.2，当前版本支持 VitePress 2；
+升级时需检查 peerDependencies 与 VitePress alpha 版本的兼容性。
 
 ## 最大高度与滚动
 

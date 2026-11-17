@@ -5,12 +5,10 @@ import { defineConfig, loadEnv } from "vitepress"
 import { withResponsiveImages } from "vitepress-plugin-responsive-images"
 import { RssPlugin } from "vitepress-plugin-rss"
 import type { PostInfo, RSSOptions } from "vitepress-plugin-rss"
-import { bnfLanguage, caddyfileLanguage } from "./shiki-languages"
-import { markdownItObsidian } from "./plugins/markdown-it-obsidian"
-import { tasklist } from "@mdit/plugin-tasklist"
-import footnote from "markdown-it-footnote"
-import { externalPosts } from "./plugins/external-posts"
-import { codeBlocks } from "./plugins/code-blocks"
+import { bnfLanguage, caddyfileLanguage } from "./shiki-languages.ts"
+import { markdownItObsidian } from "./plugins/markdown-it-obsidian.ts"
+import { externalPosts } from "./plugins/external-posts.ts"
+import { codeBlocks } from "./plugins/code-blocks.ts"
 import { getExternalPost } from "../theme/scripts/external-posts.mjs"
 import { recommendationRssPlugin } from "../scripts/recommendation-rss.mjs"
 
@@ -106,8 +104,6 @@ export default withResponsiveImages(
       languages: [caddyfileLanguage, bnfLanguage],
       config(md) {
         md.use(externalPosts)
-        md.use(tasklist)
-        md.use(footnote)
         md.use(codeBlocks)
         md.use(
           markdownItObsidian({
@@ -236,6 +232,41 @@ export default withResponsiveImages(
                   `<style id="vp-icons">${iconsCss}</style>`
                 )
                 fs.writeFileSync(full, replaced, "utf-8")
+              }
+            }
+          }
+        }
+        walkHtml(siteConfig.outDir)
+      }
+
+      // VitePress 2 alpha emits the theme stylesheet without linking it in static HTML.
+      // Inline it so custom layout/component styles survive static deployment.
+      const themeCssName = fs
+        .readdirSync(path.resolve(siteConfig.outDir, "assets"))
+        .find((item) => /^theme\..+\.css$/.test(item))
+      if (themeCssName) {
+        const themeCssPath = path.resolve(
+          siteConfig.outDir,
+          "assets",
+          themeCssName
+        )
+        const themeCss = fs.readFileSync(themeCssPath, "utf-8").trim()
+        const walkHtml = (dir: string) => {
+          for (const item of fs.readdirSync(dir)) {
+            const full = path.join(dir, item)
+            if (fs.statSync(full).isDirectory()) {
+              walkHtml(full)
+            } else if (item.endsWith(".html")) {
+              const html = fs.readFileSync(full, "utf-8")
+              if (!html.includes('id="theme-css"')) {
+                fs.writeFileSync(
+                  full,
+                  html.replace(
+                    "</head>",
+                    `<style id="theme-css">${themeCss}</style></head>`
+                  ),
+                  "utf-8"
+                )
               }
             }
           }
