@@ -109,7 +109,18 @@ with sync_playwright() as p:
     assert "ExternalTest 3" in page.locator(".tags").inner_text()
     for route in [base + "archives", base + "category", base + "tags?tag=ExternalTest"]:
         visit(route)
-        external_link()
+        link = external_link()
+        ordinary = page.get_by_role("link", name="普通文章验收", exact=True)
+        for item in [link, ordinary]:
+            style = item.evaluate("""el => {
+                const s = getComputedStyle(el);
+                return { weight: s.fontWeight, border: s.borderBottomWidth, decoration: s.textDecorationLine };
+            }""")
+            assert style == {"weight": "400", "border": "0px", "decoration": "none"}, (route, style)
+        assert link.locator(".recommendation-mark > span").first.evaluate(
+            "el => getComputedStyle(el).position"
+        ) == "absolute"
+        assert link.locator(".recommendation-mark svg").is_visible()
     print("PASS homepage/archive/category/tag links, counts, metadata, keyboard popup and safe opener")
 
     visit(record)
@@ -175,8 +186,8 @@ with sync_playwright() as p:
                             page.mouse.up()
                     target.blur()
                     settle()
-                if width in [320, 1280] and route in [base, record]:
-                    label = "record" if route == record else "home"
+                if width in [320, 1280]:
+                    label = "record" if route == record else ("home" if route == base else urlsplit(route).path.rsplit("/", 1)[-1])
                     page.screenshot(path=str(pathlib.Path(artifacts) / f"{base.strip('/') or 'root'}-{label}-{theme}-{width}.png"))
     assert not errors, errors
     print("PASS 40 responsive/theme route checks (280/320/414/1280px), link/badge contrast >= 4.5 in default/hover/focus/active, screenshots and no page errors")

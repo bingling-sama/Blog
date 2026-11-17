@@ -17,7 +17,7 @@
       >
         <path d="M15 3h6v6M10 14 21 3M21 14v7H3V3h7" />
       </svg>
-      推荐阅读
+      <span :class="{ 'visually-hidden': compact }">推荐阅读</span>
       <span class="visually-hidden">，将在新标签页打开</span>
     </span>
   </a>
@@ -28,7 +28,10 @@ import { withBase } from "vitepress"
 import type { Post } from "../scripts/functions"
 import { getPostLink } from "../scripts/external-posts.mjs"
 
-defineProps<{ post: Pick<Post, "url" | "externalLink"> }>()
+defineProps<{
+  post: Pick<Post, "url" | "externalLink">
+  compact?: boolean
+}>()
 </script>
 
 <style scoped>
@@ -37,7 +40,7 @@ a {
 }
 .vp-doc a.post-link:any-link {
   color: var(--vp-c-text-1);
-  border-bottom-color: currentColor;
+  border-bottom: 0;
 }
 .vp-doc a.post-link:any-link:hover {
   color: var(--vp-c-brand-1);

@@ -54,14 +54,14 @@
   max-width: 100%;
 }
 
-.content a[rel~="noreferrer"]:link,
-a[rel~="noreferrer"]:visited {
+.content a[rel~="noreferrer"]:not(.post-link):link,
+.content a[rel~="noreferrer"]:not(.post-link):visited {
   color: var(--vp-c-brand);
   font-weight: 500 !important;
   border-bottom: 1px solid var(--vp-c-brand);
 }
 
-.content a[rel~="noreferrer"]:hover {
+.content a[rel~="noreferrer"]:not(.post-link):hover {
   color: #888;
 }
 

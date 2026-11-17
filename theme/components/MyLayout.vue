@@ -101,46 +101,46 @@
   <Copyright />
 </template>
 <script setup>
-import { computed, onMounted, ref } from "vue"
-import DefaultTheme from "vitepress/theme-without-fonts"
-import Copyright from "./Copyright.vue"
-import ScrollHashSync from "./ScrollHashSync.vue"
-import { useData, useRoute, withBase } from "vitepress"
-import { counterData, fetchCounter } from "../scripts/counter"
+import { computed, onMounted, ref } from "vue";
+import DefaultTheme from "vitepress/theme-without-fonts";
+import Copyright from "./Copyright.vue";
+import ScrollHashSync from "./ScrollHashSync.vue";
+import { useData, useRoute, withBase } from "vitepress";
+import { counterData, fetchCounter } from "../scripts/counter";
 // @ts-expect-error
-import { data as posts } from "../scripts/posts.data"
+import { data as posts } from "../scripts/posts.data";
 
-const { Layout } = DefaultTheme
+const { Layout } = DefaultTheme;
 
-const route = useRoute()
-const { frontmatter } = useData()
+const route = useRoute();
+const { frontmatter } = useData();
 
-const isHeroLoaded = ref(false)
+const isHeroLoaded = ref(false);
 const onHeroImageLoad = () => {
-  isHeroLoaded.value = true
-}
+  isHeroLoaded.value = true;
+};
 
 const readingTime = computed(() => {
-  if (frontmatter.value.externalLink) return ""
+  if (frontmatter.value.externalLink) return "";
   const currentPath = route.path
     .replace(/\.html$/, "")
     .replace(/\/index$/, "")
-    .replace(/\/$/, "")
+    .replace(/\/$/, "");
 
   const matched = posts.find((p) => {
     const postUrl = p.url
       .replace(/\.html$/, "")
       .replace(/\/index$/, "")
-      .replace(/\/$/, "")
-    return postUrl === currentPath
-  })
+      .replace(/\/$/, "");
+    return postUrl === currentPath;
+  });
 
-  return matched?.readingTime || ""
-})
+  return matched?.readingTime || "";
+});
 
 onMounted(() => {
-  fetchCounter()
-})
+  fetchCounter();
+});
 </script>
 
 <style scoped>
@@ -151,7 +151,7 @@ onMounted(() => {
   aspect-ratio: 4000 / 1532;
   overflow: hidden;
   background-color: var(--vp-c-bg-soft);
-  margin-top: 1.5rem;
+  /* margin-top: 1.5rem; */
 }
 
 .hero-skeleton {

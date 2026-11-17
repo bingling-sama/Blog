@@ -1,6 +1,6 @@
 <template>
   <div class="posts">
-    <PostLink :post="{ url, externalLink }" class="post-container">
+    <PostLink :post="{ url, externalLink }" class="post-container" compact>
       <div class="post-dot" />
       <span>{{ title }}</span>
     </PostLink>
@@ -39,7 +39,7 @@ defineProps<{
   background-color: var(--li-dot-color);
 }
 
-.post-container {
+.vp-doc a.post-container:any-link {
   flex: 1 1 60%;
   min-width: 0;
   color: var(--vp-c-text-2);
