@@ -6,17 +6,7 @@
   >
     <slot />
     <span v-if="post.externalLink" class="recommendation-mark">
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        width="14"
-        height="14"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path d="M15 3h6v6M10 14 21 3M21 14v7H3V3h7" />
-      </svg>
+      <ExternalLink class="recommendation-icon" aria-hidden="true" />
       <span :class="{ 'visually-hidden': compact }">推荐阅读</span>
       <span class="visually-hidden">，将在新标签页打开</span>
     </span>
@@ -25,6 +15,7 @@
 
 <script setup lang="ts">
 import { withBase } from "vitepress"
+import ExternalLink from "@vicons/tabler/ExternalLink"
 import type { Post } from "../scripts/functions"
 import { getPostLink } from "../scripts/external-posts.mjs"
 
@@ -62,6 +53,11 @@ a:focus-visible {
   font-weight: 400;
   color: var(--vp-c-text-2);
   white-space: nowrap;
+}
+.recommendation-icon {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
 }
 .visually-hidden {
   position: absolute;

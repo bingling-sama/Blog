@@ -19,20 +19,7 @@
             >原作者：{{ post.sourceAuthor }}</span
           >
           <span v-if="post.readingTime" class="post-reading-time">
-            <svg
-              class="reading-time-icon"
-              viewBox="0 0 24 24"
-              width="14"
-              height="14"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
+            <Clock class="reading-time-icon" aria-hidden="true" />
             {{ post.readingTime }}
           </span>
           <span v-for="item in post.tags"
@@ -58,6 +45,7 @@
 <script lang="ts" setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue"
 import PostLink from "./PostLink.vue"
+import Clock from "@vicons/tabler/Clock"
 import { Post } from "../scripts/functions"
 import { inBrowser, withBase } from "vitepress"
 // @ts-expect-error

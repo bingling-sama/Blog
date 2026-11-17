@@ -25,6 +25,7 @@
     "@types/markdown-it": "^14.2.0",
     "@types/markdown-it-footnote": "^3.0.4",
     "@types/node": "^22.19.19",
+    "@vicons/tabler": "^0.13.0",
     "@xmldom/xmldom": "^0.9.12",
     "cytoscape": "^3.34.1",
     "cytoscape-cose-bilkent": "^4.1.0",

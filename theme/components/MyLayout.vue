@@ -8,37 +8,11 @@
             {{ $frontmatter.date?.substring(0, 10) }}
           </span>
           <span v-if="readingTime" class="post-reading-time">
-            <svg
-              class="reading-time-icon"
-              viewBox="0 0 24 24"
-              width="14"
-              height="14"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
+            <Clock class="reading-time-icon" aria-hidden="true" />
             {{ readingTime }}
           </span>
           <span id="counter_container_page_pv" class="post-info-pv">
-            <svg
-              class="pv-icon"
-              viewBox="0 0 24 24"
-              width="14"
-              height="14"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-              <circle cx="12" cy="12" r="3"></circle>
-            </svg>
+            <Eye class="pv-icon" aria-hidden="true" />
             {{ $frontmatter.externalLink ? "本页访问量" : "阅读量" }}
             <span id="counter_value_page_pv">{{
               counterData.pagePv || "--"
@@ -50,20 +24,7 @@
             id="counter_container_page_uv"
             class="post-info-uv"
           >
-            <svg
-              class="uv-icon"
-              viewBox="0 0 24 24"
-              width="14"
-              height="14"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
+            <User class="uv-icon" aria-hidden="true" />
             访客数
             <span id="counter_value_page_uv">{{ counterData.pageUv }}</span> 人
           </span>
@@ -101,46 +62,49 @@
   <Copyright />
 </template>
 <script setup>
-import { computed, onMounted, ref } from "vue";
-import DefaultTheme from "vitepress/theme-without-fonts";
-import Copyright from "./Copyright.vue";
-import ScrollHashSync from "./ScrollHashSync.vue";
-import { useData, useRoute, withBase } from "vitepress";
-import { counterData, fetchCounter } from "../scripts/counter";
+import { computed, onMounted, ref } from "vue"
+import Clock from "@vicons/tabler/Clock"
+import Eye from "@vicons/tabler/Eye"
+import User from "@vicons/tabler/User"
+import DefaultTheme from "vitepress/theme-without-fonts"
+import Copyright from "./Copyright.vue"
+import ScrollHashSync from "./ScrollHashSync.vue"
+import { useData, useRoute, withBase } from "vitepress"
+import { counterData, fetchCounter } from "../scripts/counter"
 // @ts-expect-error
-import { data as posts } from "../scripts/posts.data";
+import { data as posts } from "../scripts/posts.data"
 
-const { Layout } = DefaultTheme;
+const { Layout } = DefaultTheme
 
-const route = useRoute();
-const { frontmatter } = useData();
+const route = useRoute()
+const { frontmatter } = useData()
 
-const isHeroLoaded = ref(false);
+const isHeroLoaded = ref(false)
 const onHeroImageLoad = () => {
-  isHeroLoaded.value = true;
-};
+  isHeroLoaded.value = true
+}
 
 const readingTime = computed(() => {
-  if (frontmatter.value.externalLink) return "";
+  if (frontmatter.value.externalLink) return ""
   const currentPath = route.path
     .replace(/\.html$/, "")
     .replace(/\/index$/, "")
-    .replace(/\/$/, "");
+    .replace(/\/$/, "")
 
   const matched = posts.find((p) => {
     const postUrl = p.url
       .replace(/\.html$/, "")
       .replace(/\/index$/, "")
-      .replace(/\/$/, "");
-    return postUrl === currentPath;
-  });
+      .replace(/\/$/, "")
+    return postUrl === currentPath
+  })
 
-  return matched?.readingTime || "";
-});
+  return matched?.readingTime || ""
+})
 
 onMounted(() => {
-  fetchCounter();
-});
+  fetchCounter()
+})
 </script>
 
 <style scoped>

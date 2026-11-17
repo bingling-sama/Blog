@@ -13,9 +13,7 @@
         :disabled="loading || Boolean(errorMessage)"
         @click="zoomIn"
       >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 5v14M5 12h14" />
-        </svg>
+        <Plus class="toolbar-icon" aria-hidden="true" />
       </button>
       <button
         class="toolbar-btn scale-btn"
@@ -35,9 +33,7 @@
         :disabled="loading || Boolean(errorMessage)"
         @click="zoomOut"
       >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M5 12h14" />
-        </svg>
+        <Minus class="toolbar-icon" aria-hidden="true" />
       </button>
       <button
         class="toolbar-btn"
@@ -47,10 +43,7 @@
         :disabled="loading || Boolean(errorMessage)"
         @click="resetZoom"
       >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M20 11a8 8 0 1 0 2 5.3" />
-          <path d="M20 4v7h-7" />
-        </svg>
+        <Refresh class="toolbar-icon" aria-hidden="true" />
       </button>
       <button
         class="toolbar-btn"
@@ -60,13 +53,8 @@
         :disabled="loading || Boolean(errorMessage)"
         @click="copySource"
       >
-        <svg v-if="copied" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="m5 12 4 4L19 6" />
-        </svg>
-        <svg v-else viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="8" y="8" width="12" height="12" rx="2" />
-          <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
-        </svg>
+        <Check v-if="copied" class="toolbar-icon" aria-hidden="true" />
+        <Copy v-else class="toolbar-icon" aria-hidden="true" />
       </button>
       <button
         class="toolbar-btn"
@@ -75,12 +63,8 @@
         :title="isFullscreen ? '退出全屏' : '全屏预览'"
         @click="toggleFullscreen"
       >
-        <svg v-if="isFullscreen" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M9 15H4v5M15 9h5V4M20 20l-6-6M4 4l6 6" />
-        </svg>
-        <svg v-else viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" />
-        </svg>
+        <Minimize v-if="isFullscreen" class="toolbar-icon" aria-hidden="true" />
+        <Maximize v-else class="toolbar-icon" aria-hidden="true" />
       </button>
     </div>
 
@@ -111,6 +95,13 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref } from "vue"
+import Check from "@vicons/tabler/Check"
+import Copy from "@vicons/tabler/Copy"
+import Maximize from "@vicons/tabler/Maximize"
+import Minimize from "@vicons/tabler/Minimize"
+import Minus from "@vicons/tabler/Minus"
+import Plus from "@vicons/tabler/Plus"
+import Refresh from "@vicons/tabler/Refresh"
 
 interface Props {
   id: string
@@ -330,14 +321,11 @@ onUnmounted(() => {
   opacity: 0.45;
 }
 
-.toolbar-btn svg {
+.toolbar-icon {
+  flex: 0 0 auto;
   width: 16px;
   height: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.75;
+  color: currentColor;
 }
 
 .scale-btn {
