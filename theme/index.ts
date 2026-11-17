@@ -12,8 +12,8 @@ const Archives = defineAsyncComponent(() => import("./components/Archives.vue"))
 const Category = defineAsyncComponent(() => import("./components/Category.vue"))
 const Tags = defineAsyncComponent(() => import("./components/Tags.vue"))
 const Comment = defineAsyncComponent(() => import("./components/Comment.vue"))
-const MermaidViewer = defineAsyncComponent(
-  () => import("./components/MermaidViewer.vue")
+const PeleViewer = defineAsyncComponent(
+  () => import("./components/PeleViewer.vue")
 )
 
 import "vitepress-plugin-code-collapse/style.css"
@@ -37,7 +37,8 @@ export default {
     app.component("Posts", Posts)
     app.component("ExternalPostRecord", ExternalPostRecord)
     app.component("Comment", Comment)
-    app.component("Mermaid", MermaidViewer)
+    app.component("PeleViewer", PeleViewer)
+    app.component("Mermaid", PeleViewer)
 
     if (inBrowser) {
       const origOnAfterRouteChanged = router.onAfterRouteChanged

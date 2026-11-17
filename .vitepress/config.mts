@@ -120,7 +120,7 @@ export default withResponsiveImages(
           const token = tokens[idx]
           const info = token.info.trim()
           if (/^(mermaid|mmd)(?=\s|$)/.test(info)) {
-            return `<Suspense><template #default><Mermaid id="mermaid-${idx}" graph="${encodeURIComponent(token.content)}"></Mermaid></template><template #fallback><div class="mermaid-loading">Loading diagram...</div></template></Suspense>`
+            return `<Suspense><template #default><PeleViewer id="pele-${idx}" source="${encodeURIComponent(token.content)}"></PeleViewer></template><template #fallback><div class="mermaid-loading">Loading diagram...</div></template></Suspense>`
           }
           return defaultFence(tokens, idx, options, env, self)
         }
