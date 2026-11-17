@@ -2,15 +2,15 @@
   --pele-bg: var(--vp-c-bg-soft);
   --pele-fg: var(--vp-c-text-1);
   --pele-fg-on-light: var(--vp-c-text-1);
-  --pele-fg-on-dark: var(--vp-c-bg);
+  --pele-fg-on-dark: #ffffff;
   --pele-muted: var(--vp-c-text-2);
   --pele-line: var(--vp-c-text-2);
   --pele-surface: var(--vp-c-bg);
-  --pele-surface-alt: var(--vp-c-bg-mute);
+  --pele-surface-alt: var(--vp-c-bg-alt);
   --pele-border: var(--vp-c-divider);
-  --pele-accent: var(--vp-c-brand-1, #ff5e1f);
-  --pele-critical: var(--vp-c-danger-1, #dc2626);
-  --pele-error: var(--vp-c-danger-1, #dc2626);
+  --pele-accent: #ff5e1f;
+  --pele-critical: #dc2626;
+  --pele-error: #dc2626;
   --pele-font: var(--vp-font-family-base);
   --pele-font-mono: var(--vp-font-family-mono);
   --pele-radius: 3px;
@@ -18,7 +18,10 @@
 
 .dark .pele-viewer {
   --pele-fg-on-light: var(--vp-c-text-1);
-  --pele-fg-on-dark: var(--vp-c-bg);
+  --pele-fg-on-dark: #ffffff;
+  --pele-accent: #ff7038;
+  --pele-critical: #f87171;
+  --pele-error: #f87171;
 }
 
 .pele-viewer .pele {
