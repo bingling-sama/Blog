@@ -1,34 +1,208 @@
 .pele-viewer {
-  --pele-bg: #ffffff;
-  --pele-fg: #18181b;
-  --pele-fg-on-light: #18181b;
-  --pele-fg-on-dark: #ffffff;
-  --pele-muted: #71717a;
-  --pele-line: #71717a;
-  --pele-surface: #fafafa;
-  --pele-surface-alt: #f4f4f5;
-  --pele-border: #d4d4d8;
-  --pele-accent: #ff5e1f;
-  --pele-critical: #dc2626;
-  --pele-error: #dc2626;
+  --pele-bg: var(--vp-c-bg-soft);
+  --pele-fg: var(--vp-c-text-1);
+  --pele-fg-on-light: var(--vp-c-text-1);
+  --pele-fg-on-dark: var(--vp-c-bg);
+  --pele-muted: var(--vp-c-text-2);
+  --pele-line: var(--vp-c-text-2);
+  --pele-surface: var(--vp-c-bg);
+  --pele-surface-alt: var(--vp-c-bg-mute);
+  --pele-border: var(--vp-c-divider);
+  --pele-accent: var(--vp-c-brand-1, #ff5e1f);
+  --pele-critical: var(--vp-c-danger-1, #dc2626);
+  --pele-error: var(--vp-c-danger-1, #dc2626);
   --pele-font: var(--vp-font-family-base);
   --pele-font-mono: var(--vp-font-family-mono);
-  --pele-radius: 2px;
+  --pele-radius: 3px;
 }
 
 .dark .pele-viewer {
-  --pele-bg: #141416;
-  --pele-fg: #f4f4f5;
-  --pele-fg-on-light: #18181b;
-  --pele-fg-on-dark: #ffffff;
-  --pele-muted: #a1a1aa;
-  --pele-line: #a1a1aa;
-  --pele-surface: #27272a;
-  --pele-surface-alt: #18181b;
-  --pele-border: #3f3f46;
-  --pele-accent: #ff7540;
-  --pele-critical: #f87171;
-  --pele-error: #f87171;
+  --pele-fg-on-light: var(--vp-c-text-1);
+  --pele-fg-on-dark: var(--vp-c-bg);
+}
+
+.pele-viewer .pele {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: visible;
+  font-family: var(--pele-font);
+}
+
+.pele-viewer .pele-node {
+  cursor: default;
+}
+
+.pele-viewer .pele-node > rect,
+.pele-viewer .pele-node > circle,
+.pele-viewer .pele-node > ellipse,
+.pele-viewer .pele-node > polygon,
+.pele-viewer .pele-node > path {
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+  transition:
+    fill 0.15s ease,
+    stroke 0.15s ease,
+    filter 0.15s ease;
+}
+
+.pele-viewer .pele-label {
+  fill: var(--pele-fg);
+  font-size: 13px;
+  font-weight: 450;
+}
+
+.pele-viewer .pele-edge-label {
+  fill: var(--pele-fg);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.pele-viewer .pele-edge > path:first-child {
+  stroke: var(--pele-line);
+  stroke-width: 1.25px;
+}
+
+.pele-viewer .pele-marker {
+  fill: var(--pele-accent);
+  stroke: var(--pele-accent);
+}
+
+.pele-viewer .pele-node:hover > rect,
+.pele-viewer .pele-node:hover > circle,
+.pele-viewer .pele-node:hover > ellipse,
+.pele-viewer .pele-node:hover > polygon,
+.pele-viewer .pele-node:hover > path {
+  stroke: var(--pele-accent);
+  filter: brightness(0.98);
+}
+
+.dark .pele-viewer .pele-node:hover > rect,
+.dark .pele-viewer .pele-node:hover > circle,
+.dark .pele-viewer .pele-node:hover > ellipse,
+.dark .pele-viewer .pele-node:hover > polygon,
+.dark .pele-viewer .pele-node:hover > path {
+  filter: brightness(1.12);
+}
+
+/* Flowcharts and state diagrams */
+.pele-viewer .pele-flowchart .pele-node > rect,
+.pele-viewer .pele-state .pele-node > rect {
+  fill: var(--pele-surface);
+  stroke: var(--pele-border);
+}
+
+.pele-viewer .pele-state .pele-state-start > circle,
+.pele-viewer .pele-state .pele-state-end > circle {
+  fill: var(--pele-accent);
+  stroke: var(--pele-accent);
+}
+
+.pele-viewer .pele-state .pele-state-start + .pele-node > rect {
+  stroke: var(--pele-accent);
+}
+
+/* Sequence diagrams */
+.pele-viewer .pele-sequence .pele-lifeline {
+  stroke: var(--pele-border);
+  stroke-dasharray: 4 4;
+  stroke-width: 1px;
+}
+
+.pele-viewer .pele-sequence .pele-actor > rect {
+  fill: var(--pele-surface);
+  stroke: var(--pele-border);
+}
+
+.pele-viewer .pele-sequence .pele-message > path:first-child {
+  stroke: var(--pele-line);
+}
+
+.pele-viewer .pele-sequence .pele-message .pele-marker {
+  fill: var(--pele-accent);
+}
+
+.pele-viewer .pele-sequence .pele-edge-label {
+  fill: var(--pele-fg);
+  font-size: 12px;
+}
+
+.pele-viewer .pele-sequence .pele-actor:hover > rect {
+  stroke: var(--pele-accent);
+}
+
+/* Diagram groups, notes and secondary surfaces */
+.pele-viewer .pele-cluster > rect,
+.pele-viewer .pele-cluster > path {
+  fill: var(--pele-surface-alt);
+  stroke: var(--pele-border);
+  stroke-dasharray: 3 3;
+}
+
+.pele-viewer .pele-cluster-label {
+  fill: var(--pele-muted);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pele-viewer .pele-note > rect {
+  fill: color-mix(in srgb, var(--pele-accent) 12%, var(--pele-bg));
+  stroke: var(--pele-accent);
+}
+
+.pele-viewer .pele-note .pele-label {
+  fill: var(--pele-fg);
+}
+
+/* Named Mermaid classes retained for article-level presets */
+.pele-viewer .pele-node.cf-primary > rect,
+.pele-viewer .pele-node.cf-primary > circle,
+.pele-viewer .pele-node.cf-primary > ellipse,
+.pele-viewer .pele-node.cf-primary > polygon,
+.pele-viewer .pele-node.cf-primary > path {
+  fill: var(--pele-accent);
+  stroke: var(--pele-accent);
+}
+
+.pele-viewer .pele-node.cf-primary .pele-label {
+  fill: var(--pele-fg-on-dark);
+  font-weight: 600;
+}
+
+.pele-viewer .pele-node.cf-accent > rect,
+.pele-viewer .pele-node.cf-accent > circle,
+.pele-viewer .pele-node.cf-accent > ellipse,
+.pele-viewer .pele-node.cf-accent > polygon,
+.pele-viewer .pele-node.cf-accent > path {
+  fill: color-mix(in srgb, var(--pele-accent) 12%, var(--pele-bg));
+  stroke: var(--pele-accent);
+}
+
+.pele-viewer .pele-node.cf-accent .pele-label {
+  fill: var(--pele-fg);
+  font-weight: 550;
+}
+
+.pele-viewer .pele-node.cf-muted > rect,
+.pele-viewer .pele-node.cf-muted > circle,
+.pele-viewer .pele-node.cf-muted > ellipse,
+.pele-viewer .pele-node.cf-muted > polygon,
+.pele-viewer .pele-node.cf-muted > path {
+  fill: var(--pele-surface-alt);
+  stroke: var(--pele-muted);
+  stroke-dasharray: 4 3;
+}
+
+.pele-viewer .pele-node.cf-muted .pele-label {
+  fill: var(--pele-muted);
+}
+
+.pele-viewer .pele-activation > rect {
+  fill: color-mix(in srgb, var(--pele-accent) 18%, var(--pele-bg));
+  stroke: var(--pele-accent);
 }
 
 .pele-viewer .pele-node,
@@ -38,14 +212,14 @@
     filter 0.15s ease;
 }
 
-.pele-viewer .pele-node:hover {
-  filter: brightness(0.97);
-}
-
-.dark .pele-viewer .pele-node:hover {
-  filter: brightness(1.12);
-}
-
-.pele-viewer .pele-edge-label {
-  font-size: 13px;
+@media (prefers-reduced-motion: reduce) {
+  .pele-viewer .pele-node,
+  .pele-viewer .pele-cluster,
+  .pele-viewer .pele-node > rect,
+  .pele-viewer .pele-node > circle,
+  .pele-viewer .pele-node > ellipse,
+  .pele-viewer .pele-node > polygon,
+  .pele-viewer .pele-node > path {
+    transition: none;
+  }
 }

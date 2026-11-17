@@ -4,44 +4,83 @@
     class="pele-viewer"
     :class="{ 'is-fullscreen': isFullscreen }"
   >
-    <div class="pele-toolbar" @pointerdown.stop>
-      <button class="toolbar-btn" type="button" title="放大" @click="zoomIn">
-        +
+    <div class="pele-toolbar" role="toolbar" aria-label="图表工具栏" @pointerdown.stop>
+      <button
+        class="toolbar-btn"
+        type="button"
+        aria-label="放大"
+        title="放大"
+        :disabled="loading || Boolean(errorMessage)"
+        @click="zoomIn"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
       </button>
       <button
         class="toolbar-btn scale-btn"
         type="button"
+        :aria-label="`当前缩放 ${scaleLabel}，切换适应大小或原始尺寸`"
         title="切换适应大小 / 100%"
+        :disabled="loading || Boolean(errorMessage)"
         @click="toggleFit"
       >
         {{ scaleLabel }}
       </button>
-      <button class="toolbar-btn" type="button" title="缩小" @click="zoomOut">
-        −
+      <button
+        class="toolbar-btn"
+        type="button"
+        aria-label="缩小"
+        title="缩小"
+        :disabled="loading || Boolean(errorMessage)"
+        @click="zoomOut"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12h14" />
+        </svg>
       </button>
       <button
         class="toolbar-btn"
         type="button"
+        aria-label="适应画布"
         title="适应画布"
+        :disabled="loading || Boolean(errorMessage)"
         @click="resetZoom"
       >
-        ↺
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20 11a8 8 0 1 0 2 5.3" />
+          <path d="M20 4v7h-7" />
+        </svg>
       </button>
       <button
         class="toolbar-btn"
         type="button"
+        :aria-label="copied ? '源码已复制' : '复制 Mermaid 源码'"
         :title="copied ? '已复制源码' : '复制 Mermaid 源码'"
+        :disabled="loading || Boolean(errorMessage)"
         @click="copySource"
       >
-        {{ copied ? "✓" : "⧉" }}
+        <svg v-if="copied" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m5 12 4 4L19 6" />
+        </svg>
+        <svg v-else viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="8" y="8" width="12" height="12" rx="2" />
+          <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+        </svg>
       </button>
       <button
         class="toolbar-btn"
         type="button"
+        :aria-label="isFullscreen ? '退出全屏' : '全屏预览'"
         :title="isFullscreen ? '退出全屏' : '全屏预览'"
         @click="toggleFullscreen"
       >
-        {{ isFullscreen ? "×" : "⛶" }}
+        <svg v-if="isFullscreen" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 15H4v5M15 9h5V4M20 20l-6-6M4 4l6 6" />
+        </svg>
+        <svg v-else viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" />
+        </svg>
       </button>
     </div>
 
@@ -57,6 +96,8 @@
       class="pele-diagram"
       :aria-label="`Mermaid diagram ${id}`"
       @pointerup="syncScale"
+      @wheel="syncScale"
+      @dblclick="syncScale"
     />
     <div v-if="errorMessage" class="pele-error">
       <strong>图表渲染失败</strong>
@@ -212,15 +253,6 @@ onUnmounted(() => {
 
 <style scoped>
 .pele-viewer {
-  --pele-bg: var(--vp-c-bg-soft);
-  --pele-fg: var(--vp-c-text-1);
-  --pele-muted: var(--vp-c-text-2);
-  --pele-line: var(--vp-c-text-2);
-  --pele-surface: var(--vp-c-bg);
-  --pele-surface-alt: var(--vp-c-bg-mute);
-  --pele-border: var(--vp-c-divider);
-  --pele-accent: #ff5e1f;
-  --pele-radius: 2px;
   position: relative;
   margin: 2rem 0;
   min-height: 160px;
@@ -249,11 +281,13 @@ onUnmounted(() => {
   z-index: 2;
   display: flex;
   gap: 2px;
-  padding: 3px 4px;
+  padding: 4px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
   background: color-mix(in srgb, var(--vp-c-bg) 88%, transparent);
-  box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 8%),
+    0 6px 16px rgb(0 0 0 / 6%);
   backdrop-filter: blur(8px);
 }
 
@@ -261,8 +295,8 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: 0;
   border-radius: 4px;
@@ -270,6 +304,11 @@ onUnmounted(() => {
   color: var(--vp-c-text-2);
   cursor: pointer;
   font: inherit;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
 }
 
 .toolbar-btn:hover {
@@ -277,15 +316,42 @@ onUnmounted(() => {
   color: var(--vp-c-text-1);
 }
 
+.toolbar-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.toolbar-btn:focus-visible {
+  outline: 2px solid var(--pele-accent);
+  outline-offset: 2px;
+}
+
+.toolbar-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.toolbar-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.75;
+}
+
 .scale-btn {
   width: 48px;
   font-family: var(--vp-font-family-mono);
   font-size: 11px;
+  font-variant-numeric: tabular-nums;
 }
 
 .pele-diagram {
   min-height: 160px;
   padding: 32px 24px;
+  touch-action: pan-y;
+  user-select: none;
 }
 
 .pele-viewer.is-fullscreen .pele-diagram {
@@ -324,6 +390,32 @@ onUnmounted(() => {
   background: var(--vp-c-bg-mute);
   font-family: var(--vp-font-family-mono);
   font-size: 11px;
+}
+
+@media (max-width: 640px) {
+  .pele-toolbar {
+    top: 8px;
+    right: 8px;
+  }
+
+  .toolbar-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .scale-btn {
+    width: 44px;
+  }
+
+  .pele-diagram {
+    padding: 40px 12px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolbar-btn {
+    transition: none;
+  }
 }
 
 :deep(.pele) {
