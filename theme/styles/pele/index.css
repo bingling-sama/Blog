@@ -1,0 +1,51 @@
+.pele-viewer {
+  --pele-bg: #ffffff;
+  --pele-fg: #18181b;
+  --pele-fg-on-light: #18181b;
+  --pele-fg-on-dark: #ffffff;
+  --pele-muted: #71717a;
+  --pele-line: #71717a;
+  --pele-surface: #fafafa;
+  --pele-surface-alt: #f4f4f5;
+  --pele-border: #d4d4d8;
+  --pele-accent: #ff5e1f;
+  --pele-critical: #dc2626;
+  --pele-error: #dc2626;
+  --pele-font: var(--vp-font-family-base);
+  --pele-font-mono: var(--vp-font-family-mono);
+  --pele-radius: 2px;
+}
+
+.dark .pele-viewer {
+  --pele-bg: #141416;
+  --pele-fg: #f4f4f5;
+  --pele-fg-on-light: #18181b;
+  --pele-fg-on-dark: #ffffff;
+  --pele-muted: #a1a1aa;
+  --pele-line: #a1a1aa;
+  --pele-surface: #27272a;
+  --pele-surface-alt: #18181b;
+  --pele-border: #3f3f46;
+  --pele-accent: #ff7540;
+  --pele-critical: #f87171;
+  --pele-error: #f87171;
+}
+
+.pele-viewer .pele-node,
+.pele-viewer .pele-cluster {
+  transition:
+    opacity 0.15s ease,
+    filter 0.15s ease;
+}
+
+.pele-viewer .pele-node:hover {
+  filter: brightness(0.97);
+}
+
+.dark .pele-viewer .pele-node:hover {
+  filter: brightness(1.12);
+}
+
+.pele-viewer .pele-edge-label {
+  font-size: 13px;
+}
