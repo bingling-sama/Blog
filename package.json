@@ -35,7 +35,6 @@
     "husky": "^9.1.7",
     "lightningcss": "^1.33.0",
     "markdown-it-mathjax3": "^4.3.2",
-    "mermaid": "^11.17.0",
     "oxfmt": "^0.67.0",
     "oxlint": "^1.82.0",
     "sharp": "^0.35.5",
@@ -45,5 +44,8 @@
     "vitepress-plugin-rss": "^0.4.4",
     "vue": "^3.5.34"
   },
-  "packageManager": "pnpm@11.1.2"
+  "packageManager": "pnpm@11.1.2",
+  "dependencies": {
+    "pele": "^1.13.0"
+  }
 }
