@@ -1,6 +1,6 @@
 ---
 date: 2026-04-26 00:00:00
-updated: 2026-11-17 20:41:51
+updated: 2026-11-17 23:42:49
 title: React Native 和 Expo 的渲染原理
 description: 记录一下 React Native 和 Expo 在移动端到底是怎么把前端代码跑到手机上的
 category: Development
@@ -46,7 +46,7 @@ React Native 的本职工作，是把 React 代码变成移动端的原生视图
 
 那么接下来就是 React Native 的渲染流程。
 
-React Native 现在把这个过程拆成三个阶段：`Render`、`Commit`、`Mount`。
+React Native 新架构的渲染文档把这个过程拆成三个阶段：`Render`、`Commit`、`Mount`。[^rn-render-pipeline]
 
 如果只看这三个词，会觉得它们都很抽象。但如果把它放到一次真实的状态更新里看，事情就清楚很多了。
 
@@ -291,7 +291,7 @@ React Native 的线程模型里，最关键的是两个线程：
 
 如果所有渲染和交互都放在一个线程里，代码稍微复杂一点，界面就很容易卡住。React Native 现在的线程模型，本质上就是为了避免这个问题。
 
-这里还有一个很重要的限制：原生视图只能在 UI thread 上修改。React Native 不能随意跳过这个规则，它必须遵守平台本身的线程约束。
+这里还有一个很重要的限制：原生视图只能在 UI thread 上修改。React Native 不能随意跳过这个规则，它必须遵守平台本身的线程约束。[^rn-threading]
 
 线程拆开以后，问题就从“怎么画”变成了“怎么在不同层之间传递变化”。这也就是旧架构和新架构要解决的事情。
 
@@ -308,7 +308,7 @@ React Native 的线程模型里，最关键的是两个线程：
 - 某些同步能力做起来比较别扭
 - 调度空间有限
 
-所以 React Native 后来开始重构底层架构。新架构里比较核心的几个东西是 Fabric、JSI、TurboModules 和新的事件循环。
+所以 React Native 后来开始重构底层架构。新架构里比较核心的几个东西是 Fabric、JSI、TurboModules 和新的事件循环。[^rn-new-architecture]
 
 这些改动带来的变化很直接。原来的桥接方式更偏向异步消息传递，新架构则更强调 JS、C++ 和原生之间的直接协作。这样做之后，渲染链路更短，更新调度更灵活，也更容易支持现代 React 的能力。
 
@@ -342,13 +342,13 @@ Expo Go 可以看成一个现成的原生容器。开发者把 JavaScript bundle
 
 如果项目需要更完整的原生能力，就需要用 development build。
 
-这时候得到的不是公共容器，而是属于自己的 Expo 客户端。它可以包含自定义的原生配置、原生模块和更完整的开发能力。
+这时候得到的不是公共容器，而是属于自己的 Expo 客户端。它可以包含自定义的原生配置、原生模块和更完整的开发能力。[^expo-development-build]
 
 这个阶段很重要，因为一旦项目开始依赖更多原生能力，Expo Go 就不够用了，development build 才是更接近真实产品的开发方式。
 
 ### Prebuild
 
-Expo 的 prebuild 会根据配置生成 `android/` 和 `ios/` 目录。
+Expo 的 prebuild 会根据配置生成 `android/` 和 `ios/` 目录。[^expo-prebuild]
 
 这说明 Expo 并不是在绕开原生工程，而是在把原生工程的生成过程自动化。它降低的是维护成本，不是替代 React Native 的渲染系统。
 
@@ -419,13 +419,13 @@ React Native 负责把 React 的声明式 UI 变成原生视图，Expo 负责把
 
 这里再给下次分享挖个坑吧，下次分享大家更想了解 React 渲染网页的原理呢？还是其他 移动端 / 跨端 技术呢？还是更想了解一些后端相关知识呢？
 
-## 参考链接
+## 延伸阅读
 
-- [React Native Render, Commit, and Mount](https://reactnative.dev/architecture/render-pipeline)
-- [React Native Threading Model](https://reactnative.dev/architecture/threading-model)
-- [React Native Fabric](https://reactnative.dev/architecture/fabric-renderer)
-- [React Native New Architecture is here](https://reactnative.dev/blog/2024/10/23/the-new-architecture-is-here)
-- [Expo development builds introduction](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Expo use a development build](https://docs.expo.dev/develop/development-builds/use-development-builds/)
-- [Expo Continuous Native Generation](https://docs.expo.dev/workflow/prebuild)
 - [Expo React Native's New Architecture](https://docs.expo.dev/guides/new-architecture/)
+
+[^rn-render-pipeline]: [React Native — Render, Commit, and Mount](https://reactnative.dev/architecture/render-pipeline)。本文的三阶段说明针对新架构渲染管线，布局、树提升与挂载的职责划分见原文。
+[^rn-threading]: [React Native — Threading Model](https://reactnative.dev/architecture/threading-model)。原生视图由 UI 线程操作；渲染管线并非永远固定在某一个线程，高优先级事件下也存在同步在 UI 线程执行的场景。
+[^rn-new-architecture]: [React Native — Fabric](https://reactnative.dev/architecture/fabric-renderer) 与 [The New Architecture is here](https://reactnative.dev/blog/2024/10/23/the-new-architecture-is-here)，分别说明新渲染器，以及原生模块系统、事件循环和移除旧桥接等变化。
+[^expo-development-build]: [Expo — Introduction to development builds](https://docs.expo.dev/develop/development-builds/introduction/)，说明开发构建与 Expo Go 的区别，以及自定义原生能力的用途。
+[^expo-prebuild]: [Expo — Continuous Native Generation](https://docs.expo.dev/workflow/prebuild)，介绍通过应用配置生成原生工程的工作流。

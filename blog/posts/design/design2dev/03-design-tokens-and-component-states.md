@@ -1,6 +1,6 @@
 ---
 date: 2026-10-09 18:30:00
-updated: 2026-11-17 20:41:51
+updated: 2026-11-17 23:42:49
 category: Design
 tags:
   - Design
@@ -53,7 +53,7 @@ AI 在顶部栏用了 `#2563EB`，在主要按钮里随手写了 `#1D4ED8`，到
 
 什么是**设计令牌（Design Tokens）**？
 
-官方标准组织 W3C 设计令牌社区组（DTCG）给出的定义是：*跨平台界面设计与开发中，用于存储视觉样式属性（颜色、字阶、间距、动效等）的最小不可分割数据单元。*
+设计令牌社区组（DTCG）的格式规范把 Token 定义为与一个人类可读名称关联的信息，至少包含名称和值。[^dtcg-definition] 放到界面开发里，它就是给颜色、字阶、间距、动效等设计决策起一个可复用的名字。
 
 抛开这一串拗口的官方定义，用大白话打个生活比方：
 设计令牌就像**国际贸易中的货币结算体系**。
@@ -82,7 +82,7 @@ flowchart LR
     TW --> UI
 ```
 
-在工程底层，标准的设计令牌文件通常是一个结构严密的 JSON 字典：
+在工程底层，设计令牌文件通常是一个结构严密的 JSON 字典。下面用简化的值格式展示名称、类型和描述之间的关系；正式交换文件中的颜色、尺寸等值格式应以目标工具支持的规范版本为准：
 
 ```json
 {
@@ -514,12 +514,13 @@ export function MetricCardSkeleton() {
 
 ---
 
-## 参考链接
+## 延伸阅读
 
-本篇涉及的规范标准与工程实践参考：
+下面这些工具文档可继续用来了解主题配置、组件组织与可访问交互的工程做法：
 
-- [W3C Design Tokens Community Group (DTCG) Specification](https://design-tokens.github.io/community-group/format/)
 - [Tailwind CSS Theme Configuration Documentation](https://tailwindcss.com/docs/theme)
 - [shadcn/ui - Anatomy and Design Principles](https://ui.shadcn.com/)
 - [CVA (Class Variance Authority) Official Documentation](https://cva.style/docs)
 - [Radix UI Primitives - Accessible Component States](https://www.radix-ui.com/primitives)
+
+[^dtcg-definition]: [DTCG Format Module 2025.10 — (Design) Token](https://www.designtokens.org/TR/2025.10/format/#design-token)。这里是中文转述，不是逐字引用。该文档是社区组规范，不是 W3C 标准，也不处于 W3C 标准轨道。

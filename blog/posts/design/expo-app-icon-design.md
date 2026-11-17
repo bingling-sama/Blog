@@ -1,6 +1,6 @@
 ---
 date: 2025-02-07 16:20:09
-updated: 2026-11-17 20:41:51
+updated: 2026-11-17 23:42:49
 category: Design
 tags:
   - Design
@@ -35,7 +35,7 @@ description: 设计和配置 Splash Screen 与 App Icon
 
 ### **iOS 平台**
 
-根据 [Apple 官方 HIG](https://developer.apple.com/design/human-interface-guidelines/app-icons/)：
+iOS 图标设计可以先从下面几个检查项入手，平台要求以 Apple 的人机界面指南为准。[^apple-app-icons]
 
 - 必须为正方形图标（1024×1024 px）。
 - **不要添加圆角**，系统会自动处理。
@@ -48,7 +48,7 @@ description: 设计和配置 Splash Screen 与 App Icon
 
 ### **Android 平台**
 
-参考 [Android Adaptive Icon 设计规范](https://developer.android.com/develop/ui/views/launch/icon_design_adaptive?hl=zh-cn)：
+Android 的自适应图标采用前景与背景分层，设计时重点注意下面几点。[^android-adaptive-icons]
 
 - 图标分为前景图和背景色或图。
 - 系统应用不同遮罩形状显示图标（圆形、泪滴、方形等）。
@@ -168,10 +168,11 @@ Expo 提供了集中化的配置方式，统一管理图标和启动页资源。
 
 设计图标和启动页看似细节，但却直接影响用户的第一印象。如果你正在使用 Expo 开发 App，建议在早期就将这些资源准备好，确保在 Android 与 iOS 上都有一致且合规的体验。
 
-> 参考链接
->
-> - [苹果官方指南](https://developer.apple.com/design/human-interface-guidelines/app-icons/)
-> - [安卓官方指南](https://developer.android.com/develop/ui/views/launch/icon_design_adaptive?hl=zh-cn)
-> - [UI 百科](https://www.uxbaike.com/post/401/2385)
-> - [少数派](https://sspai.com/post/40223)
-> - [尺寸参考](https://pixso.cn/designskills/tubiaochicunguifan/)
+## 延伸阅读
+
+- [UI 百科](https://www.uxbaike.com/post/401/2385)
+- [少数派](https://sspai.com/post/40223)
+- [尺寸参考](https://pixso.cn/designskills/tubiaochicunguifan/)
+
+[^apple-app-icons]: [Apple Human Interface Guidelines — App icons](https://developer.apple.com/design/human-interface-guidelines/app-icons/)。本节检查项面向本文的 iOS/Expo 图标配置场景，不作为所有 Apple 平台、所有图标制作流程的统一规则。
+[^android-adaptive-icons]: [Android — 自适应图标](https://developer.android.com/develop/ui/views/launch/icon_design_adaptive?hl=zh-cn)，说明前景与背景分层、系统形状遮罩及安全区域；支持主题图标时还需要准备单色图层。

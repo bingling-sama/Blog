@@ -1,6 +1,6 @@
 ---
 date: 2026-04-29 00:00:00
-updated: 2026-11-17 20:41:51
+updated: 2026-11-17 23:42:49
 category: Development
 tags:
   - JavaScript
@@ -17,7 +17,7 @@ description: 从 ECMAScript 规范角度全面理解 import.meta 与 import.meta
 
 ## `import.meta`：规范只给了一个空壳子 🐚
 
-翻开 [ECMAScript 语言规范](https://tc39.es/ecma262/#sec-meta-properties)，你会发现整个语言里只有两个**元属性（Meta Property）**：
+翻开 ECMAScript 语言规范，你会发现整个语言里只有两个**元属性（Meta Property）**：[^ecma-meta]
 
 - `new.target` — 判断构造函数有没有被 `new` 调用
 - `import.meta` — 我们的主角
@@ -40,7 +40,7 @@ MetaProperty ::=  import . meta
 
 ECMA-262 定义了一个抽象操作 `HostGetImportMetaProperties`：
 
-> **HostGetImportMetaProperties(importMeta, moduleRecord)** 是宿主环境实现的抽象操作。宿主通过这个 Hook 往 `import.meta` 对象上注入属性。
+> **HostGetImportMetaProperties(moduleRecord)** 是宿主环境实现的抽象操作，返回要添加到 `import.meta` 上的属性列表；具体创建属性的步骤由 `import.meta` 的求值算法完成。[^ecma-meta]
 
 这就好比房东给了你一间毛坯房，装修成啥样全看你自己：
 
@@ -67,7 +67,7 @@ Bun:
 
 ### 浏览器
 
-根据 [WHATWG HTML Spec](https://html.spec.whatwg.org/multipage/webappapis.html#hostgetimportmetaproperties)，浏览器只给了两个属性，非常克制：
+根据 WHATWG HTML 规范，浏览器定义了两个属性，非常克制：[^html-import-meta]
 
 ```js
 // 当前模块的绝对 URL
@@ -84,7 +84,7 @@ const resolved = import.meta.resolve('./helper.js');
 
 ### Node.js
 
-Node.js 在浏览器基础上，加了一堆 CJS 时代的老朋友：
+Node.js 在浏览器基础上，加了一堆 CJS 时代的老朋友：[^node-import-meta]
 
 ```js
 // Node.js ESM 模式
@@ -190,6 +190,8 @@ const configPath = new URL('./config.json', import.meta.url);
 
 ### Vite 中的常见用法
 
+Vite 的静态资源文档介绍了 `new URL(..., import.meta.url)` 的构建处理，下面从这类写法看起。[^vite-import-meta]
+
 ```ts{2,7-9}
 // 1. 引用同目录静态资源
 const imgUrl = new URL('./logo.png', import.meta.url).href;
@@ -233,9 +235,7 @@ new URL('./logo.png', import.meta.url);
 
 ---
 
-### 参考
-
-- [ECMAScript Language Specification — Meta Properties](https://tc39.es/ecma262/#sec-meta-properties)
-- [WHATWG HTML Spec — HostGetImportMetaProperties](https://html.spec.whatwg.org/multipage/webappapis.html#hostgetimportmetaproperties)
-- [Node.js — import.meta](https://nodejs.org/api/esm.html#importmeta)
-- [Vite — Static Asset Handling](https://vitejs.dev/guide/assets.html#new-url-url-import-meta-url)
+[^ecma-meta]: [ECMAScript Language Specification — Meta Properties](https://tc39.es/ecma262/#sec-meta-properties)，包括 `import.meta` 的求值过程与 `HostGetImportMetaProperties(moduleRecord)` 宿主钩子。
+[^html-import-meta]: [WHATWG HTML — HostGetImportMetaProperties](https://html.spec.whatwg.org/multipage/webappapis.html#hostgetimportmetaproperties)，定义浏览器环境中 `import.meta.url` 与 `import.meta.resolve` 的行为。
+[^node-import-meta]: [Node.js — import.meta](https://nodejs.org/api/esm.html#importmeta)，各属性的适用条件及版本记录以所用 Node.js 版本的文档为准。
+[^vite-import-meta]: [Vite — Static Asset Handling](https://vitejs.dev/guide/assets.html#new-url-url-import-meta-url)，介绍基于 `import.meta.url` 引用静态资源及其构建限制。

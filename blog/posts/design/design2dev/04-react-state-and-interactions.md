@@ -1,6 +1,6 @@
 ---
 date: 2026-11-16 10:00:00
-updated: 2026-11-17 22:32:24
+updated: 2026-11-18 00:26:30
 category: Design
 tags:
   - Design
@@ -228,7 +228,7 @@ sequenceDiagram
 要理解这个渲染过程，记住三件事就行：
 - `useState(0)` 里的 `0` 只是**初始值**，只在组件第一次登场（Mount）时生效一次；
 - `setCount` 不是立刻把原处的变量擦掉改写，而是**向 React 预约下一次重新渲染**；
-- React 重新调用组件函数时，拿出来的是当次渲染的一份**状态快照（State as Snapshot）**。
+- React 重新调用组件函数时，拿出来的是当次渲染的一份**状态快照（State as Snapshot）**。[^react-state-snapshot]
 
 ### 事件回调绑定与传参时机
 
@@ -292,6 +292,8 @@ export function SearchBar() {
 
 ### 派生数据与计算去重
 
+React 官方关于状态结构的建议是：只保留必要的源头状态，把能由它们计算出的值作为派生数据。[^react-state-structure]
+
 这是初学甚至写过一段时间前端的人最容易踩的坑：**把能算出来的值也存成了状态**。
 
 很多人第一反应是这样定义状态的：
@@ -333,6 +335,8 @@ const matchCount = visibleUsers.length
 在原型体量下，百十条数据的内存过滤只耗费零点几毫秒，直接在渲染函数里现场计算，代码既干净又绝无状态不同步的可能。
 
 ### 状态提升与组件通信
+
+当多个组件需要共享同一份状态时，可以把状态提升到它们最近的共同父组件。[^react-lifting-state]
 
 在实际项目中，我们往往习惯把搜索栏拆成 `SearchBar.tsx`，把列表拆成 `UserList.tsx`。
 
@@ -400,6 +404,8 @@ flowchart TD
 ```
 
 ### 列表渲染与稳定 Key
+
+列表项的 `key` 应该稳定地对应数据实体，而不是随着过滤或重排变化的数组下标。[^react-list-keys]
 
 当我们需要把一个数组批量倒模成一组卡片时，使用原生数组的 `.map()` 方法：
 
@@ -806,14 +812,15 @@ export function UserManagerPanel() {
 
 ---
 
-# 参考链接
+# 延伸阅读
 
-本篇博客中涉及的 React 核心规范与官方机制深入学习资料：
+如果想配合完整例子继续练习，可以阅读下面这些 React 官方教程：
 
 - [React 官方文档：组件间通过 Props 传递数据 (Passing Props to a Component)](https://react.dev/learn/passing-props-to-a-component)
 - [React 官方文档：响应用户交互事件 (Responding to Events)](https://react.dev/learn/responding-to-events)
 - [React 官方文档：组件的记忆 —— State (State: A Component's Memory)](https://react.dev/learn/state-a-components-memory)
-- [React 官方文档：将状态视为快照 (State as a Snapshot)](https://react.dev/learn/state-as-a-snapshot)
-- [React 官方文档：在组件间共享状态与状态提升 (Sharing State Between Components)](https://react.dev/learn/sharing-state-between-components)
-- [React 官方文档：选择合适的状态结构与避免冗余 (Choosing the State Structure)](https://react.dev/learn/choosing-the-state-structure)
-- [React 官方文档：列表渲染与 Key 的底层原理 (Rendering Lists)](https://react.dev/learn/rendering-lists)
+
+[^react-state-snapshot]: [React — State as a Snapshot](https://react.dev/learn/state-as-a-snapshot)。设置状态会请求下一次渲染，但不会改变当前渲染中已经拿到的状态值；事件处理函数也使用它所属那次渲染的状态快照。
+[^react-state-structure]: [React — Choosing the State Structure](https://react.dev/learn/choosing-the-state-structure)，说明如何避免冗余状态与可由现有状态计算出的数据。
+[^react-lifting-state]: [React — Sharing State Between Components](https://react.dev/learn/sharing-state-between-components)，说明把共享状态提升到共同父组件的做法。
+[^react-list-keys]: [React — Rendering Lists](https://react.dev/learn/rendering-lists)，说明列表项 `key` 的稳定身份与列表更新行为。

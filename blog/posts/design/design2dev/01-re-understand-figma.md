@@ -1,6 +1,6 @@
 ---
 date: 2026-09-22 14:36:09
-updated: 2026-10-17 23:57:33
+updated: 2026-11-17 23:42:49
 category: Design
 tags:
   - Design
@@ -57,9 +57,9 @@ description: 解构 Canvas 与 DOM 之间的思维鸿沟，用 Auto Layout 与 G
 
 ## 一维排布规律：Auto Layout 对应的流式机制
 
-熟练使用 Auto Layout，本质上就是在运用现代前端最通用的布局机制：**CSS Flexbox**。
+理解 Auto Layout 的横向、纵向排布时，可以用现代前端最常见的一维布局机制 **CSS Flexbox** 作对照。[^auto-layout-flexbox]
 
-Figma 右侧面板中的 Auto Layout 参数，与浏览器渲染引擎有一一对应的几何映射：
+Figma 右侧面板中的一维 Auto Layout 参数，可以从下面这些几何关系与浏览器布局作对照：
 
 ![layout2flexbox](/images/layout2flexbox.webp)
 
@@ -102,7 +102,7 @@ Auto Layout 擅长处理**单一维度的线性流**（单行或单列）。但�
 1. **结构层级冗余**：多出了仅为辅助横向排列的中间包装层。
 2. **缺乏二维协同**：一旦某一处需要做跨行或跨列展示（如顶部第一张卡片横跨两列），原本维护的横纵嵌套关系就需要整体拆解重建。
 
-这正是现代排版中引入 **二维网格（Grid）** 的原因。在 Figma 中，与之对应的是 **Layout Grid**。
+这正是现代排版中引入 **二维网格（Grid）** 的原因。在 Figma 中，与之对应的是 **Layout Grid**。[^css-grid]
 
 ![layout2grid](/images/layout2grid.webp)
 
@@ -219,8 +219,5 @@ DashboardLayout (Grid)
 
 ---
 
-# 参考链接
-
-- [Figma Auto Layout 官方文档与最佳实践](https://help.figma.com/hc/en-us/articles/360040451373-Explore-auto-layout-properties)
-- [MDN Web Docs: CSS 弹性盒子布局 (Flexbox)](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Flexbox)
-- [MDN Web Docs: CSS 网格布局 (Grid)](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Grids)
+[^auto-layout-flexbox]: 对照阅读 [Figma Auto Layout 官方指南](https://help.figma.com/hc/en-us/articles/360040451373-Explore-auto-layout-properties)与 [MDN — Flexbox](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Flexbox)。本文借用横纵方向、间距和对齐帮助理解一维排布，不代表 Figma 的实现就是浏览器 Flexbox，也不表示 Auto Layout 的全部能力都能与 Flexbox 一一对应。
+[^css-grid]: [MDN — CSS 网格布局](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Grids)，用于对照理解 Web 中的二维布局、轨道和跨列；本文的 Figma 参数对照不代表 Layout Grid 会直接执行浏览器的 CSS Grid 排版算法。

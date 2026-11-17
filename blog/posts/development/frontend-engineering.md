@@ -1,6 +1,6 @@
 ---
 date: 2024-11-29 18:16:35
-updated: 2026-10-17 23:57:33
+updated: 2026-11-17 23:42:49
 title: 前端工程化初见
 description: 介绍一下前端工程化当中的各种技术
 tags:
@@ -23,7 +23,7 @@ category: Development
 
 版本控制是 Git 的本职工作，其在大型项目中无论是性能还是效果上都表现极佳。通过追踪分支或文件的 commit 历史，可以很方便地回滚版本、处理 bug。
 
-为了方便版本控制，大多数专业团队会要求开发者遵循提交规范，这里以 [Angular Commit](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit) （[中文版](https://zj-git-guide.readthedocs.io/zh-cn/latest/message/Angular%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83/)）规范为例。以这种规范的格式来撰写 Commit Message，可以大大提高版本控制过程中定位更改的效率，也可以让你的小伙伴一眼看懂你的 Commit 到底干了些啥。
+为了方便版本控制，大多数专业团队会要求开发者遵循提交规范，这里以 Angular Commit 规范为例。[^angular-commit] 以这种规范的格式来撰写 Commit Message，可以大大提高版本控制过程中定位更改的效率，也可以让你的小伙伴一眼看懂你的 Commit 到底干了些啥。
 
 #### 协作开发
 
@@ -129,3 +129,5 @@ Webpack 是目前运用最广泛的前端项目打包工具，其主要工作是
 Vite 被誉为下一代构建工具，以打包速度快、热更新速度快深受开发者喜爱。Vite 所做的事和 Webpack 相同，但在构建过程中的优化比 Webpack 更优秀，HMR 速度和 build 速度都比 Webpack 快很多。
 
 另一方面，与 Webpack 相比，Vite 本身提供的功能十分简单，仅仅只是一个打包工具，因此其基础配置比 Webpack 简洁很多，而其它功能则通过各种官方/社区的插件作为补充。
+
+[^angular-commit]: [Angular 官方提交规范](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit)；另有[中文说明](https://zj-git-guide.readthedocs.io/zh-cn/latest/message/Angular%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83/)可辅助阅读，具体规则以官方文档为准。

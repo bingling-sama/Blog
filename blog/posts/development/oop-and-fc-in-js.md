@@ -1,6 +1,6 @@
 ---
 date: 2025-11-24 17:17:41
-updated: 2026-11-17 20:41:51
+updated: 2026-11-17 23:42:49
 title: JavaScript 中的 OOP 与 FC
 description: 这篇分享主要让大家了解一下 js 中的 oop 与 fc，通过结合原理学习语法来提高大家的学习效率、加深大家对知识的理解。
 tags:
@@ -13,13 +13,15 @@ category: Development
 
 这篇分享主要让大家了解一下 js 中的 oop 与 fc，通过结合原理学习语法来提高大家的学习效率、加深大家对知识的理解。
 
+本文部分内容摘自两篇关于编程范式及 JavaScript 面向对象、函数式编程的文章。[^paradigm-overview][^js-paradigms]
+
 ## 面向对象编程（OOP）
 
 首先，什么是 OOP？
 
-> **Object-oriented programming** (**OOP**) is a [programming paradigm](https://en.wikipedia.org/wiki/Programming_paradigm "Programming paradigm") based on the [object](https://en.wikipedia.org/wiki/Object_\(computer_science\) "Object (computer science)")[1](https://en.wikipedia.org/wiki/Object-oriented_programming#cite_note-alanKayOnOO-1) – a [software](https://en.wikipedia.org/wiki/Software "Software") entity that [encapsulates](https://en.wikipedia.org/wiki/Encapsulation_\(programming\) "Encapsulation (programming)") [data](https://en.wikipedia.org/wiki/Data "Data") and [function(s)](https://en.wikipedia.org/wiki/Function_\(computer_programming\) "Function (computer programming)"). An OOP [computer program](https://en.wikipedia.org/wiki/Computer_program "Computer program") consists of objects that interact with one another.[2](https://en.wikipedia.org/wiki/Object-oriented_programming#cite_note-2)[3](https://en.wikipedia.org/wiki/Object-oriented_programming#cite_note-3) A [programming language](https://en.wikipedia.org/wiki/Programming_language "Programming language") that provides OOP features is classified as an _OOP language_ but as the set of features that contribute to OOP is contended, classifying a language as OOP and the degree to which it supports or is OOP, are debatable. As paradigms are not mutually exclusive, a language can be [multi-paradigm](https://en.wikipedia.org/wiki/Multi-paradigm "Multi-paradigm"); can be categorized as more than only OOP.  
-> 面向对象编程（OOP）是一种基于对象的编程范式——一个封装数据和函数的软件实体。一个面向对象的计算机程序由相互交互的对象组成。 [2](https://en.wikipedia.org/wiki/Object-oriented_programming#cite_note-2) [3](https://en.wikipedia.org/wiki/Object-oriented_programming#cite_note-3) 提供面向对象特性的编程语言被归类为面向对象语言，但由于构成面向对象特性的特征集合存在争议，将一种语言归类为面向对象语言以及它支持或是否面向对象的程度是存在争议的。由于范式不是相互排斥的，一种语言可以是多范式；可以被归类为不仅仅是面向对象。
-> _以上内容摘自 [Wikipedia](https://en.wikipedia.org/wiki/Object-oriented_programming)_
+> **Object-oriented programming** (**OOP**) is a [programming paradigm](https://en.wikipedia.org/wiki/Programming_paradigm "Programming paradigm") based on the [object](https://en.wikipedia.org/wiki/Object_\(computer_science\) "Object (computer science)") – a [software](https://en.wikipedia.org/wiki/Software "Software") entity that [encapsulates](https://en.wikipedia.org/wiki/Encapsulation_\(programming\) "Encapsulation (programming)") [data](https://en.wikipedia.org/wiki/Data "Data") and [function(s)](https://en.wikipedia.org/wiki/Function_\(computer_programming\) "Function (computer programming)"). An OOP [computer program](https://en.wikipedia.org/wiki/Computer_program "Computer program") consists of objects that interact with one another. A [programming language](https://en.wikipedia.org/wiki/Programming_language "Programming language") that provides OOP features is classified as an _OOP language_ but as the set of features that contribute to OOP is contended, classifying a language as OOP and the degree to which it supports or is OOP, are debatable. As paradigms are not mutually exclusive, a language can be [multi-paradigm](https://en.wikipedia.org/wiki/Multi-paradigm "Multi-paradigm"); can be categorized as more than only OOP.\
+> 面向对象编程（OOP）是一种基于对象的编程范式——一个封装数据和函数的软件实体。一个面向对象的计算机程序由相互交互的对象组成。提供面向对象特性的编程语言被归类为面向对象语言，但由于构成面向对象特性的特征集合存在争议，将一种语言归类为面向对象语言以及它支持或是否面向对象的程度是存在争议的。由于范式不是相互排斥的，一种语言可以是多范式；可以被归类为不仅仅是面向对象。
+> _以上内容摘自 Wikipedia，并附中文译文。_[^wiki-oop]
 
 面向对象把程序看成由 **对象 _Object_** 组成，每个对象就像现实中的事物，有：
 
@@ -49,7 +51,7 @@ Animal 的子类 Cat 和 Dog 一定具有他们父类的所有属性与方法，
 
 > In [computer science](https://en.wikipedia.org/wiki/Computer_science "Computer science"), **functional programming** is a [programming paradigm](https://en.wikipedia.org/wiki/Programming_paradigm "Programming paradigm") where programs are constructed by [applying](https://en.wikipedia.org/wiki/Function_application "Function application") and [composing](https://en.wikipedia.org/wiki/Function_composition_\(computer_science\) "Function composition (computer science)") [functions](https://en.wikipedia.org/wiki/Function_\(computer_science\) "Function (computer science)"). It is a [declarative programming](https://en.wikipedia.org/wiki/Declarative_programming "Declarative programming") paradigm in which function definitions are [trees](https://en.wikipedia.org/wiki/Tree_\(data_structure\) "Tree (data structure)") of [expressions](https://en.wikipedia.org/wiki/Expression_\(computer_science\) "Expression (computer science)") that map [values](https://en.wikipedia.org/wiki/Value_\(computer_science\) "Value (computer science)") to other values, rather than a sequence of [imperative](https://en.wikipedia.org/wiki/Imperative_programming "Imperative programming") [statements](https://en.wikipedia.org/wiki/Statement_\(computer_science\) "Statement (computer science)") which update the [running state](https://en.wikipedia.org/wiki/State_\(computer_science\) "State (computer science)") of the program.  
 > 在计算机科学中，函数式编程是一种编程范式，其中程序通过应用和组合函数来构建。它是一种声明式编程范式，其中函数定义是映射值到其他值的表达式树，而不是更新程序运行状态的命令式语句序列。
-> _以上内容摘自 [Wikipedia](https://en.wikipedia.org/wiki/Functional_programming)_
+> _以上内容摘自 Wikipedia，并附中文译文。_[^wiki-fp]
 
 函数式编程（Functional Programming，FP）是一种把 **“函数”作为核心** 的编程思想，强调用**表达式计算结果**，而不是通过修改状态来完成任务。
 
@@ -68,18 +70,18 @@ Animal 的子类 Cat 和 Dog 一定具有他们父类的所有属性与方法，
 
 ## js中的相关特性
 
-我们需要先对js这种语言中的各种特性有所了解，才能利用范式这种工具更好的对我们开发的软件进行组合。 这一部分主要会参考[ecma262](https://link.juejin.cn/?target=https%3A%2F%2Ftc39.es%2Fecma262%2F "https://tc39.es/ecma262/")。
+我们需要先对js这种语言中的各种特性有所了解，才能利用范式这种工具更好的对我们开发的软件进行组合。 这一部分主要会参考 ECMA-262。[^ecma262]
 
 ### js语言的设计
 
-Brendan Eich开发了js。他在[这篇文章](https://link.juejin.cn/?target=https%3A%2F%2Fbrendaneich.com%2F2008%2F04%2Fpopularity%2F "https://brendaneich.com/2008/04/popularity/")提到了js设计过程中的一些问题。  
+Brendan Eich开发了js。他在《Popularity》中提到了js设计过程中的一些问题。[^js-design-history]\
 Netscape需要在浏览器中内置一种脚本语言，根据领导要求，首先需要像java(Look like Java,因此很多语法和java类似),而作者本人偏向于scheme，因此最后在新的语言中选择了和Scheme一样的一等函数以及和Self一样的prototype作为主要组成。受java影响，有了原始类型和对象的区分，比如string和String。
 
 以上设计加上后来的发展就成了现在的js。
 
 ### js特性概述
 
-在js中的数据结构分为两种，原始类型和对象，js的对象创建并不是基于class的，而是有很多方式，比如字面量或者构造函数，每个构造函数都有一个`prototype`属性用于实现基于原型（prototype-based）的继承。一个构造函数的`prototype`还有一个`constructor`引用指向构造函数本身，当实现继承时，这个属性可能会改，按照惯例需要修正，但不是必须的（关于constructor参考[这里](https://link.juejin.cn/?target=https%3A%2F%2Fsegmentfault.com%2Fa%2F1190000016147953 "https://segmentfault.com/a/1190000016147953")）。
+在js中的数据结构分为两种，原始类型和对象，js的对象创建并不是基于class的，而是有很多方式，比如字面量或者构造函数，每个构造函数都有一个`prototype`属性用于实现基于原型（prototype-based）的继承。一个构造函数的`prototype`还有一个`constructor`引用指向构造函数本身，当实现继承时，这个属性可能会改，按照惯例需要修正，但不是必须的。[^constructor-reference]
 
 说起构造函数，这里补充一点相关概念，函数是一种特殊的对象，含有internal method `[[Call]]`,因此可以通过函数调用来执行相关代码，而构造函数又是一种特殊的函数，含有internal method `[[Construct]]`,可以通过`new`或`super`调用创建对象。
 
@@ -89,7 +91,7 @@ Netscape需要在浏览器中内置一种脚本语言，根据领导要求，首
 
 每一个通过构造函数创建的对象都有一个指向构造函数prototype属性的隐式引用(可以用`__proto__`访问但不推荐)，而这个prototype本身可能也有一个非null的引用指向它的prototype,等等，这就被称为原型链。当访问对象的一个属性时，会首先从该对象本身查找，如果找不到就会沿着原型链依次查找，直到找到或者找到尽头发现没有，原型链上的属性可以被覆盖。
 
-相较基于class继承的语言，通常来说，状态被实例拥有，方法被class拥有，继承的只有结构和行为(behavior)，而js这一切都是可以继承的。这里的[行为是方法整体决定的，如果没有方法，一个class将只有结构](https://link.juejin.cn/?target=https%3A%2F%2Fwww.informit.com%2Farticles%2Farticle.aspx%3Fp%3D25856%26seqNum%3D6%23%3A~%3Atext%3DThe%2520behavior%2520of%2520an%2520object%2Cdefined%2520within%2520the%2520object%2520class.%26text%3DMethods%2520determine%2520what%2520type%2520of%2Cdata%252C%2520and%2520its%2520overall%2520behavior. "https://www.informit.com/articles/article.aspx?p=25856&seqNum=6#:~:text=The%20behavior%20of%20an%20object,defined%20within%20the%20object%20class.&text=Methods%20determine%20what%20type%20of,data%2C%20and%20its%20overall%20behavior.")。
+相较基于class继承的语言，通常来说，状态被实例拥有，方法被class拥有，继承的只有结构和行为(behavior)，而js这一切都是可以继承的。这里的行为是方法整体决定的，如果没有方法，一个class将只有结构。[^object-behavior]
 
 原型链的尽头为null，要明确一个对象的原型链到底包括什么，这里可以大概分为以下
 
@@ -301,9 +303,11 @@ js的以原型为基础的继承不太适合实现面向对象的封装、继承
 
 无论采用何种范式，最终都是要将各个模块组合成我们的软件。
 
-# 参考链接
-
-本篇博客中部分内容摘自以下博文：
-
-- [说起编程范式我们应知道什么](https://juejin.cn/post/6926930448283074568)
-- [js中的面向对象编程和函数式编程](https_juejin.cn/?url=https%3A%2F%2Fjuejin.cn%2Fpost%2F6932852475527430157%23heading-6)
+[^paradigm-overview]: [说起编程范式我们应知道什么](https://juejin.cn/post/6926930448283074568)，为原文注明的部分内容来源。
+[^js-paradigms]: [js中的面向对象编程和函数式编程](https://juejin.cn/post/6932852475527430157#heading-6)，为原文注明的部分内容来源；此处恢复为旧链接中记录的原文地址。
+[^wiki-oop]: [Wikipedia — Object-oriented programming](https://en.wikipedia.org/wiki/Object-oriented_programming)。这里引用维基百科条目本身；原摘录中随带的数字是该条目内部的参考文献编号，不是本文独立核验的一手来源，因此不沿用。
+[^wiki-fp]: [Wikipedia — Functional programming](https://en.wikipedia.org/wiki/Functional_programming)，为本节英文定义与中文译文的来源。
+[^ecma262]: [ECMA-262 — ECMAScript Language Specification](https://tc39.es/ecma262/)，本节 JavaScript 语言机制的规范参考。
+[^js-design-history]: Brendan Eich，[Popularity](https://brendaneich.com/2008/04/popularity/)，讨论 JavaScript 的设计背景。
+[^constructor-reference]: 关于替换原型对象后为何常修正 `constructor`，可参阅[这篇讨论](https://segmentfault.com/a/1190000016147953)。这是额外阅读，不是让原型链查找生效的必要步骤。
+[^object-behavior]: 原文在此参考了 [InformIT 的文章链接](https://www.informit.com/articles/article.aspx?p=25856&seqNum=6)。本次整理时该地址重定向到文章列表，暂不能据此核验原文；保留链接用于记录原有出处，不将其标为已核验引文。

@@ -1,6 +1,6 @@
 ---
 date: 2026-08-20 21:35:00
-updated: 2026-11-17 20:41:51
+updated: 2026-11-18 00:26:30
 category: Development
 tags:
   - FrontEnd
@@ -42,7 +42,7 @@ graph LR
 
 ## 浏览器缓存与本地存储
 
-当我们在浏览器地址栏敲下回车时，浏览器首先会检查本地缓存。
+当我们在浏览器地址栏敲下回车时，浏览器首先会检查本地缓存。浏览器缓存与共享缓存的基本角色和复用规则，可参见 HTTP 缓存说明。[^http-caching]
 
 ### 缓存位置分层
 
@@ -67,13 +67,13 @@ Content-Type: application/javascript
 Cache-Control: max-age=31536000, immutable
 ```
 
-常见 `Cache-Control` 指令速查：
+常见 `Cache-Control` 指令速查：[^cache-control]
 
 - `max-age=xxx`：资源在 xxx 秒内有效。
 - `no-cache`：**千万别被名字骗了！** 它并不是「不缓存」，而是「每次使用前必须向服务器发起协商缓存确认」。
 - `no-store`：真正的「彻底不缓存」，任何中间节点和客户端都不得存储副本（常用于敏感数据）。
 - `public` / `private`：是否允许代理服务器（CDN 等）缓存该响应。
-- `immutable`：告诉浏览器该资源永远不会变，连用户手动刷新时都无需去服务器确认。
+- `immutable`：表示响应在仍然新鲜的有效期内不会变化，可避免这段时间内不必要的重新验证。通常与带内容 Hash 的资源 URL 和较长的 `max-age` 配合使用。
 
 ### 协商缓存机制
 
@@ -140,11 +140,11 @@ sequenceDiagram
 
 ### CDN 常用缓存控制头
 
-除了常规的 `max-age`，CDN 还支持几个非常实用的专属控制头：
+除了常规的 `max-age`，共享缓存中还经常用到下面这些控制项；它们不全是 CDN 专属能力：[^shared-cache-control]
 
 - `s-maxage=xxx`：专门给公共代理/CDN 设置的有效期。如果同时存在 `max-age=60` 和 `s-maxage=86400`，浏览器只会本地缓存 1 分钟，而 CDN 会在边缘节点缓存 1 天。
 - `stale-while-revalidate=xxx`：**极致用户体验神器**。在资源过期后的 xxx 秒内，CDN 允许先将旧缓存（Stale）直接返回给用户（实现 0ms 阻塞响应），同时在后台异步向源站发起验证并更新缓存。
-- `Vary` 头：告知 CDN「根据哪些请求头区分缓存副本」。例如 `Vary: Accept-Encoding` 会让 CDN 分别为支持 gzip 和 brotli 的客户端缓存两份独立的压缩包；`Vary: Origin` 则解决跨域场景下的缓存错乱问题。
+- `Vary` 头：告知缓存「根据哪些请求头区分缓存副本」。例如 `Vary: Accept-Encoding` 可以区分请求所接受的压缩格式；响应随请求的 `Origin` 变化时，`Vary: Origin` 可避免复用不匹配的响应。[^vary]
 
 ## 反向代理与 Web 服务器配置
 
@@ -152,7 +152,7 @@ sequenceDiagram
 
 ### Nginx 静态资源与反向代理缓存
 
-在 Nginx 中，我们既可以为前端静态资源注入浏览器缓存头，也可以利用 `proxy_cache` 开启后端接口的数据缓存。
+在 Nginx 中，我们既可以为前端静态资源注入浏览器缓存头，也可以利用 `proxy_cache` 开启后端接口的数据缓存。[^nginx-proxy-cache]
 
 ```nginx{9-10,15,25,33-37} :height=30rem
 # 1. 前端 SPA 单页应用缓存配置
@@ -198,7 +198,7 @@ server {
 
 ### Caddy 现代化缓存配置
 
-Caddy 作为现代 Web 服务器，语法极其简洁：
+Caddy 作为现代 Web 服务器，语法极其简洁。下面用 `header` 指令设置响应的缓存控制头：[^caddy-header]
 
 ```caddyfile{7,11}
 example.com {
@@ -312,10 +312,14 @@ sequenceDiagram
 
 计算机科学界有句名言：「计算机科学只有两件难事：缓存失效与命名。」希望这篇文章能帮你理清脉络，在今后的架构设计中不再被缓存问题所困扰！
 
-## 参考链接
+## 延伸阅读
 
-- [MDN Web Docs: HTTP 缓存](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching)
 - [Google Web Fundamentals: HTTP 缓存指南](https://web.dev/http-cache/)
-- [Nginx 官方文档：HTTP Proxy Module Caching](https://nginx.org/en/docs/http/ngx_http_proxy_module.html)
-- [Caddy 官方文档：header 指令配置](https://caddyserver.com/docs/caddyfile/directives/header)
-- [Redis 官方文档：Caching Best Practices](https://redis.io/docs/)
+- [Redis 官方文档](https://redis.io/docs/)
+
+[^cache-control]: [MDN — Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control)，集中说明 `max-age`、`no-cache`、`no-store`、`public`、`private` 与 `immutable`。其中 `no-cache` 允许存储，但复用前要求验证；`immutable` 的承诺限于响应仍然新鲜的期间。
+[^shared-cache-control]: [MDN — Cache-Control：s-maxage](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control#s-maxage) 与 [stale-while-revalidate](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control#stale-while-revalidate)。前者专用于共享缓存，后者允许在指定的过期窗口内先复用响应并后台验证。
+[^vary]: [MDN — HTTP caching](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching)，其中 `Vary` 的说明解释了如何按请求头区分缓存响应；具体缓存是否保存多个压缩版本还取决于服务器响应和缓存实现。
+[^http-caching]: [MDN — HTTP caching](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching)，用于本文对浏览器缓存、共享缓存、复用与重新验证等基础概念的说明。
+[^nginx-proxy-cache]: [Nginx — ngx_http_proxy_module](https://nginx.org/en/docs/http/ngx_http_proxy_module.html)，可查阅示例中 `proxy_cache`、`proxy_cache_valid` 和 `proxy_cache_key` 等反向代理缓存指令。
+[^caddy-header]: [Caddy — header](https://caddyserver.com/docs/caddyfile/directives/header)，说明如何设置响应头；这里通过它配置浏览器缓存策略，不代表 Caddy 自带了代理响应缓存。

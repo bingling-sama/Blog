@@ -9,7 +9,7 @@ tags:
   - D1
   - VitePress
   - Analytics
-updated: 2026-11-17 20:41:51
+updated: 2026-11-17 23:42:49
 ---
 
 # 用 Cloudflare Workers + D1 复刻不蒜子
@@ -24,9 +24,9 @@ rocket-loader.min.js:1 A preload for '.../app.CzVAf4iF.js' is found, but is not 
 
 顺手排查了一眼：
 1. `rocket-loader.min.js` 是 Cloudflare 早期给老式多脚本站点搞的异步黑魔法，在现代 VitePress 的 ESM 预加载（`modulepreload`）面前纯属添乱，不仅抢跑导致凭据模式不匹配，还白白废弃了预加载缓存。这个好办，进 Cloudflare 控制台把 Rocket Loader 关掉，世界立马清静。
-2. 真正让我不爽的是第二条：**不蒜子（Busuanzi）被广告拦截插件给办了。**
+2. 真正让我不爽的是第二条：**[不蒜子（Busuanzi）](https://busuanzi.ibruce.info/)被广告拦截插件给办了。**
 
-查了查规则库，uBlock Origin 和 AdGuard 内置的 EasyPrivacy 规则清单里早早躺着这两行：
+查了查规则库，uBlock Origin 和 AdGuard 内置的 EasyPrivacy 规则清单里早早躺着这两行：[^easyprivacy]
 
 ```text
 ||busuanzi.ibruce.info^
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS uv_logs (
 );
 ```
 
-有了 D1 的 Batch API，整个打点过程可以用一次 SQLite 事务原子完成，不需要担心并发下的脏读写：
+有了 D1 的 Batch API，整个打点过程可以用一次 SQLite 事务原子完成，不需要担心并发下的脏读写：[^d1-docs]
 
 ```typescript{3-4,9-12,17-20}
 await db.batch([
@@ -261,8 +261,5 @@ VitePress 的主题组件里，顺手把原本写死的 ID 和样式类名全换
 
 无论采用何种统计实现，核心都在于用最低的运维成本保证数据的归属权与可用性。
 
-# 参考链接
-
-- [Cloudflare D1 Documentation](https://developers.cloudflare.com/d1/)
-- [EasyPrivacy Tracking Protection List](https://easylist.to/)
-- [Busuanzi 官方站点](https://busuanzi.ibruce.info/)
+[^easyprivacy]: [EasyPrivacy 过滤列表项目](https://easylist.to/)。这里保留的是本文排查时记录的规则；过滤列表会更新，具体命中项应以浏览器拦截日志和当时启用的列表版本为准。
+[^d1-docs]: [Cloudflare D1 官方文档](https://developers.cloudflare.com/d1/)，本文数据库绑定和批处理能力的参考入口；表结构及历史浏览量偏移方案是本文的应用设计。
