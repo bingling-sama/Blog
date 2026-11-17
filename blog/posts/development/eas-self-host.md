@@ -1,6 +1,6 @@
 ---
 date: 2026-09-07 08:04:26
-updated: 2026-09-22 13:14:59
+updated: 2026-11-17 20:41:51
 title: 用 XPREM 自建 Expo 热更新服务
 description: 拆解 Expo Updates 协议自建服务 XPREM 的端到端链路组件，对比 Stateless 与 Control Plane 模式的架构差异与部署配置，提供 CDN 缓存、灰度发布与常见踩坑记录。
 category: Development
@@ -190,7 +190,7 @@ npx eoas generate-certs
 ### Docker Compose 编排文件
 创建 `docker-compose.yml`：
 
-```yaml
+```yaml{12-13,21-22,25-27} :height=30rem
 version: '3.8'
 
 services:
@@ -248,7 +248,7 @@ docker compose up -d
 2. **使用 Expo 鉴权**：通过 `EXPO_TOKEN` 或已登录的 EAS 账号鉴权。
 3. **在 Expo 控制台创建通道**：分支与通道必须先在 Expo 官方后台配置完毕。
 
-```bash
+```bash{2-3}
 # 必须使用 EXPO_TOKEN 进行鉴权
 export EXPO_TOKEN="your_expo_access_token"
 unset EOO_TOKEN
@@ -284,7 +284,7 @@ openssl rand -base64 32  # 记录为 DB_KEYS_MASTER_KEY_B64
 ### 服务端与数据库 Compose 配置
 创建 `docker-compose.yml`：
 
-```yaml
+```yaml{42-44} :height=32rem
 version: '3.8'
 
 services:
@@ -377,7 +377,7 @@ docker compose logs -f xprem-server
 无论采用哪种模式，接入层与 CDN 的配置逻辑是共通的。
 
 ### Nginx 配置与上传限制放行
-```nginx
+```nginx{15}
 server {
     listen 80;
     server_name ota-api.yourdomain.com;
@@ -418,7 +418,7 @@ server {
 
 在 Expo 项目的 `app.config.ts` 中声明端上配置。这是客户端能够成功接入自建服务的核心契约：
 
-```typescript
+```typescript{11,17,20-25,28-30} :height=30rem
 // app.config.ts
 import { ExpoConfig, ConfigContext } from 'expo/config';
 
@@ -472,7 +472,7 @@ npx eoas publish \
 ### 渐进式灰度（1%~99%）
 对于涉及核心链路改造的版本，使用 `--rollout-percentage` 限制分流范围：
 
-```bash
+```bash{3}
 npx eoas publish \
   --branch production \
   --rollout-percentage 10 \

@@ -1,6 +1,6 @@
 ---
 date: 2025-02-07 16:20:09
-updated: 2026-10-17 23:57:33
+updated: 2026-11-17 20:41:51
 category: Design
 tags:
   - Design
@@ -94,7 +94,7 @@ Expo 提供了集中化的配置方式，统一管理图标和启动页资源。
 
 ### **App Icon 配置示例**
 
-```
+```json{3}
 {
   "expo": {
     "icon": "./assets/icon.png"
@@ -107,7 +107,7 @@ Expo 提供了集中化的配置方式，统一管理图标和启动页资源。
 
 对于 Android 自定义 Adaptive Icon：
 
-```
+```json{4-7}
 {
   "expo": {
     "android": {
@@ -124,7 +124,7 @@ Expo 提供了集中化的配置方式，统一管理图标和启动页资源。
 
 ### **Splash Screen 配置示例**
 
-```
+```json{3-6}
 {
   "expo": {
     "splash": {

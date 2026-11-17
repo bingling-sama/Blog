@@ -1,6 +1,6 @@
 ---
 date: 2025-04-06 16:53:49
-updated: 2026-09-11 16:13:28
+updated: 2026-11-17 20:43:03
 category: Development
 tags:
   - FrontEnd
@@ -43,7 +43,7 @@ Storybook 的 cli 貌似不太好用，这边提供一个将 Storybook 与 Vite 
 
 ### 创建项目
 
-```bash
+```bash :collapsed-lines=8
 $ bun create vite
 reused 0, downloaded 1, added 1, done
 |
@@ -70,7 +70,7 @@ $ bun install
 
 项目结构：
 
-```bash
+```text :collapsed-lines=10
 $ tree
 .
 |-- README.md
@@ -99,7 +99,7 @@ vite create 默认没有创建库项目的选项，下面我们将这个项目�
 
 先删掉 `src/` 下的 css、ts 和资源文件，创建一个空的 `index.ts` 文件，现在项目结构长这样：
 
-```bash
+```text
 $ tree
 .
 |-- README.md
@@ -119,7 +119,7 @@ $ tree
 
 修改 `vite.config.ts` 文件，将项目类型改为库项目：
 
-```ts
+```ts{9-15}
 import { defineConfig } from 'vite'
 
 import react from '@vitejs/plugin-react-swc'
@@ -159,6 +159,15 @@ Done in 7.2s
 安装 Storybook：
 
 ```bash
+# 安装时如果 npm 环境有问题，可以加上 --package-manager=bun
+bun create storybook@latest
+```
+
+下面这次安装出现了已有 `.storybook/vitest.setup.ts` 的提示，需要按日志中的文档指引手动完成测试配置；不要只看最后的安装成功提示。
+
+::: details 查看完整安装日志
+
+```text
 // 安装 Storybook 时会调用 npm 安装一些包，如果 npm 环境有问题可以加上 --package-manager=bun
 $ bun create storybook@latest
 ╭───────────────────────────────────────────────────────╮
@@ -233,11 +242,13 @@ info Using tsconfig paths for react-docgen
 17:58:40 [vite] (client) hmr update /@id/__x00__virtual:/@storybook/builder-vite/vite-app.js
 ```
 
+:::
+
 这里会自动打开 Storybook 的欢迎页面，按照指引操作即可。（注意让你命名新 stories 时不要和已有的 stories 重名）
 
 完成上述操作以后的项目结构如下：
 
-```bash
+```text :collapsed-lines=12
 $ tree -F -I "node_modules"
 .
 |-- README.md
@@ -287,7 +298,7 @@ $ tree -F -I "node_modules"
 
 我们先暂时忽略一下 `src/stories/` 目录，在 `src/components` 中创建 `Button` 文件夹并添加如下几个文件：
 
-```bash
+```text
 $ tree ./src/components/Button/
 ./src/components/Button/
 |-- Button.scss
@@ -320,7 +331,7 @@ export { default as Button } from './components/Button';
 
 完成后的项目结构：
 
-```bash
+```text{10-17} :collapsed-lines=17
 $ tree -F -I "node_modules"
 .
 |-- README.md
@@ -353,7 +364,7 @@ $ tree -F -I "node_modules"
 
 在重构项目结构以后，打开 `package.json`，可以看到现在的脚本如下：
 
-```json
+```json{5-6,9-10}
 {
   ...,
   "scripts": {
@@ -370,7 +381,7 @@ $ tree -F -I "node_modules"
 
 由于现在的项目是一个库项目，无法直接使用 `vite` 命令运行，所以我们可以稍作修改：
 
-```json
+```json{5,7-10}
 {
   ...,
   "scripts": {

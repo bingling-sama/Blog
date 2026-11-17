@@ -1,6 +1,6 @@
 ---
 date: 2026-04-26 00:00:00
-updated: 2026-09-22 21:10:54
+updated: 2026-11-17 20:41:51
 title: React Native 和 Expo 的渲染原理
 description: 记录一下 React Native 和 Expo 在移动端到底是怎么把前端代码跑到手机上的
 category: Development
@@ -54,7 +54,7 @@ React Native 现在把这个过程拆成三个阶段：`Render`、`Commit`、`Mo
 
 React Native 做的，就是把这次变化从 JavaScript 侧一路传到原生侧。它不是一下子把整块界面重画一遍，而是先把新的结构算出来，再把需要更新的部分提交出去，最后挂到原生视图上。
 
-```tsx
+```tsx{2,7}
 function Counter() {
   const [count, setCount] = useState(0)
 
@@ -198,7 +198,7 @@ iOS 上则会通过 `UIView`、`UIViewController`、属性 setter、事件回调
 
 Android 侧的代码通常会长得像这样：
 
-```kotlin
+```kotlin{4-5,8-10}
 class MyBoxViewManager : SimpleViewManager<View>() {
   override fun getName() = "MyBox"
 
@@ -247,7 +247,7 @@ Expo 也提供了自己的原生模块体系。Expo Modules API 允许你用 Swi
 
 例如一个简单的原生视图模块，在 Expo 侧可以直接声明一个原生组件，并定义属性和方法。概念上和 React Native 的 native component 很接近，只是写法更现代一些。
 
-```swift
+```swift{5,7-9}
 import ExpoModulesCore
 
 public class CounterModule: Module {
@@ -261,7 +261,7 @@ public class CounterModule: Module {
 }
 ```
 
-```kotlin
+```kotlin{3,5-7}
 class CounterModule : Module() {
   override fun definition() = ModuleDefinition {
     Name("Counter")

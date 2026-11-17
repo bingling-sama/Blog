@@ -1,6 +1,6 @@
 ---
 date: 2025-02-07 16:20:09
-updated: 2026-09-11 16:13:28
+updated: 2026-11-17 20:41:51
 category: Development
 tags:
   - React
@@ -33,7 +33,7 @@ export const Greet = ({ name }: GreetProps) => {
 
 当组件需要响应用户行为时，可以通过定义明确的事件接口与内部状态来承载交互：
 
-```tsx
+```tsx{3,12-13}
 interface CounterProps {
   initialCount?: number
   onChange?: (count: number) => void
@@ -71,7 +71,7 @@ React 的函数组件在每次状态更新时都会重新执行函数体。因�
 
 通常我们用 `useEffect` 或封装自定义 Hook 来收敛这部分逻辑：
 
-```tsx
+```tsx{11-12,20,23,26,29-32} :height=28rem
 interface User {
   id: string
   name: string
@@ -129,7 +129,7 @@ export const UserList = () => {
 
 标准做法是结合 Context 与自定义 Hook，并在 Hook 内部做好越界校验：
 
-```tsx
+```tsx{15,23-25}
 import { createContext, useContext, useState, ReactNode } from "react"
 
 interface SidebarContextType {
@@ -161,7 +161,7 @@ export const useSidebar = () => {
 
 在消费侧，子组件直接通过 `useSidebar` 获取上下文：
 
-```tsx
+```tsx{2-3,7}
 const SidebarTrigger = () => {
   const { toggle } = useSidebar()
   return <button onClick={toggle}>切换侧边栏</button>

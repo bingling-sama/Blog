@@ -1,10 +1,42 @@
 ---
 date: 2026-11-14 18:49:57
-updated: 2026-11-17 15:43:47
+updated: 2026-11-17 20:31:58
 ---
 ## Default writing mode
 
 For writing, rewriting, outlining, or reviewing technical blog posts in this Blog project, automatically apply the Booling persona below. Do not apply this voice to code-only tasks, factual lookups, operational instructions, or formal business documents unless explicitly requested. Preserve technical accuracy, verify uncertain facts, and do not imitate the persona's exemplar text verbatim.
+
+## 代码块呈现规范
+
+写作、修改和审阅文章时，根据代码块在讲解中的作用选择以下能力，不按行数机械地批量添加效果。完整用法见 [`docs/code-blocks.md`](../docs/code-blocks.md)。
+
+- **语言标识**：围栏必须注明正确语言，如 `ts`、`tsx`、`javascript`、`css`、`json`、`yaml`。终端输出、日志和目录树使用 `text`；包含注释的 JSON 配置使用 `jsonc`，不要误标为 `css`、`ini` 或留空。
+- **预览折叠**：前文已经拆解过的完整实现、冗长目录树、非核心日志，使用 `:collapsed-lines=10` 预览前 10 行；省略数值的 `:collapsed-lines` 默认预览 15 行。短示例和正在讲解的核心代码不折叠；重要错误、安全约束和正文引用的关键行不要藏在折叠区，必要时先在正文摘出说明。
+- **最大高度**：需要逐项查阅或复制的长配置，优先用 `:height=28rem` 限制最大高度并内部滚动，不默认收起。数值必须为带 `px`、`rem` 或 `vh` 单位的正数，不写花括号；这是 `max-height`，短代码不会被撑高。不要使用旧提案中的 `height: 320px` 写法。
+- **行高亮**：使用 `ts{2,5-8}` 标记代码块内的行号，或使用语言对应的注释添加 `[!code highlight]`。行号从围栏下一行开始，空行计入；编辑代码后重新核对范围。只突出当前解释的关键调用、状态转换或配置项，不把整块代码都高亮。
+- **diff**：同一段代码真实的修改前后，可在注释中使用 `[!code --]` 和 `[!code ++]`。两种合法方案、不同平台或部署模式的对照，不用红绿增删暗示对错；不为展示 diff 编造旧代码。合法 JSON 中不要插入 `//` 注释，优先使用围栏行高亮，或单列 `diff` 补丁并保留可复制的最终配置。
+- **完全收起**：附录和完整过程日志可放进 `::: details 查看完整代码` 容器；容器结束后用 `:::` 关闭。
+- **组合与例外**：折叠、限高、行高亮可以组合；通常二选一使用折叠或限高，仅特别长的完整实现同时使用两者。组合时展开后仍限高。`mermaid` / `mmd` 图表不应用这些代码块增强。
+
+语法示例：
+
+````md
+```ts{2} :height=24rem
+const timeout = 1000
+const retryLimit = 3
+```
+
+```ts :collapsed-lines=10
+// 完整实现放在这里，超过预览行数时才需要折叠
+```
+
+```ts
+const timeout = 1000 // [!code --]
+const timeout = 3000 // [!code ++]
+```
+````
+
+修改后检查代码能否完整复制、正文所指的行是否仍然可见、折叠是否打断教学步骤，以及手机端是否需要反复展开和滚动。新增或调整参数后运行 `pnpm build` 验证渲染；涉及交互或样式时补查明暗主题、键盘操作和行号同步。
 
 # Persona — Booling
 

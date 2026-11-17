@@ -1,6 +1,6 @@
 ---
 date: 2026-04-29 00:00:00
-updated: 2026-09-22 21:10:43
+updated: 2026-11-17 20:41:51
 category: Development
 tags:
   - JavaScript
@@ -190,7 +190,7 @@ const configPath = new URL('./config.json', import.meta.url);
 
 ### Vite 中的常见用法
 
-```ts
+```ts{2,7-9}
 // 1. 引用同目录静态资源
 const imgUrl = new URL('./logo.png', import.meta.url).href;
 // 开发: http://localhost:5173/src/logo.png
@@ -204,7 +204,7 @@ const worker = new Worker(new URL('./worker.ts', import.meta.url), {
 
 Vite 构建时会**静态分析** `new URL(..., import.meta.url)` 这种模式，替换成生产环境的最终资源路径并自动加哈希。但这里有个坑：路径参数必须是**字面量字符串**，不能是变量，否则 Vite 就没法静态解析了 —— 我第一次踩到这坑的时候，控制台直接报了警告 🤦。
 
-```ts
+```ts{3,6}
 // ❌ 这样不行
 const name = './logo.png';
 new URL(name, import.meta.url);

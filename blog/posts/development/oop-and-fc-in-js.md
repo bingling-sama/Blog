@@ -1,6 +1,6 @@
 ---
 date: 2025-11-24 17:17:41
-updated: 2026-10-17 23:57:33
+updated: 2026-11-17 20:41:51
 title: JavaScript 中的 OOP 与 FC
 description: 这篇分享主要让大家了解一下 js 中的 oop 与 fc，通过结合原理学习语法来提高大家的学习效率、加深大家对知识的理解。
 tags:
@@ -95,14 +95,14 @@ Netscape需要在浏览器中内置一种脚本语言，根据领导要求，首
 
 - 如果是个`new Object()`或字面量`{}`,其原型链为
 
-```ini
+```javascript
 var obj={}
 //原型链 obj=>Object.prototype=>null
 ```
 
 - 如果是new调用了其他构造函数，包括自定义的或者内置的（比如Array，内置构造函数不一定需要new调用，比如也可以通过字面量或者不使用new，比如`[]`或`Date()`）,这里以Array为例
 
-```css
+```javascript
 var arr =[]
 //arr=>Array.prototype=>Object.prototype=>null
 //如果是自定义构造函数也一样
@@ -113,7 +113,7 @@ var p=new P()
 
 - 如果在上一种情况下,延长原型链,其实就是怎么样实现继承
 
-```css
+```javascript{2,7-8,18,25}
 //1. 使用Object.create()
 var q=Object.create(p)
 // q=>p
@@ -246,7 +246,7 @@ Funciton.prototype上有一些方法值得我们关注
 
 函数式编程是一种声明式范式，声明式编程会将流控制过程抽象，而不是用一行行代码描述怎么做，对应的是命令式。 比如函数doubleMap命令式的写法
 
-```ini
+```javascript
 const doubleMap = numbers => {
 const doubled = [];
 for (let i = 0; i < numbers.length; i++) {
@@ -259,7 +259,7 @@ for (let i = 0; i < numbers.length; i++) {
 
 声明式的写法
 
-```ini
+```javascript
 const doubleMap = numbers => numbers.map(n => n * 2);
 
  console.log(doubleMap([2, 3, 4])); // [4, 6, 8]
@@ -290,7 +290,7 @@ const doubleMap = numbers => numbers.map(n => n * 2);
 
 - curry,这里实现一个具体的柯里化
 
-```css
+```javascript
 const add = a => b => a + b;
 add(1)(2)
 ```

@@ -1,6 +1,6 @@
 ---
 date: 2022-08-21 11:07:35
-updated: 2026-09-11 16:13:28
+updated: 2026-11-17 20:41:51
 category: Development
 tags:
   - FrontEnd
@@ -44,7 +44,7 @@ eslint --init
 
 ### 配置脚本
 
-```json
+```jsonc{5}
 // package.json
 {
 ...
@@ -69,7 +69,7 @@ yarn add prettier eslint-plugin-prettier eslint-config-prettier
 
 ### 修改 `ESLint` 配置文件
 
-```json
+```jsonc{3-5}
 // .eslintrc.json
 ...
   "extends": [
@@ -82,7 +82,7 @@ yarn add prettier eslint-plugin-prettier eslint-config-prettier
 
 在项目根目录新建 `.prettierrc` 文件
 
-```json
+```jsonc
 {
   "printWidth": 80, // 自动换行长度
   "tabWidth": 2, // 制表符大小
@@ -96,7 +96,7 @@ yarn add prettier eslint-plugin-prettier eslint-config-prettier
 
 ### 配置脚本
 
-```json
+```jsonc{5}
 // package.json
 ...
   "scripts": {
@@ -145,7 +145,7 @@ ID: rvest.vs-code-prettier-eslint
 
 ### 修改 `VSCode` 设置
 
-```json
+```jsonc{2-3}
 {
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint", //  默认使用 prettier 作为格式化工具
   "editor.formatOnSave": true // 保存代码时格式化

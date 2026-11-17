@@ -1,6 +1,6 @@
 ---
 date: 2025-04-06 00:44:14
-updated: 2026-09-11 16:13:28
+updated: 2026-11-17 20:43:03
 title: Lottie 在 Web 开发中的应用
 description: 稍微调研了一些 Lottie Web 库，这里记录一下
 tags:
@@ -95,7 +95,7 @@ npm install lottie-web
 
 #### React 集成示例
 
-```tsx
+```tsx{12-20}
 import { useEffect, useRef } from 'react';
 import lottie, { AnimationItem } from 'lottie-web';
 import animationData from './animation.json';
@@ -154,7 +154,7 @@ export default Animation;
 
 #### Hook 式使用
 
-```tsx
+```tsx{5-9,14-16}
 import { useLottie } from 'lottie-react';
 import animationData from './animation.json';
 
@@ -182,7 +182,7 @@ export default Animation;
 
 #### 动画控制
 
-```tsx
+```tsx{6,15-19,21-26}
 import { useRef } from 'react';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import animationData from './animation.json';

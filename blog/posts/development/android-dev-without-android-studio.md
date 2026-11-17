@@ -1,6 +1,6 @@
 ---
 date: 2026-09-01 16:30:00
-updated: 2026-09-22 13:14:08
+updated: 2026-11-17 20:41:51
 title: 在 Mac 上完全脱离 Android Studio 配置 Android SDK 与模拟器
 description: 记录如何彻底卸载 Android Studio，利用官方全新的 Android CLI 工具链、ARM64 系统镜像与 ADB，从零搭建极简纯净的 Android 开发环境并跑通 Expo。
 category: Development
@@ -84,7 +84,7 @@ brew install --cask android-commandlinetools
 
 我们把 SDK 的根目录统一设为 `~/Library/Android/sdk`，并在 `~/.zshrc` 中添加如下配置：
 
-```bash
+```bash{2-3,6}
 # Android SDK 根路径
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
@@ -119,7 +119,7 @@ which adb
 
 执行以下命令安装 Platform Tools、模拟器核心、API 36 平台及 ARM64 Google APIs 系统镜像：
 
-```bash
+```bash{5}
 android --sdk="$ANDROID_HOME" sdk install \
   platform-tools \
   emulator \

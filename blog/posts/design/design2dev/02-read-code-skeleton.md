@@ -1,6 +1,6 @@
 ---
 date: 2026-10-02 10:30:00
-updated: 2026-10-09 17:51:44
+updated: 2026-11-17 20:41:51
 category: Design
 tags:
   - Design
@@ -110,7 +110,7 @@ $$300 + 20 \times 2 + 2 \times 2 = 344\text{px}$$
 
 现代 Web 开发的通用标准是全局声明：
 
-```css
+```css{2}
 * {
   box-sizing: border-box;
 }
@@ -174,7 +174,7 @@ Flexbox 嵌套实现 3 列矩阵（反模式）：
 
 正确的做法是直接使用 CSS Grid：
 
-```css
+```css{3,9}
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -231,7 +231,7 @@ Flexbox 嵌套实现 3 列矩阵（反模式）：
 
 这就解释了为什么 AI 写的头像状态小圆点（Badge）或者卡片右上角的关闭按钮，有时候会莫名其妙飞到屏幕的最左上角：
 
-```html
+```html{2,7}
 <!-- 错误示范：父级没有 position: relative -->
 <div class="p-4 bg-white">
   <button class="absolute top-2 right-2">✕</button> <!-- 飞出了卡片外 -->
@@ -277,7 +277,7 @@ flowchart TB
 
 在现代 CSS 中，这通过媒体查询断点（Breakpoints）实现。Tailwind 默认采用**移动优先（Mobile First）**策略：
 
-```html
+```html{2}
 <!-- 移动端默认单列 (w-full)，在中等屏幕以上变为双栏 (md:grid-cols-2)，大屏上变为三栏 (lg:grid-cols-3) -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   <!-- 卡片项 -->

@@ -1,6 +1,6 @@
 ---
 date: 2024-10-27 20:48:18
-updated: 2026-09-11 16:13:11
+updated: 2026-11-17 20:41:51
 category: Development
 tags:
   - JavaScript
@@ -18,7 +18,7 @@ description: 一直不太清楚 JavaScript 中 var 与 let 的区别，于是今
 
 如下面的例子：
 
-```javascript
+```javascript{7,9}
 function foo() { // function level start
 	if (true) { // block level start
 		var c = 1
@@ -37,7 +37,7 @@ function foo() { // function level start
 
 `var` 声明的变量是可以被重新声明的，而且作用域与被重声明前相同。需要注意的是，在开发过程中要谨慎使用这一特性，它可能导致一些无法预测的错误。而 `let` 声明的变量是不允许重声明的，尝试重声明一个 `let` 变量会引发语法错误，提示你不应该重声明一个 `let` 变量。
 
-```javascript
+```javascript{6-7}
 // declaration
 var a = 1
 let b = 1
@@ -51,7 +51,7 @@ let b = 2 // error
 
 使用 `var` 声明的变量会被提升到其直属函数级作用域中，这意味着你可以在声明并初始化一个变量前引用它，但其值为 `undefined`。而 `let` 变量则不会被提升到函数级作用域中，你只能在声明它以后进行引用。
 
-```javascript
+```javascript{2,8}
 // Using var
 console.log(a)
 // Output: undefined (due to hoisting)
@@ -68,7 +68,7 @@ console.log(b)
 
 这里顺便引入 Temporal Dead Zone 的概念。TDZ 指的是一个从块级作用域的头端开始，到一个变量被初始化结束的区域。在 JavaScript 中，由 `let` 和 `const` 声明的变量是有 TDZ 的，而由 `var` 声明的变量由于经过了提升，则不具有 TDZ。
 
-```javascript
+```javascript{2-4,9-10}
 function foo() {
 	console.log(myVar)
 	// ReferenceError: Cannot access 'myVar' before initialization

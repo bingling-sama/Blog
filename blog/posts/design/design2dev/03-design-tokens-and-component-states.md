@@ -1,6 +1,6 @@
 ---
 date: 2026-10-09 18:30:00
-updated: 2026-10-10 14:12:00
+updated: 2026-11-17 20:41:51
 category: Design
 tags:
   - Design
@@ -160,7 +160,7 @@ flowchart TD
 
 严禁让 AI 自由选色，页面色彩必须严格收敛到以下语义槽位中：
 
-```css
+```css :height=28rem
 :root {
   /* 基础画布与容器表面 */
   --bg-app: #f8fafc;
@@ -341,7 +341,7 @@ flowchart TD
 
 以行业标准库 shadcn/ui 的核心底座 **CVA（Class Variance Authority）** 为例，它用声明式对象锁死了组件的全部合法形态：
 
-```tsx
+```tsx{8,48-52} :height=32rem
 // button.tsx：利用 CVA 实现状态完备的高保真按钮组件
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"

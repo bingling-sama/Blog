@@ -6,7 +6,7 @@ tags:
   - FrontEnd
   - Browser
   - Performance
-updated: 2026-09-22 21:10:25
+updated: 2026-11-17 20:41:51
 description: 一怒之下写了一个 Edge 网页缓存数据储存空间分析器
 ---
 
@@ -99,7 +99,7 @@ description: 一怒之下写了一个 Edge 网页缓存数据储存空间分析�
 
 手动调了几轮之后，工具跑起来是这样的效果：
 
-```text
+```text :height=24rem
 Parsed: 4 quota records, 2 service workers, 1 extensions
 Total usage: 712.00 MiB
 

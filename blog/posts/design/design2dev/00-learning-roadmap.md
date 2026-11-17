@@ -1,6 +1,6 @@
 ---
 date: 2026-09-22 14:38:12
-updated: 2026-09-22 14:45:04
+updated: 2026-11-17 20:41:51
 category: Design
 tags:
   - Design
@@ -158,7 +158,7 @@ Button 组件结构
 
 组件就像带插槽的模板，外部传入不同的参数，渲染不同的内容：
 
-```tsx
+```tsx{1-6,13-14}
 interface MetricCardProps {
   title: string
   amount: string
@@ -183,7 +183,7 @@ export function MetricCard({ title, amount, trend, percentage }: MetricCardProps
 
 状态（State）是组件的即时记忆。状态一变，页面自动重新渲染：
 
-```tsx
+```tsx{1,5-6}
 const [isOpen, setIsOpen] = useState(false)
 
 return (

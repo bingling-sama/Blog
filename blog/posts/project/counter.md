@@ -9,7 +9,7 @@ tags:
   - D1
   - VitePress
   - Analytics
-updated: 2026-09-22 13:15:38
+updated: 2026-11-17 20:41:51
 ---
 
 # 用 Cloudflare Workers + D1 复刻不蒜子
@@ -110,7 +110,7 @@ $$\text{对外展示 PV} = \text{真实累计 PV} + \text{offset\_pv}$$
 
 表结构简洁明了：
 
-```sql
+```sql{5-6,16-18,26}
 CREATE TABLE IF NOT EXISTS sites (
   domain TEXT PRIMARY KEY,
   site_pv INTEGER NOT NULL DEFAULT 0,
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS uv_logs (
 
 有了 D1 的 Batch API，整个打点过程可以用一次 SQLite 事务原子完成，不需要担心并发下的脏读写：
 
-```typescript
+```typescript{3-4,9-12,17-20}
 await db.batch([
   // 记录 UV 幂等日志（存在就忽略）
   db.prepare("INSERT OR IGNORE INTO uv_logs (domain, path, visitor_hash, log_date) VALUES (?, ?, ?, ?)").bind(domain, "*", visitorHash, today),
@@ -198,7 +198,7 @@ database_id = "xxxxxx"
 
 解决方法也干脆，在 `types.ts` 和入口处做一层容错兼容：
 
-```typescript
+```typescript{1}
 const db = env.DB || env.counter_db
 if (!db) {
   return new Response(

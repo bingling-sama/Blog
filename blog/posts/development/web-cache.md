@@ -1,6 +1,6 @@
 ---
 date: 2026-08-20 21:35:00
-updated: 2026-09-22 13:16:04
+updated: 2026-11-17 20:41:51
 category: Development
 tags:
   - FrontEnd
@@ -61,7 +61,7 @@ graph LR
 1. `Expires`（HTTP/1.0）：返回一个绝对时间（如 `Expires: Wed, 21 Oct 2026 07:28:00 GMT`）。缺点很明显，如果客户端本地时间被篡改，缓存时间就不准了。
 2. `Cache-Control`（HTTP/1.1）：现代 Web 开发的绝对主流，使用相对时间 `max-age`。
 
-```http
+```http{3}
 HTTP/1.1 200 OK
 Content-Type: application/javascript
 Cache-Control: max-age=31536000, immutable
@@ -154,7 +154,7 @@ sequenceDiagram
 
 在 Nginx 中，我们既可以为前端静态资源注入浏览器缓存头，也可以利用 `proxy_cache` 开启后端接口的数据缓存。
 
-```nginx
+```nginx{9-10,15,25,33-37} :height=30rem
 # 1. 前端 SPA 单页应用缓存配置
 server {
     listen 80;
@@ -200,7 +200,7 @@ server {
 
 Caddy 作为现代 Web 服务器，语法极其简洁：
 
-```caddyfile
+```caddyfile{7,11}
 example.com {
     root * /var/www/dist
     file_server

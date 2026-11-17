@@ -1,6 +1,6 @@
 ---
 date: 2026-11-16 10:00:00
-updated: 2026-11-17 18:45:38
+updated: 2026-11-17 22:32:24
 category: Design
 tags:
   - Design
@@ -120,7 +120,7 @@ flowchart TB
 
 抛开框架外壳，React 组件在底层就是一个普通的 JavaScript 函数。如果把组件比作一台榨汁机，Props 就是你丢进去的水果：丢苹果出来苹果汁，丢橙子出来橙子汁，榨汁机本身的结构不需要焊死 10 份。
 
-```tsx
+```tsx{2-7,9,29}
 // UserCard.tsx：只负责呈现单张用户卡片
 interface UserCardProps {
   name: string
@@ -170,7 +170,7 @@ export function UserCard({ name, email, status, onViewDetails }: UserCardProps) 
 
 很多朋友刚写交互时，经常会犯这样一个错误：
 
-```tsx
+```tsx{3,6,10}
 // ❌ 错误示范：自以为改了变量就能让界面重新渲染
 export function Counter() {
   let count = 0
@@ -194,7 +194,7 @@ export function Counter() {
 
 要想让变量的变动引起屏幕重绘，我们必须使用 React 提供的专用记忆工具：`useState`。
 
-```tsx
+```tsx{6,9}
 import { useState } from "react"
 
 export function Counter() {
@@ -236,10 +236,10 @@ sequenceDiagram
 
 ```tsx
 // ❌ 错误示范：一进页面弹窗直接自动弹开，控制台无限报错死循环
-<button onClick={openDetails()}>查看详情</button>
+<button onClick={openDetails()}>查看详情</button> // [!code --]
 
 // ✅ 正确示范 A：直接传递函数名字作为回调引用
-<button onClick={openDetails}>查看详情</button>
+<button onClick={openDetails}>查看详情</button> // [!code ++]
 
 // ✅ 正确示范 B：需要带参数时，用一个内联剪头函数包一层
 <button onClick={() => setSelectedUser(user)}>查看详情</button>
@@ -261,7 +261,7 @@ sequenceDiagram
 
 因此在现代前端开发中，我们必须把它改造为**受控输入（Controlled Input）**：
 
-```tsx
+```tsx{8-9,15}
 export function SearchBar() {
   const [query, setQuery] = useState("")
 
@@ -295,7 +295,7 @@ export function SearchBar() {
 这是初学甚至写过一段时间前端的人最容易踩的坑：**把能算出来的值也存成了状态**。
 
 很多人第一反应是这样定义状态的：
-```tsx
+```tsx{4-5}
 // ❌ 冗余的状态设计：把能算出来的东西也存成了独立状态
 const [users, setUsers] = useState(initialUsers) // 原始用户
 const [query, setQuery] = useState("") // 搜索词
@@ -310,7 +310,7 @@ const [matchCount, setMatchCount] = useState(initialUsers.length) // 匹配数�
 
 更稳妥的做法是：**只存源头数据，其余全部在渲染时现场计算（Derived Data，派生数据）**。
 
-```tsx
+```tsx{7-11,14}
 // ✅ 干净的标准设计：零冗余状态
 const [users, setUsers] = useState(initialUsers) // 唯一源头：完整的原始用户列表
 const [query, setQuery] = useState("") // 交互条件 A：搜索关键词
@@ -403,7 +403,7 @@ flowchart TD
 
 当我们需要把一个数组批量倒模成一组卡片时，使用原生数组的 `.map()` 方法：
 
-```tsx
+```tsx{3}
 {visibleUsers.map((user) => (
   <UserCard
     key={user.id} // ⚠️ 极其关键：必须使用数据自身唯一的稳定 ID！
@@ -457,7 +457,7 @@ const [isError, setIsError] = useState(false)
 
 更干净的做法是用**联合类型**把状态枚举出来：
 
-```tsx
+```tsx{1,4,10-11,15-19,25,40,44} :height=32rem
 type RequestStatus = "idle" | "loading" | "success" | "error"
 
 export function UserManager() {
@@ -530,7 +530,7 @@ export function UserManager() {
 
 ### 完整实现代码
 
-```tsx
+```tsx :collapsed-lines=12
 // UserManagerPanel.tsx：状态完备的轻量交互面板
 import React, { useState } from "react"
 import { Search, RotateCcw, X, AlertCircle } from "lucide-react"
