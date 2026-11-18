@@ -59,7 +59,7 @@ try {
   )
 
   mustRun(process.execPath, [
-    "scripts/notify-teleblog.mjs",
+    "scripts/notify-teleblog.ts",
     "--dry-run",
     emptyFile
   ])
@@ -96,12 +96,8 @@ try {
         .includes("example.com")
     )
 
-    mustRun("uv", [
-      "run",
-      "--with",
-      "playwright",
-      "python",
-      "tests/external-posts-browser.py",
+    mustRun(process.execPath, [
+      "tests/external-posts-browser.ts",
       slug,
       base,
       artifacts
@@ -119,7 +115,7 @@ try {
     /invalid\.md: externalLink/
   )
   const invalidNotice = run(process.execPath, [
-    "scripts/notify-teleblog.mjs",
+    "scripts/notify-teleblog.ts",
     "--dry-run",
     path.join(directory, "invalid.md")
   ])

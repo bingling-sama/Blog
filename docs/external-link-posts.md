@@ -38,7 +38,7 @@ Telegram 通知主链接仍指向站内记录页，简介包含原文链接和�
 pnpm install --frozen-lockfile
 pnpm test
 pnpm build
-node scripts/notify-teleblog.mjs --dry-run blog/posts/development/recommend-example.md
+node scripts/notify-teleblog.ts --dry-run blog/posts/development/recommend-example.md
 ```
 
 非法外链会阻止构建和对应通知，并在错误中给出文件与字段。
@@ -46,7 +46,7 @@ node scripts/notify-teleblog.mjs --dry-run blog/posts/development/recommend-exam
 完整端到端回归需要安装 [uv](https://docs.astral.sh/uv/) 与 Playwright Chromium：
 
 ```sh
-uv run --with playwright python -m playwright install chromium
+pnpm exec playwright install chromium
 pnpm test:external-posts
 ```
 

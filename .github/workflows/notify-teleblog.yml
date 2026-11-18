@@ -61,4 +61,4 @@ jobs:
           SITE_URL: "https://blog.booling.cn"
         run: |
           echo "待推送文件列表: ${{ steps.target-files.outputs.files }}"
-          node scripts/notify-teleblog.mjs ${{ steps.target-files.outputs.files }}
+          node scripts/notify-teleblog.ts ${{ steps.target-files.outputs.files }}

@@ -149,7 +149,7 @@ sourceAuthor: 原作者
 
 ### 6.2 Telegram 通知
 
-现有 `scripts/notify-teleblog.mjs` 使用站内 URL 发送通知。本期保留这一行为，减少外部服务去重与更新语义变化：
+现有 `scripts/notify-teleblog.ts` 使用站内 URL 发送通知。本期保留这一行为，减少外部服务去重与更新语义变化：
 
 - 通知标题加“[推荐阅读] ”。
 - 简介包含推荐语、原作者（填写时）以及原文 URL。
@@ -169,7 +169,7 @@ sourceAuthor: 原作者
 | `theme/components/PostItem.vue` | 紧凑列表的外链支持；同步调整其调用者传参 |
 | `theme/components/MyLayout.vue` | 站内兜底内容、外链阅读时长与访问统计文案处理 |
 | `.vitepress/config.mts` | RSS 条目适配，保留普通文章逻辑 |
-| `scripts/notify-teleblog.mjs` | 推荐通知文案、来源与校验 |
+| `scripts/notify-teleblog.ts` | 推荐通知文案、来源与校验 |
 
 实现以现有组件和样式为基础；只在减少重复规则时抽取小工具，不新增内容数据库、服务端跳转服务或通用内容管理框架。
 
@@ -215,6 +215,6 @@ sourceAuthor: 原作者
 - 站内记录的标题与来源区由 `.vitepress/plugins/external-posts.ts` 注入 Markdown 渲染流程，`ExternalPostRecord.vue` 展示元数据；已有同名 H1 去重，其他正文 H1 降为 H2。
 - `.vitepress/config.mts` 对页面元数据执行共享校验，列表加载器和通知也使用相同规则。
 - 本地搜索的 HTML 渲染仅对推荐记录将来源组件占位替换为转义后的推荐语，使无正文记录也能被现有搜索索引；搜索结果保留站内记录入口。
-- RSS 插件 0.4.4 固定拼接本站域名，不能直接生成外链主链接。`scripts/recommendation-rss.mjs` 包装其生成钩子，等待原 feed 写入后通过 XML DOM 仅改写推荐条目；普通条目的内容与语义保留。
+- RSS 插件 0.4.4 固定拼接本站域名，不能直接生成外链主链接。`scripts/recommendation-rss.ts` 包装其生成钩子，等待原 feed 写入后通过 XML DOM 仅改写推荐条目；普通条目的内容与语义保留。
 - 通知 YAML 解析改用仓库已有的 `gray-matter`，以统一多行推荐语及字段类型；对应 GitHub Actions 增加锁定依赖安装步骤。
 - 自动化测试入口为 `pnpm test` 与 `pnpm test:external-posts`。后者覆盖真实生产输出和浏览器行为，不使用真实通知服务。

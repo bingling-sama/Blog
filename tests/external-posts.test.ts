@@ -5,8 +5,8 @@ import {
   getExternalPost,
   getPostLink
 } from "../theme/scripts/external-posts.mjs"
-import { parsePost, createPostPayload } from "../scripts/notify-teleblog.mjs"
-import { transformRecommendationRss } from "../scripts/recommendation-rss.mjs"
+import { parsePost, createPostPayload } from "../scripts/notify-teleblog.ts"
+import { transformRecommendationRss } from "../scripts/recommendation-rss.ts"
 import { createMarkdownRenderer } from "vitepress"
 import { externalPosts } from "../.vitepress/plugins/external-posts.ts"
 
