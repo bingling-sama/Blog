@@ -10,7 +10,7 @@ import { markdownItObsidian } from "./plugins/markdown-it-obsidian.ts"
 import { externalPosts } from "./plugins/external-posts.ts"
 import { codeBlocks } from "./plugins/code-blocks.ts"
 import { getExternalPost } from "../theme/scripts/external-posts.mjs"
-import { recommendationRssPlugin } from "../scripts/recommendation-rss.mjs"
+import { recommendationRssPlugin } from "../scripts/recommendation-rss.ts"
 
 const env = loadEnv("", process.cwd(), "")
 const defaultSrcExclude = ["README.md"]
